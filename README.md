@@ -38,6 +38,8 @@ Is_integral se décompose en plusieurs structures nécessitant un type à chaque
 
 ### Equal:
 
+Equal compare les éléments entre first1(compris) et last1(non compris) aux éléments debutant a first2(compris). Pour comparer elle peut soit utiliser l'operateur de comparaison, soit utiliser une fonction de comparaison si un parametre en plus est ajouté.
+
 ### Lexicographical_compare:
 
 ### Pair:
