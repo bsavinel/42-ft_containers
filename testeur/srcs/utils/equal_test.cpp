@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:22:48 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 15:00:59 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:28:12 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ using namespace NAMESPACE_USE;
 
 void	equal_test()
 {
-	std::cout << "Test equal:" << std::endl << std::endl;
+	std::cout << std::endl << std::endl << "Test equal:" << std::endl << std::endl;
+	
 }

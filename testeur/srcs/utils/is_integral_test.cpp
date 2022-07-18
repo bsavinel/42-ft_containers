@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:22:53 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 15:18:57 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:28:05 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ using namespace NAMESPACE_USE;
 
 void	is_integral_test()
 {
-	std::cout << "Test is_integral:" << std::endl << std::endl;
+	std::cout << std::endl << std::endl << "Test is_integral:" << std::endl << std::endl;
+
 	std::cout << std::boolalpha;
 	std::cout << "char: " << is_integral<char>::value << std::endl;
 	std::cout << "int: " << is_integral<int>::value << std::endl;

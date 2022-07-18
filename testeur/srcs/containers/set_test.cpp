@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:12:01 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 14:47:10 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:28:24 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ using namespace NAMESPACE_USE;
 
 void	set_test()
 {
-	std::cout << "Test set:" << std::endl << std::endl;
+	std::cout << std::endl << std::endl << "Test set:" << std::endl << std::endl;
 }

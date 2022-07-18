@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:03:13 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 15:01:07 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:28:15 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ using namespace NAMESPACE_USE;
 
 void	enable_if_test()
 {
-	std::cout << "Test enable_if:" << std::endl << std::endl;
+	std::cout << std::endl << std::endl << "Test enable_if:" << std::endl << std::endl;
 }

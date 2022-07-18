@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:11:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 14:46:56 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:28:20 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ using namespace NAMESPACE_USE;
 
 void	map_test()
 {
-	std::cout << "Test map:" << std::endl << std::endl;
+	std::cout << std::endl << std::endl << "Test map:" << std::endl << std::endl;
 }

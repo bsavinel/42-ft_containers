@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:22:56 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 14:49:18 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:27:59 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ bool mycomp (char c1, char c2)
 
 void	lexi_comp_test()
 {
-	std::cout << "Test lexicographical_compare:" << std::endl << std::endl;
+	std::cout << std::endl << std::endl << "Test lexicographical_compare:" << std::endl << std::endl;
+
 	{
 		char foo[]="Apple";
 		char bar[]="apartment";

@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:22:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 12:15:59 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:27:53 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ using namespace NAMESPACE_USE;
 
 void	pair_test()
 {
-	std::cout << "Test pair:" << std::endl << std::endl;
+	std::cout << std::endl << std::endl << "Test pair:" << std::endl << std::endl;
+
 	pair <std::string,double> product1;
 	pair <std::string,double> product2 ("tomatoes",2.30);
 	pair <std::string,double> product3 (product2); 

@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:12:04 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 14:47:21 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:28:30 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ using namespace NAMESPACE_USE;
 
 void	stack_test()
 {
-	std::cout << "Test stack:" << std::endl << std::endl;
+	std::cout << std::endl << std::endl << "Test stack:" << std::endl << std::endl;
 }
