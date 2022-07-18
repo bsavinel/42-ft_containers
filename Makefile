@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/07/17 20:06:59 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/07/18 10:49:37 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,20 +18,10 @@ TEST_FT = test_ft
 TEST_STD = test_std
 
 CC = c++
-CPPFLAGS = -Wall -Wextra -Werror -std=c++98
-
-ifeq (ft, $(filter ft, $(MAKECMDGOALS)))
-	CPPFLAGS += -D NAMESPACE_USE=ft
-	NAME = test_ft
-endif
-
-ifeq (std, $(filter std, $(MAKECMDGOALS)))
-	CPPFLAGS += -D NAMESPACE_USE=std
-	NAME = test_std
-endif
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
 ifeq (sanitize, $(filter sanitize, $(MAKECMDGOALS)))
-	CPPFLAGS += -g3 -fsanitize=address
+	CPPFLAGS += -fsanitize=address
 endif
 
 ################################################################################
@@ -62,8 +52,10 @@ SRCS =	main.cpp					\
 
 OBJS_PATH =	objs/
 
-OBJS =	$(addprefix $(OBJS_PATH), $(SRCS:.cpp=.o))		
-DEPS =	$(OBJS:.o=.d)
+OBJS_STD =	$(addprefix $(OBJS_PATH), $(SRCS:.cpp=_std.o))
+OBJS_FT =	$(addprefix $(OBJS_PATH), $(SRCS:.cpp=_ft.o))	
+DEPS =	$(OBJS_STD:.o=.d) \
+		$(OBJS_FT:.o=.d)
 
 ################################################################################
 ########							Others								########
@@ -84,28 +76,25 @@ NO_COLOR	=	\033[m
 ########							Rules								########
 ################################################################################
 
-all:
-	make -C . $(TEST_STD)
-	make -C . $(TEST_FT)
+all: $(TEST_STD) $(TEST_FT)
 
 bonus: all
 
-testeur: $(OBJS)
-	$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME) $(INCS)
-
-$(TEST_STD):
-	make -C . clean
-	make -C . testeur std
+$(TEST_STD): $(OBJS_STD)
+	$(CC) $(CPPFLAGS) $(OBJS_STD) -o $(TEST_STD) $(INCS)
 	echo "$(BLUE)$(TEST_STD): $(GREEN)Success $(NO_COLOR)"
 
-$(TEST_FT):
-	make -C . clean
-	make -C . testeur ft
+$(TEST_FT): $(OBJS_FT)
+	$(CC) $(CPPFLAGS) $(OBJS_FT) -o $(TEST_FT) $(INCS)
 	echo "$(BLUE)$(TEST_FT): $(GREEN)Success $(NO_COLOR)"
 
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
+$(OBJS_PATH)%_std.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) $(CPPFLAGS) -MMD -c $< -o $@ $(INCS) 
+	$(CC) $(CPPFLAGS) -D NAMESPACE_USE=std -MMD -c $< -o $@ $(INCS)
+
+$(OBJS_PATH)%_ft.o: $(SRCS_PATH)%.cpp
+	mkdir -p $(dir $@)
+	$(CC) $(CPPFLAGS) -D NAMESPACE_USE=ft -MMD -c $< -o $@ $(INCS)
 
 clean :
 	$(RM) $(OBJS_PATH)
@@ -117,7 +106,7 @@ fclean : clean
 	$(RM) libft/libft.a
 
 re : fclean 
-	 make all
+	 make -C . all
 
 test: all
 	mkdir -p log_test
@@ -125,18 +114,17 @@ test: all
 	./$(TEST_FT) >log_test/log_ft.txt
 	diff log_test/log_ft.txt log_test/log_std.txt && echo "$(GREEN)Tout est ok$(NO_COLOR)" || echo "$(RED)Erreur$(NO_COLOR)"
 
+fsanitize:
+	make -C . fclean
+	make -C . all sanitize
+
 fsanitize_test:
 	make -C . fclean
-	make -C . testeur std sanitize
-	echo "$(BLUE)$(TEST_STD): $(GREEN)Success $(NO_COLOR)"
-	make -C . clean
-	make -C . testeur ft sanitize
-	echo "$(BLUE)$(TEST_FT): $(GREEN)Success $(NO_COLOR)"
+	make -C . all sanitize
 	make -C . test
 
 val_test:
-	make -C . fclean
-	make -C . all
+	make -C . re
 	mkdir -p log_test
 	./$(TEST_STD) >log_test/log_std.txt
 	valgrind --log-file=log_test/out_valgrind.txt ./$(TEST_FT) >log_test/log_ft.txt || echo -n ""
@@ -145,17 +133,19 @@ val_test:
 	cat log_test/out_valgrind.txt
 	echo "$(NO_COLOR)"
 
+################################################################################
+#####                              Flags                                   #####
+################################################################################
+
 sanitize:
 	echo -n  ""
 
-std:
-	echo -n  ""
-
-ft:
-	echo -n  ""
+################################################################################
+#####                              Utils                                   #####
+################################################################################
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re bonus val_test test
+.PHONY: all clean fclean re bonus val_test test sanitize
 
 .SILENT:
