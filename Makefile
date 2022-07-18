@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/07/18 10:49:37 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/07/18 11:49:06 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,13 +88,19 @@ $(TEST_FT): $(OBJS_FT)
 	$(CC) $(CPPFLAGS) $(OBJS_FT) -o $(TEST_FT) $(INCS)
 	echo "$(BLUE)$(TEST_FT): $(GREEN)Success $(NO_COLOR)"
 
+
+############################
+# NB_NAMESPACE -> 0 = ft   #
+# NB_NAMESPACE -> 1 = std  #
+############################
+
 $(OBJS_PATH)%_std.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) $(CPPFLAGS) -D NAMESPACE_USE=std -MMD -c $< -o $@ $(INCS)
+	$(CC) $(CPPFLAGS) -D NAMESPACE_USE=std -D NB_NAMESPACE=1 -MMD -c $< -o $@ $(INCS)
 
 $(OBJS_PATH)%_ft.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) $(CPPFLAGS) -D NAMESPACE_USE=ft -MMD -c $< -o $@ $(INCS)
+	$(CC) $(CPPFLAGS) -D NAMESPACE_USE=ft -D NB_NAMESPACE=0 -MMD -c $< -o $@ $(INCS)
 
 clean :
 	$(RM) $(OBJS_PATH)

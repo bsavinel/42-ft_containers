@@ -1,17 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_intergral_test.cpp                              :+:      :+:    :+:   */
+/*   is_integral_test.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:22:53 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/17 18:59:57 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 11:39:17 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef NAMESPACE_USE
 # define NAMESPACE_USE std
+# define NB_NAMESPACE 1
+#endif
+
+//? partie if pour namespace std
+//? partie else pour namespace ft
+
+#if NB_NAMESPACE
+
+#else
+
 #endif
 
 //#include "is_integral.hpp"
