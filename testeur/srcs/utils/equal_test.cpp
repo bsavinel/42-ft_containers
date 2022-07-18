@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:22:48 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 11:39:20 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:00:59 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@
 //? partie else pour namespace ft
 
 #if NB_NAMESPACE
-
+# include <algorithm>
 #else
-
+//# include "equal.hpp"
 #endif
 
-//#include "equal.hpp"
 #include "testeur.hpp"
 #include <iostream>
 

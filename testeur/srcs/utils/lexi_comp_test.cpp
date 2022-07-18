@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:22:56 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 14:44:07 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 14:49:18 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@
 //? partie else pour namespace ft
 
 #if NB_NAMESPACE
-#include <algorithm>
+# include <algorithm>
 #else
-#include "lexicographical_compare.hpp"
+# include "lexicographical_compare.hpp"
 #endif
-
 
 #include "testeur.hpp"
 #include <iostream>

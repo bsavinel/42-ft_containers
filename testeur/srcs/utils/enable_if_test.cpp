@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:03:13 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 11:39:23 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:01:07 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@
 //? partie else pour namespace ft
 
 #if NB_NAMESPACE
-
+# include <type_traits>
 #else
-
+//# include "enable_if.hpp"
 #endif
 
-//#include "enable_if.hpp"
 #include "testeur.hpp"
 #include <iostream>
 

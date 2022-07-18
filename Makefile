@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/07/18 11:49:06 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/07/18 15:00:26 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,16 +35,17 @@ INCS =	-I testeur/includes		\
 		-I includes/containers	\
 		-I includes/utils		\
 
-SRCS =	main.cpp					\
-		containers/vector_test.cpp	\
-		containers/stack_test.cpp	\
-		containers/map_test.cpp		\
-		containers/set_test.cpp		\
-		utils/enable_if_test.cpp	\
-		utils/equal_test.cpp		\
-		utils/is_integral_test.cpp	\
-		utils/lexi_comp_test.cpp	\
-		utils/pair_test.cpp			\
+SRCS_11 =	utils/enable_if_test.cpp	\
+			utils/is_integral_test.cpp	\
+
+SRCS_98 =	main.cpp					\
+			containers/vector_test.cpp	\
+			containers/stack_test.cpp	\
+			containers/map_test.cpp		\
+			containers/set_test.cpp		\
+			utils/equal_test.cpp		\
+			utils/lexi_comp_test.cpp	\
+			utils/pair_test.cpp			\
 
 ################################################################################
 ########						Objects/Dependences						########
@@ -52,8 +53,8 @@ SRCS =	main.cpp					\
 
 OBJS_PATH =	objs/
 
-OBJS_STD =	$(addprefix $(OBJS_PATH), $(SRCS:.cpp=_std.o))
-OBJS_FT =	$(addprefix $(OBJS_PATH), $(SRCS:.cpp=_ft.o))	
+OBJS_STD =	$(addprefix $(OBJS_PATH), $(SRCS_98:.cpp=_std.o) $(SRCS_11:.cpp=_std11.o))
+OBJS_FT =	$(addprefix $(OBJS_PATH), $(SRCS_98:.cpp=_ft.o) $(SRCS_11:.cpp=_ft.o))
 DEPS =	$(OBJS_STD:.o=.d) \
 		$(OBJS_FT:.o=.d)
 
@@ -97,6 +98,10 @@ $(TEST_FT): $(OBJS_FT)
 $(OBJS_PATH)%_std.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
 	$(CC) $(CPPFLAGS) -D NAMESPACE_USE=std -D NB_NAMESPACE=1 -MMD -c $< -o $@ $(INCS)
+
+$(OBJS_PATH)%_std11.o: $(SRCS_PATH)%.cpp
+	mkdir -p $(dir $@)
+	$(CC) -Wall -Wextra -Werror -D NAMESPACE_USE=std -D NB_NAMESPACE=1 -MMD -c $< -o $@ $(INCS)
 
 $(OBJS_PATH)%_ft.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
@@ -154,4 +159,4 @@ sanitize:
 
 .PHONY: all clean fclean re bonus val_test test sanitize
 
-.SILENT:
+#.SILENT:
