@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/07/18 15:00:26 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/07/18 15:26:33 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -159,4 +159,4 @@ sanitize:
 
 .PHONY: all clean fclean re bonus val_test test sanitize
 
-#.SILENT:
+.SILENT:
