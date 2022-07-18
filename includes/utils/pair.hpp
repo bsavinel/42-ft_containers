@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:52 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/17 19:02:20 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 11:48:02 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ namespace ft
 		{
 			first = pr.first;
 			second = pr.second;
+			return *this;
 		}
 	};
 
