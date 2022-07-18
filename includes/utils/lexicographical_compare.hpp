@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:07 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/15 11:04:51 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 14:39:39 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ namespace ft
 	{
 		while (first1 != last1)
 		{
-			if (first2 == last2 || comp(first2, first1))
+			if (first2 == last2 || comp(*first2, *first1))
 				return false;
-			else if (comp(first1, first2))
+			else if (comp(*first1, *first2))
 				return true;
 			++first1;
 			++first2;
