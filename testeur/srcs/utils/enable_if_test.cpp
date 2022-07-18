@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:03:13 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 15:28:15 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:59:25 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 #if NB_NAMESPACE
 # include <type_traits>
 #else
-//# include "enable_if.hpp"
+# include "is_integral.hpp"
+# include "enable_if.hpp"
 #endif
 
 #include "testeur.hpp"
@@ -29,7 +30,25 @@
 
 using namespace NAMESPACE_USE;
 
+template <class T>
+typename enable_if<is_integral<T>::value ,bool>::type is_odd (T i)
+{
+	return bool(i%2);
+}
+
+template <class T>
+typename enable_if<is_integral<T>::value ,bool>::type is_even (T i)
+{
+	return !bool(i%2);
+}
+
 void	enable_if_test()
 {
 	std::cout << std::endl << std::endl << "Test enable_if:" << std::endl << std::endl;
+
+	short int i = 1;
+
+	std::cout << std::boolalpha;
+	std::cout << "i is odd: " << is_odd(i) << std::endl;
+	std::cout << "i is even: " << is_even(i) << std::endl;
 }
