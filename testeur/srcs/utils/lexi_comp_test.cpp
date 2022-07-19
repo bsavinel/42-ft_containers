@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:22:56 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 15:27:59 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:02:04 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	lexi_comp_test()
 		std::cout << std::boolalpha << "Comparing foo and bar lexicographically (foo<bar):\n";
 
 		std::cout << "Using default comparison (operator<): ";
-		std::cout << lexicographical_compare(foo, foo+5, bar, bar+9) << std::endl;
+		std::cout << lexicographical_compare(foo, foo + 1, bar, bar + 1) << std::endl;
 
 		std::cout << "Using mycomp as comparison object: ";
-		std::cout << lexicographical_compare(foo, foo+5, bar, bar+9, mycomp) << std::endl;
+		std::cout << lexicographical_compare(foo, foo + 1, bar, bar + 1, mycomp) << std::endl;
 	}
 	{
 		char foo[]="ab";
@@ -70,10 +70,10 @@ void	lexi_comp_test()
 		std::cout << std::boolalpha << "Comparing foo and bar lexicographically (foo<bar):\n";
 
 		std::cout << "Using default comparison (operator<): ";
-		std::cout << lexicographical_compare(foo, foo+5, bar, bar+9) << std::endl;
+		std::cout << lexicographical_compare(foo, foo + 2, bar, bar + 1) << std::endl;
 
 		std::cout << "Using mycomp as comparison object: ";
-		std::cout << lexicographical_compare(foo, foo+5, bar, bar+9, mycomp) << std::endl;
+		std::cout << lexicographical_compare(foo, foo + 2, bar, bar + 1, mycomp) << std::endl;
 	}
 	{
 		char foo[]="a";
@@ -82,9 +82,9 @@ void	lexi_comp_test()
 		std::cout << std::boolalpha << "Comparing foo and bar lexicographically (foo<bar):\n";
 
 		std::cout << "Using default comparison (operator<): ";
-		std::cout << lexicographical_compare(foo, foo+5, bar, bar+9) << std::endl;
+		std::cout << lexicographical_compare(foo, foo + 1, bar, bar + 2) << std::endl;
 
 		std::cout << "Using mycomp as comparison object: ";
-		std::cout << lexicographical_compare(foo, foo+5, bar, bar+9, mycomp) << std::endl;
+		std::cout << lexicographical_compare(foo, foo + 1, bar, bar + 2, mycomp) << std::endl;
 	}
 }
