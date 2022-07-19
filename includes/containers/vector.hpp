@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:47 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/19 23:12:49 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 23:30:41 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,16 @@ namespace ft
 			// const_reverse_iterator rbegin() const
 			// {
 				
+			// }
+
+			// reverse_iterator rend()
+			// {
+
+			// }
+
+			// const_reverse_iterator rend() const
+			// {
+
 			// }
 
 		//!	------------------------- Capacity -------------------------
