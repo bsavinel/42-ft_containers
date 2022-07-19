@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:47 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/19 17:49:36 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 23:12:49 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,22 @@ namespace ft
 				
 			// }
 
-			// vector(const vector& x)
-			// {
-				
-			// }
+			vector(const vector& x)
+			{
+				*this = x;
+			}
+
+			vector& operator= (const vector& x)
+			{
+				reserve(x->_size);
+				this->clear();
+				for (size_type i = 0; i < x._size; i++)
+				{
+					*(this->_start + i) = *(x._start + i); 
+				}
+				this->_size = x._size;
+				return *this;
+			}
 
 		//!	------------------------- Destructor -------------------------
 		
@@ -315,7 +327,7 @@ namespace ft
 	// template <class T, class Alloc>
 	// inline bool operator== (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	// {
-		
+			// return (lhs.size() != rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin()));
 	// }
 
 	// template <class T, class Alloc>
@@ -327,7 +339,7 @@ namespace ft
 	// template <class T, class Alloc>
 	// inline bool operator<  (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	// {
-		
+			// ? Pas compris comment sa marche dans le man il est marque a la premeirer ocurence mais a la premiere ocurence de quoi ?
 	// }
 
 	// template <class T, class Alloc>
