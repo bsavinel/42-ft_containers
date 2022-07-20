@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:47 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/20 23:37:50 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 23:45:50 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ namespace ft
 
 			explicit vector(const allocator_type& alloc = allocator_type())
 			{
+				_start = NULL;
+				_end = NULL;
 				_alloc = alloc;
 				_size = 0;
 				_capacity = 0;
@@ -285,6 +287,8 @@ namespace ft
 			iterator insert(iterator position, const value_type& val)
 			{
 				size_type dist_sp = (position - _start);
+				if (_capacity == 0)
+					reserve(1);
 				if (_size + 1 > _capacity)
 					reserve(_capacity * 2);
 				position = _start + dist_sp;
@@ -305,6 +309,8 @@ namespace ft
 			{
 				size_type dist_sp = (position - _start);
 				size_type new_size = _size + n;
+				if (_capacity == 0)
+					reserve(1);
 				if (new_size > _capacity)
 				{
 					if (new_size > _size * 2)
@@ -338,6 +344,8 @@ namespace ft
 				size_type dist_sp = (position - _start);
 
 				size_type new_size = _size + dist_lf;
+				if (_capacity == 0)
+					reserve(1);
 				if (new_size > _capacity)
 				{
 					if (new_size > _size * 2)
