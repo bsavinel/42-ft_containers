@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/19 12:22:41 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 22:40:21 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ namespace ft
 		}
 		reference operator[] (difference_type n) const
 		{
-			return _current + n;
+			return _current[n];
 		}
 
 		private:
@@ -159,7 +159,7 @@ namespace ft
 	template< class Iterator >
 	inline typename reverse_iterator<Iterator>::difference_type operator-( const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs )
 	{
-		return (lhs.base() - rhs.base());
+		return (rhs.base() - lhs.base());
 	}
 }
 
