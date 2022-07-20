@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:47 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/20 23:45:50 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/21 00:17:07 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,6 +303,7 @@ namespace ft
 					
 				_end = _end + 1;
 				_size = _size + 1;
+				return position;
 			}
 
 			void insert(iterator position, size_type n, const value_type& val)

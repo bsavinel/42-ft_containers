@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:01:19 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/20 22:43:59 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/21 00:16:16 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	vector_test()
 		std::cout << "valeur fin " << *(test1.end() - 1) << std::endl;
 		std::cout << "valeur debut " << *(test1.begin()) << std::endl;
 		test1.insert(test1.begin() + 3, my_vector.begin(), my_vector.begin() + 13);
+		test1.insert(test1.begin() + 3, 4);
 		for (int i = 0; i < static_cast<int>(test1.size()); i++)
 			std::cout << "elem [" << i << "] : " << test1[i] << std::endl;
 		std::cout << test1.size() << " " << test1.capacity() << std::endl;
