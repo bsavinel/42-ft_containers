@@ -18,7 +18,9 @@
 #include <memory>
 #include <stdexcept>
 #include "reverse_iterator.hpp"
+#include "enable_if.hpp"
 #include "equal.hpp"
+#include "is_integral.hpp"
 #include "lexicographical_compare.hpp"
 
 namespace ft
@@ -66,7 +68,7 @@ namespace ft
 			}
 
 			template <class InputIterator>
-        	vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+        	vector(typename ft::enable_if<!(ft::is_integral<InputIterator>::value), InputIterator>::type first, InputIterator last, const allocator_type& alloc = allocator_type())
 			{
 				_capacity = 0;
 				_start = NULL;
@@ -262,10 +264,10 @@ namespace ft
 		//!	------------------------- Modifiers -------------------------
 
 			template <class InputIterator>
-			void assign(InputIterator first, InputIterator last)
+			void assign(typename ft::enable_if<!(ft::is_integral<InputIterator>::value), InputIterator>::type first, InputIterator last)
 			{
 				clear();
-				reseve(last - first);
+				reserve(last - first);
 				_size = last - first;
 				for (size_type i = 0; i < _size; i++)
 					*(_start + i) = *(first + i);
