@@ -462,43 +462,43 @@ namespace ft
 	template <class T, class Alloc>
 	inline bool operator== (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-			return (lhs.size() != rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin()));
+		return (lhs.size() != rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin()));
 	}
 
 	template <class T, class Alloc>
 	inline bool operator!= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-			return !(lhs == rhs);
+		return !(lhs == rhs);
 	}
 
 	template <class T, class Alloc>
 	inline bool operator<  (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-			ft::lexicographical_compare(lhs.begin(), lhs.last(), rhs.begin(), rhs.last());
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 
 	template <class T, class Alloc>
 	inline bool operator<= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-			return !(rhs < lhs);
+		return !(rhs < lhs);
 	}
 
 	template <class T, class Alloc>
 	inline bool operator>  (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-			return rhs < lhs;
+		return rhs < lhs;
 	}
 
 	template <class T, class Alloc>
 	inline bool operator>= (const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-			return !(lhs < rhs);
+		return !(lhs < rhs);
 	}
 
 	template <class T, class Alloc>
 	inline void swap (vector<T, Alloc>& x, vector<T, Alloc>& y)
 	{
-			x.swap(y);
+		x.swap(y);
 	}
 }
 

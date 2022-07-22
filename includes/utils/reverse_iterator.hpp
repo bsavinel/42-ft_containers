@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/22 14:02:50 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:14:29 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ namespace ft
 			}
 
 			template <class Iter>
-			reverse_iterator (const reverse_iterator<Iter>& rev_it): _current(rev_it.current)
+			reverse_iterator (const reverse_iterator<Iter>& rev_it): _current(rev_it.base())
 			{
 			}
 
