@@ -357,7 +357,7 @@ namespace ft
 
 
 			template <class InputIterator>
-			void insert(iterator position, InputIterator first, InputIterator last)
+			void insert(iterator position, typename ft::enable_if<!(ft::is_integral<InputIterator>::value), InputIterator>::type first, InputIterator last)
 			{
 				size_type dist_lf = std::distance(first, last);
 				size_type dist_sp = (position - _start);
