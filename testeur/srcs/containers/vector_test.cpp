@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:01:19 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/22 13:17:55 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:33:32 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #include <list>
 #include "testeur.hpp"
 #include <iostream>
+#include <string>
 
 using namespace NAMESPACE_USE;
 
@@ -258,5 +259,38 @@ void	vector_test()
 		std::cout << "257" << std::endl;
 		vct.insert(vct.end(), lst.rbegin(), lst.rend());
 		printSize(vct);
+	}
+	{
+		vector<int> vct(10);
+		vector<int> vct2;
+		vector<int> vct3;
+	
+		for (unsigned long int i = 0; i < vct.size(); ++i)
+			vct[i] = (vct.size() - i) * 3;
+		printSize(vct);
+	
+		vct2.insert(vct2.end(), 42);
+		vct2.insert(vct2.begin(), 2, 21);
+		printSize(vct2);
+	
+		vct2.insert(vct2.end() - 2, 42);
+		printSize(vct2);
+	
+		vct2.insert(vct2.end(), 2, 84);
+		printSize(vct2);
+	
+		vct2.resize(4);
+		printSize(vct2);
+	
+		vct2.insert(vct2.begin() + 2, vct.begin(), vct.end());
+		vct.clear();
+		printSize(vct2);
+	
+		printSize(vct);
+	
+		for (int i = 0; i < 5; ++i)
+			vct3.insert(vct3.end(), i);
+		vct3.insert(vct3.begin() + 1, 2, 111);
+		printSize(vct3);
 	}
 }
