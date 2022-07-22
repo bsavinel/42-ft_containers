@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:38 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/20 17:35:42 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:00:07 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ namespace ft
 	};
 	
 	template <class Iterator>
-	class iterator_traits
+	struct iterator_traits
 	{
 		typedef	typename Iterator::difference_type		difference_type;
 		typedef	typename Iterator::value_type			value_type;
@@ -59,7 +59,7 @@ namespace ft
 	};
 	
 	template <class T>
-	class iterator_traits<T*>
+	struct iterator_traits<T*>
 	{
 		typedef	ptrdiff_t					difference_type;
 		typedef	T							value_type;
@@ -69,7 +69,7 @@ namespace ft
 	};
 	
 	template <class T>
-	class iterator_traits<const T*>
+	struct iterator_traits<const T*>
 	{
 		typedef	ptrdiff_t					difference_type;
 		typedef	T							value_type;

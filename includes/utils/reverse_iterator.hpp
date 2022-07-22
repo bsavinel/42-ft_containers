@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/20 22:40:21 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:02:50 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,94 +20,95 @@ namespace ft
 	template <class Iterator> 
 	class reverse_iterator
 	{
-		typedef	Iterator												iterator_type;
-		typedef	typename iterator_traits<Iterator>::iterator_category	iterator_category;
-		typedef	typename iterator_traits<Iterator>::value_type			value_type;
-		typedef	typename iterator_traits<Iterator>::difference_type		difference_type;
-		typedef	typename iterator_traits<Iterator>::pointer				pointer;
-		typedef	typename iterator_traits<Iterator>::reference			reference;
+		public :
+			typedef	Iterator												iterator_type;
+			typedef	typename iterator_traits<Iterator>::iterator_category	iterator_category;
+			typedef	typename iterator_traits<Iterator>::value_type			value_type;
+			typedef	typename iterator_traits<Iterator>::difference_type		difference_type;
+			typedef	typename iterator_traits<Iterator>::pointer				pointer;
+			typedef	typename iterator_traits<Iterator>::reference			reference;
 		
-		reverse_iterator()
-		{
-		}
+			reverse_iterator()
+			{
+			}
 
-		explicit reverse_iterator (iterator_type it): _current(it)
-		{
-		}
+			explicit reverse_iterator (iterator_type it): _current(it)
+			{
+			}
 
-		template <class Iter>
-		reverse_iterator (const reverse_iterator<Iter>& rev_it): _current(rev_it.current)
-		{
-		}
+			template <class Iter>
+			reverse_iterator (const reverse_iterator<Iter>& rev_it): _current(rev_it.current)
+			{
+			}
 
-		iterator_type base() const
-		{
-			return _current;
-		}
+			iterator_type base() const
+			{
+				return _current;
+			}
 
-		reference operator*() const
-		{
-			Iterator tmp = *_current;
-			return *--tmp;
-		}
+			reference operator*() const
+			{
+				Iterator tmp = _current;
+				return *--tmp;
+			}
 
-		reverse_iterator operator+ (difference_type n) const
-		{
-			return reverse_iterator(_current - n);
-		}
+			reverse_iterator operator+ (difference_type n) const
+			{
+				return reverse_iterator(_current - n);
+			}
 
-		reverse_iterator& operator++()
-		{
-			--_current;
-			return *this;			
-		}
+			reverse_iterator& operator++()
+			{
+				--_current;
+				return *this;			
+			}
 
-		reverse_iterator  operator++(int)
-		{
-			reverse_iterator tmp = *this;
-			--_current;
-			return tmp;
-		}
+			reverse_iterator  operator++(int)
+			{
+				reverse_iterator tmp = *this;
+				--_current;
+				return tmp;
+			}
 		
-		reverse_iterator& operator+= (difference_type n)
-		{
-			_current -= n;
-			return *this;
-		}
+			reverse_iterator& operator+= (difference_type n)
+			{
+				_current -= n;
+				return *this;
+			}
 		
-		reverse_iterator operator- (difference_type n) const
-		{
-			return reverse_iterator(_current + n);
-		}
+			reverse_iterator operator- (difference_type n) const
+			{
+				return reverse_iterator(_current + n);
+			}
 
-		reverse_iterator& operator--()
-		{
-			++_current;
-			return *this;	
-		}
+			reverse_iterator& operator--()
+			{
+				++_current;
+				return *this;	
+			}
 
-		reverse_iterator  operator--(int)
-		{
-			reverse_iterator tmp = *this;
-			++_current;
-			return tmp;
-		}
+			reverse_iterator  operator--(int)
+			{
+				reverse_iterator tmp = *this;
+				++_current;
+				return tmp;
+			}
 
-		reverse_iterator& operator-= (difference_type n)
-		{
-			_current += n;
-			return *this;
-		}
+			reverse_iterator& operator-= (difference_type n)
+			{
+				_current += n;
+				return *this;
+			}
 		
-		pointer operator->() const
-		{
-			return &(operator*());
-		
-		}
-		reference operator[] (difference_type n) const
-		{
-			return _current[n];
-		}
+			pointer operator->() const
+			{
+				return &(operator*());
+			}
+
+			reference operator[] (difference_type n) const
+			{
+				return _current[n];
+			}
 
 		private:
 
