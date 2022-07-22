@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:47 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/21 00:17:07 by bsavinel         ###   ########.fr       */
+	/*   Updated: 2022/07/21 00:17:07 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,24 @@ namespace ft
 			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 			{
 				_alloc = alloc;
+				_start = NULL;
+				_end = NULL;
+				_capacity = 0;
+				_size = 0;
 				reserve(n);
 				for (size_type i = 0; i < n; i++)
 					*(_start + i) = val;
+				_end = _start + n;
 				_size = n;
 			}
 
 			template <class InputIterator>
         	vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
 			{
+				_capacity = 0;
+				_start = NULL;
+				_end = NULL;
+				_size = 0;
 				_alloc = alloc;
 				_size = last - first;
 				reserve(_size);
@@ -70,20 +79,26 @@ namespace ft
 				{
 					*(_start + i) = *(first + i);
 				}
+				_end = _start + _size;
 			}
 
 			vector(const vector& x)
 			{
+				_start = NULL;
+				_end = NULL;
+				_size = 0;
+				_capacity = 0;
 				*this = x;
 			}
 
 			vector& operator= (const vector& x)
 			{
-				reserve(x->_size);
+				reserve(x._size);
 				this->clear();
 				for (size_type i = 0; i < x._size; i++)
 					*(this->_start + i) = *(x._start + i); 
 				this->_size = x._size;
+				this->_end = this->_start + this->_size;
 				return *this;
 			}
 
@@ -142,7 +157,8 @@ namespace ft
 
 			size_type size() const
 			{
-				return _size;
+				//return _size;
+				return _end - _start;
 			}
 
 			size_type max_size() const
@@ -178,7 +194,7 @@ namespace ft
 				return false;
 			}
 
-			void reserve (size_type n)
+			void reserve(size_type n)
 			{
 				pointer		new_stock;
 
@@ -225,22 +241,22 @@ namespace ft
 
 			reference front()
 			{
-				return _start;
+				return *_start;
 			}
 
 			const_reference front() const
 			{
-				return _start;
+				return *_start;
 			}
 
 			reference back()
 			{
-				return _end;
+				return *(_end - 1);
 			}
 			
 			const_reference back() const
 			{
-				return _end;
+				return *(_end - 1);
 			}
 
 		//!	------------------------- Modifiers -------------------------
@@ -420,6 +436,7 @@ namespace ft
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(_start + i);
 				_size = 0;
+				_end = _start;
 			}
 			
 		//!	------------------------- Allocator -------------------------
