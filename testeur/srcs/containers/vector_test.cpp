@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:01:19 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/22 11:36:33 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:17:55 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "vector.hpp"
 #endif
 
-
+#include <list>
 #include "testeur.hpp"
 #include <iostream>
 
@@ -234,5 +234,29 @@ void	vector_test()
 
 		printSize(vct);
 		printSize(vct_two);
+	}
+	{
+		std::list<int> lst;
+		std::list<int>::iterator lst_it;
+		std::cout << "241" << std::endl;
+		for (int i = 1; i < 5; ++i)
+			lst.push_back(i * 3);
+		
+		std::cout << "245" << std::endl;
+		vector<int> vct(lst.begin(), lst.end());
+		std::cout << "247" << std::endl;
+		printSize(vct);
+	
+		std::cout << "249" << std::endl;
+		lst_it = lst.begin();
+		for (int i = 1; lst_it != lst.end(); ++i)
+			*lst_it++ = i * 5;
+		std::cout << "253" << std::endl;
+		vct.assign(lst.begin(), lst.end());
+		printSize(vct);
+
+		std::cout << "257" << std::endl;
+		vct.insert(vct.end(), lst.rbegin(), lst.rend());
+		printSize(vct);
 	}
 }

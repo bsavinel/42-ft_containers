@@ -75,11 +75,11 @@ namespace ft
 				_end = NULL;
 				_size = 0;
 				_alloc = alloc;
-				_size = last - first;
-				reserve(_size);
-				for (size_type i = 0; i < _size; i++)
+				reserve(std::distance(first, last));
+				_size = std::distance(first, last);
+				for (size_type i = 0; i < _size; i++, first++)
 				{
-					*(_start + i) = *(first + i);
+					*(_start + i) = *(first);
 				}
 				_end = _start + _size;
 			}
@@ -267,10 +267,10 @@ namespace ft
 			void assign(typename ft::enable_if<!(ft::is_integral<InputIterator>::value), InputIterator>::type first, InputIterator last)
 			{
 				clear();
-				reserve(last - first);
-				_size = last - first;
-				for (size_type i = 0; i < _size; i++)
-					*(_start + i) = *(first + i);
+				reserve(std::distance(first, last));
+				_size = std::distance(first, last);
+				for (size_type i = 0; i < _size; i++, first++)
+					*(_start + i) = *first;
 				_end = _start + _size;
 			}
 			
@@ -359,7 +359,7 @@ namespace ft
 			template <class InputIterator>
 			void insert(iterator position, InputIterator first, InputIterator last)
 			{
-				size_type dist_lf = (last - first);
+				size_type dist_lf = std::distance(first, last);
 				size_type dist_sp = (position - _start);
 
 				size_type new_size = _size + dist_lf;
