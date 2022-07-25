@@ -435,13 +435,13 @@ namespace ft
 				this->_size = x._size;
 				x._size = tmp_s;
 
-				tmp_s = this->_alloc;
+				tmp_a = this->_alloc;
 				this->_alloc = x._alloc;
-				x._capacity = tmp_s;
+				x._alloc = tmp_a;
 
-				tmp_a = this->_capacity;
+				tmp_s = this->_capacity;
 				this->_capacity = x._capacity;
-				x._capacity = tmp_a;
+				x._capacity = tmp_s;
 			}
 
 			void clear()
