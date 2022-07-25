@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/22 14:14:29 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/25 11:16:28 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ namespace ft
 
 			reference operator*() const
 			{
-				Iterator tmp = _current;
-				return *--tmp;
+				return * (_current - 1);
 			}
 
 			reverse_iterator operator+ (difference_type n) const
@@ -115,38 +114,38 @@ namespace ft
 			Iterator _current;
 	};
 
-	template <class Iterator>
-	inline bool operator== (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	template <class Iterator1, class Iterator2>
+	inline bool operator== (const reverse_iterator<Iterator1>& lhs, const reverse_iterator<Iterator2>& rhs)
 	{
 		return lhs.base() == rhs.base();
 	}
 	
-	template <class Iterator>
-	inline bool operator!= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	template <class Iterator1, class Iterator2>
+	inline bool operator!= (const reverse_iterator<Iterator1>& lhs, const reverse_iterator<Iterator2>& rhs)
 	{
 		return lhs.base() != rhs.base();
 	}
 	
-	template <class Iterator>
-	inline bool operator<  (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	template <class Iterator1, class Iterator2>
+	inline bool operator<  (const reverse_iterator<Iterator1>& lhs, const reverse_iterator<Iterator2>& rhs)
 	{
 		return lhs.base() < rhs.base();
 	}
 	
-	template <class Iterator>
-	inline bool operator<= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	template <class Iterator1, class Iterator2>
+	inline bool operator<= (const reverse_iterator<Iterator1>& lhs, const reverse_iterator<Iterator2>& rhs)
 	{
 		return !(rhs < lhs);
 	}
 	
-	template <class Iterator>
-	inline bool operator>  (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	template <class Iterator1, class Iterator2>
+	inline bool operator>  (const reverse_iterator<Iterator1>& lhs, const reverse_iterator<Iterator2>& rhs)
 	{
 		return rhs < lhs;
 	}
 	
-	template <class Iterator>
-	inline bool operator>= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	template <class Iterator1, class Iterator2>
+	inline bool operator>= (const reverse_iterator<Iterator1>& lhs, const reverse_iterator<Iterator2>& rhs)
 	{
 		return !(lhs < rhs);
 	}
@@ -157,8 +156,8 @@ namespace ft
 		return reverse_iterator<Iterator>(it.base() - n);
 	}
 
-	template< class Iterator >
-	inline typename reverse_iterator<Iterator>::difference_type operator-( const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs )
+	template< class Iterator1, class Iterator2>
+	inline typename reverse_iterator<Iterator1>::difference_type operator-( const reverse_iterator<Iterator1>& lhs, const reverse_iterator<Iterator2>& rhs )
 	{
 		return (rhs.base() - lhs.base());
 	}
