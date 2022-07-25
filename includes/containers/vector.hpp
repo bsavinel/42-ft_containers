@@ -311,9 +311,9 @@ namespace ft
 					reserve(_capacity * 2);
 				position = _start + dist_sp;
 
-				iterator tmp_p = _end;
-				for (;tmp_p != position; tmp_p--) 
-					*(tmp_p) = *(tmp_p - 1);
+				iterator tmp = _end;
+				for (;tmp != position; tmp--) 
+					*(tmp) = *(tmp - 1);
 				*position = val;
 					
 				_end = _end + 1;
@@ -336,11 +336,11 @@ namespace ft
 				}
 				position = _start + dist_sp;
 
-				iterator tmp_p = _end - 1;
+				iterator tmp = _end - 1;
 				iterator new_place = (_end - 1) + n;
-				for (;tmp_p != (position - 1); tmp_p--, new_place--) 
+				for (;tmp != (position - 1); tmp--, new_place--) 
 				{
-					*(new_place) = *(tmp_p);
+					*(new_place) = *(tmp);
 				}
 				new_place++;
 				for (;position != new_place; position++)
@@ -371,11 +371,11 @@ namespace ft
 				}
 				position = _start + dist_sp;
 
-				iterator tmp_p = _end - 1;
+				iterator tmp = _end - 1;
 				iterator new_place = (_end - 1) + dist_lf;
-				for (;tmp_p != (position - 1); tmp_p--, new_place--) 
+				for (;tmp != (position - 1); tmp--, new_place--) 
 				{
-					*(new_place) = *(tmp_p);
+					*(new_place) = *(tmp);
 				}
 
 				for (;first != last; position++, first++)
@@ -398,18 +398,18 @@ namespace ft
 			
 			iterator erase(iterator first, iterator last)
 			{
-				iterator tmp_p = first;
+				iterator tmp = first;
 				iterator ret = first;
 				for (; first != last; first++)
 				{
 					_alloc.destroy(first);
 					_size--;
 				}
-				for (; first != _end; first++, tmp_p++)
+				for (; first != _end; first++, tmp++)
 				{
-					*tmp_p = *first;
+					*tmp = *first;
 				}
-				_end = tmp_p;
+				_end = tmp;
 				return ret;
 			}
 
@@ -437,7 +437,7 @@ namespace ft
 
 				tmp_s = this->_alloc;
 				this->_alloc = x._alloc;
-				x._alloc = tmp_s;
+				x._capacity = tmp_s;
 
 				tmp_a = this->_capacity;
 				this->_capacity = x._capacity;
