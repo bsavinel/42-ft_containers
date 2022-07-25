@@ -311,9 +311,9 @@ namespace ft
 					reserve(_capacity * 2);
 				position = _start + dist_sp;
 
-				iterator tmp = _end;
-				for (;tmp != position; tmp--) 
-					*(tmp) = *(tmp - 1);
+				iterator tmp_p = _end;
+				for (;tmp_p != position; tmp_p--) 
+					*(tmp_p) = *(tmp_p - 1);
 				*position = val;
 					
 				_end = _end + 1;
@@ -336,11 +336,11 @@ namespace ft
 				}
 				position = _start + dist_sp;
 
-				iterator tmp = _end - 1;
+				iterator tmp_p = _end - 1;
 				iterator new_place = (_end - 1) + n;
-				for (;tmp != (position - 1); tmp--, new_place--) 
+				for (;tmp_p != (position - 1); tmp_p--, new_place--) 
 				{
-					*(new_place) = *(tmp);
+					*(new_place) = *(tmp_p);
 				}
 				new_place++;
 				for (;position != new_place; position++)
@@ -371,11 +371,11 @@ namespace ft
 				}
 				position = _start + dist_sp;
 
-				iterator tmp = _end - 1;
+				iterator tmp_p = _end - 1;
 				iterator new_place = (_end - 1) + dist_lf;
-				for (;tmp != (position - 1); tmp--, new_place--) 
+				for (;tmp_p != (position - 1); tmp_p--, new_place--) 
 				{
-					*(new_place) = *(tmp);
+					*(new_place) = *(tmp_p);
 				}
 
 				for (;first != last; position++, first++)
@@ -398,36 +398,50 @@ namespace ft
 			
 			iterator erase(iterator first, iterator last)
 			{
-				iterator tmp = first;
+				iterator tmp_p = first;
 				iterator ret = first;
 				for (; first != last; first++)
 				{
 					_alloc.destroy(first);
 					_size--;
 				}
-				for (; first != _end; first++, tmp++)
+				for (; first != _end; first++, tmp_p++)
 				{
-					*tmp = *first;
+					*tmp_p = *first;
 				}
-				_end = tmp;
+				_end = tmp_p;
 				return ret;
 			}
 
 			void swap(vector& x)
 			{
-				pointer _tmp;
+				pointer			tmp_p;
+				size_type		tmp_s;
+				allocator_type	tmp_a;
 				
-				_tmp = this->_start;
+				tmp_p = this->_start;
 				this->_start = x._start;
-				x._start = _tmp;
-				
-				_tmp = this->_end;
+				x._start = tmp_p;
+
+				tmp_p = this->_end;
 				this->_end = x._end;
-				x._end = _tmp;
+				x._end = tmp_p;
 				
-				_tmp = this->_end_capacity;
+				tmp_p = this->_end_capacity;
 				this->_end_capacity = x._end_capacity;
-				x._end_capacity = _tmp;
+				x._end_capacity = tmp_p;
+
+				tmp_s = this->_size;
+				this->_size = x._size;
+				x._size = tmp_s;
+
+				tmp_s = this->_alloc;
+				this->_alloc = x._alloc;
+				x._alloc = tmp_s;
+
+				tmp_a = this->_capacity;
+				this->_capacity = x._capacity;
+				x._capacity = tmp_a;
 			}
 
 			void clear()
