@@ -181,6 +181,7 @@ namespace ft
 						*(_start + i) = val;
 				}
 				_size = n;
+				_end = _start + n;
 			}
 
 			size_type capacity() const
@@ -310,12 +311,9 @@ namespace ft
 					reserve(_capacity * 2);
 				position = _start + dist_sp;
 
-				iterator tmp = _end - 1;
-				iterator new_place = _end;
-				for (;tmp != (position - 1); tmp--, new_place--) 
-				{
-					*(new_place) = *(tmp);
-				}
+				iterator tmp = _end;
+				for (;tmp != position; tmp--) 
+					*(tmp) = *(tmp - 1);
 				*position = val;
 					
 				_end = _end + 1;
@@ -350,7 +348,7 @@ namespace ft
 					*(position) = val;
 				}
 
-				_end = _end + 1;
+				_end = _end + n;
 				_size = _size + n;
 			}
 
