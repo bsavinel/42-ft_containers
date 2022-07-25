@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/25 11:16:28 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:29:12 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ namespace ft
 
 			reference operator[] (difference_type n) const
 			{
-				return _current[n];
+				return *(_current -1 - n);
 			}
 
 		private:
