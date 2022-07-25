@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/25 19:29:12 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:35:27 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ namespace ft
 	template <class Iterator1, class Iterator2>
 	inline bool operator<  (const reverse_iterator<Iterator1>& lhs, const reverse_iterator<Iterator2>& rhs)
 	{
-		return lhs.base() < rhs.base();
+		return lhs.base() > rhs.base();
 	}
 	
 	template <class Iterator1, class Iterator2>
