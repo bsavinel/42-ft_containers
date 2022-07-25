@@ -137,29 +137,28 @@ namespace ft
 
 			reverse_iterator rbegin()
 			{
-				return reverse_iterator(_end - 1);
+				return reverse_iterator(_end);
 			}
 			
 			const_reverse_iterator rbegin() const
 			{
-				return const_reverse_iterator(_end - 1);
+				return const_reverse_iterator(_end);
 			}
 
 			reverse_iterator rend()
 			{
-				return reverse_iterator(_start - 1);
+				return reverse_iterator(_start);
 			}
 
 			const_reverse_iterator rend() const
 			{
-				return const_reverse_iterator(_start - 1);
+				return const_reverse_iterator(_start);
 			}
 
 		//!	------------------------- Capacity -------------------------
 
 			size_type size() const
 			{
-				//return _size;
 				return _end - _start;
 			}
 
