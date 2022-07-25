@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/07/18 15:26:33 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/07/25 13:29:31 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,8 +121,8 @@ re : fclean
 
 test: all
 	mkdir -p log_test
-	./$(TEST_STD) >log_test/log_std.txt
-	./$(TEST_FT) >log_test/log_ft.txt
+	./$(TEST_STD) >log_test/log_std.txt || true
+	./$(TEST_FT) >log_test/log_ft.txt || true
 	diff log_test/log_ft.txt log_test/log_std.txt && echo "$(GREEN)Tout est ok$(NO_COLOR)" || echo "$(RED)Erreur$(NO_COLOR)"
 
 fsanitize:
@@ -137,8 +137,8 @@ fsanitize_test:
 val_test:
 	make -C . re
 	mkdir -p log_test
-	./$(TEST_STD) >log_test/log_std.txt
-	valgrind --log-file=log_test/out_valgrind.txt ./$(TEST_FT) >log_test/log_ft.txt || echo -n ""
+	./$(TEST_STD) >log_test/log_std.txt || true
+	valgrind --log-file=log_test/out_valgrind.txt ./$(TEST_FT) >log_test/log_ft.txt || echo -n "" || true
 	diff log_test/log_ft.txt log_test/log_std.txt && echo "$(GREEN)Tout est ok$(NO_COLOR)" || echo "$(RED)Erreur$(NO_COLOR)"
 	echo "$(BLUE)"
 	cat log_test/out_valgrind.txt

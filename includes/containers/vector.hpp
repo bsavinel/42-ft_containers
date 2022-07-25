@@ -62,7 +62,7 @@ namespace ft
 				_size = 0;
 				reserve(n);
 				for (size_type i = 0; i < n; i++)
-					*(_start + i) = val;
+					_alloc.construct(_start + i, val);
 				_end = _start + n;
 				_size = n;
 			}
@@ -390,18 +390,18 @@ namespace ft
 
 			iterator erase(iterator position)
 			{
-				for (size_type i = 0; position + i != _end; i++)
-				{
-					_alloc.destroy(position + i);
-					_size--;
-				}
-				_end = position;
-				return (_end);
+				_alloc.destroy(position);
+				for (size_type i = 1; position + i != _end; i++)
+					*(position + i - 1) = *(position + i);
+				_size--;
+				_end = _end - 1;
+				return (position);
 			}
 			
 			iterator erase(iterator first, iterator last)
 			{
 				iterator tmp = first;
+				iterator ret = first;
 				for (; first != last; first++)
 				{
 					_alloc.destroy(first);
@@ -412,7 +412,7 @@ namespace ft
 					*tmp = *first;
 				}
 				_end = tmp;
-				return _end;
+				return ret;
 			}
 
 			void swap(vector& x)
