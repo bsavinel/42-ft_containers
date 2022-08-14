@@ -95,12 +95,15 @@ namespace ft
 
 			vector& operator= (const vector& x)
 			{
-				reserve(x._size);
-				this->clear();
-				for (size_type i = 0; i < x._size; i++)
-					*(this->_start + i) = *(x._start + i); 
-				this->_size = x._size;
-				this->_end = this->_start + this->_size;
+				if (this != &x)
+				{
+					reserve(x._size);
+					this->clear();
+					for (size_type i = 0; i < x._size; i++)
+						*(this->_start + i) = *(x._start + i); 
+					this->_size = x._size;
+					this->_end = this->_start + this->_size;
+				}
 				return *this;
 			}
 
