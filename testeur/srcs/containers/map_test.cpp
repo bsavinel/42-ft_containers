@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:11:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 15:28:20 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 09:54:16 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #if NB_NAMESPACE
 # include <map>
 #else
-//# include "map.hpp"
+# include "map.hpp"
 #endif
 
 #include "testeur.hpp"

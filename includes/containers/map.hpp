@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/14 16:19:32 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 09:55:01 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ namespace ft
 		public:
 			typedef	Key												key_type;
 			typedef	T												mapped_type;
-			typedef	typename pair<const key_type,mapped_type>		value_type;
+			typedef	typename ft::pair<const key_type,mapped_type>		value_type;
 			typedef	Compare											key_compare;
 			typedef	Alloc											allocator_type;
 			typedef	typename allocator_type::reference				reference;

@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:44:43 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/14 16:28:47 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:26:28 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define RBT_NODE_HPP
 
 #include "pair.hpp"
-
 
 namespace ft
 {
@@ -27,28 +26,27 @@ namespace ft
 	template <class Key, class value>
 	struct RBT_node
 	{
-		typedef	typename pair<const key_type,mapped_type>		value_type;
+		typedef	typename ft::pair<const key_type,mapped_type>		value_type;
 
 		RBT_node	*_left;
 		RBT_node	*_right;
-		RBT_node	*_up;
+		RBT_node	*_parent;
 		value_type	_value;
 		t_RBT_color	_color;
-		bool		_isLeaf
 		
-		RBT_node(): _left(NULL), _right(NULL), _value(value_type()), _isLeaf(true), _color(0), _up(NULL)
+		RBT_node(): _left(NULL), _right(NULL), _value(value_type()), _color(BLACK), _parent(NULL)
 		{	
 		}
 
-		RBT_node(value_type value): _left(NULL), _right(NULL), _value(value), _isLeaf(false), _color(0), _up(NULL)
+		RBT_node(value_type value): _left(NULL), _right(NULL), _value(value), _color(BLACK), _parent(NULL)
 		{
 		}
 
-		RBT_node(value_type value, RBT_node *left, RBT_node *right): _left(left), _right(right), _value(value), _isLeaf(false), _color(0), _up(NULL)
+		RBT_node(value_type value, RBT_node *left, RBT_node *right): _left(left), _right(right), _value(value), _color(0), _parent(NULL)
 		{
 		}
 
-		RBT_node(value_type value, RBT_node *left, RBT_node *right, RBT_node *up): _left(left), _right(right), _value(value), _isLeaf(false), _color(0), _up(up)
+		RBT_node(value_type value, RBT_node *left, RBT_node *right, RBT_node *parent): _left(left), _right(right), _value(value), _color(0), _parent(parent)
 		{
 		}
 
