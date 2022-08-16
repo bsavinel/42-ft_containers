@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/15 21:14:29 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/16 14:04:25 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,67 +91,50 @@ namespace ft
 				return NULL;
 			}
 
+			node	*minimum()
+			{
+				node *rootMinimum;
+	
+				rootMinimum = _root;
+				if (!rootMinimum)
+					return NULL;
+				while (rootMinimum->_left)
+					rootMinimum = rootMinimum->_left;
+				return rootMinimum;
+			}
+
+			node	*maximum()
+			{
+				node *rootMaximum;
+
+				rootMaximum = _root;
+				if (!rootMaximum)
+					return NULL;
+				while (rootMaximum->_right)
+					rootMaximum = rootMaximum->_left;
+				return rootMaximum;
+			}
+
 			node	*minimum_node(node *rootMinimum)
 			{
 				if (!rootMinimum)
 					return NULL;
 				while (rootMinimum->_left)
 					rootMinimum = rootMinimum->_left;
+				return rootMinimum;
+			}
+
+			node	*maximum_node(node *rootMaximum)
+			{
+				if (!rootMaximum)
+					return NULL;
+				while (rootMaximum->_right)
+					rootMaximum = rootMaximum->_left;
+				return rootMaximum;
 			}
 			
 			// ! ------------------------- Insert fonction -------------------------
 			
-			void	insertFix(node *newNode)
-			{
-				while (newNode->_parent->_color == RED)
-				{
-					if (newNode->_parent == newNode->_parent->_parent->_left)
-					{
-						if (newNode->_parent->_parent->_right->_color == RED)
-						{
-							newNode->_parent->_parent->_right->_color = BLACK;
-							newNode->_parent->_parent->_left->_color = BLACK;
-							newNode->_parent->_parent->_color = RED;
-							newNode = newNode->_parent->_parent;
-						}
-						else
-						{
-							if (newNode->_parent->_right == newNode)
-							{
-								newNode = newNode->_parent;
-								left_rotate(newNode);
-							}
-							newNode->_parent->_color = BLACK;
-							newNode->_parent->_parent->_color = RED;
-							right_rotate(newNode->_parent->_parent);
-						}
-					}
-					else
-					{
-						if (newNode->_parent->_parent->_left->_color == RED)
-						{
-							newNode->_parent->_parent->_left->_color = BLACK;
-							newNode->_parent->_parent->_right->_color = BLACK;
-							newNode->_parent->_parent->_color = RED;
-							newNode = newNode->_parent->_parent;
-						}
-						else
-						{
-							if (newNode == newNode->_parent->_left)
-							{
-								newNode = newNode->_parent;
-								right_rotate(newNode);
-							}
-							newNode->_parent->_color = BLACK;
-							newNode->_parent->_parent->_color = RED;
-							right_rotate(newNode->_parent->_parent);
-						}
-					}
-					if (newNode == _root)
-						break ;
-				}
-				_root->_color = BLACK;
-			}
 			
 			bool	insert_value(value_type data)
 			{
@@ -190,6 +173,7 @@ namespace ft
 
 			// ! ------------------- Delete fonction -------------------
 
+			
 			bool	delete_value(key_type key)
 			{
 				node		*nodeToDelete;
@@ -241,9 +225,134 @@ namespace ft
 		private:
 			node	*_root;
 
+		// ! ------------------------- Fix founction -------------------------
+
+			void	insertFix(node *newNode)
+			{
+				while (newNode->_parent->_color == RED)
+				{
+					if (newNode->_parent == newNode->_parent->_parent->_left)
+					{
+						if (newNode->_parent->_parent->_right->_color == RED)
+						{
+							newNode->_parent->_parent->_right->_color = BLACK;
+							newNode->_parent->_parent->_left->_color = BLACK;
+							newNode->_parent->_parent->_color = RED;
+							newNode = newNode->_parent->_parent;
+						}
+						else
+						{
+							if (newNode->_parent->_right == newNode)
+							{
+								newNode = newNode->_parent;
+								leftRotate(newNode);
+							}
+							newNode->_parent->_color = BLACK;
+							newNode->_parent->_parent->_color = RED;
+							rightRotate(newNode->_parent->_parent);
+						}
+					}
+					else
+					{
+						if (newNode->_parent->_parent->_left->_color == RED)
+						{
+							newNode->_parent->_parent->_left->_color = BLACK;
+							newNode->_parent->_parent->_right->_color = BLACK;
+							newNode->_parent->_parent->_color = RED;
+							newNode = newNode->_parent->_parent;
+						}
+						else
+						{
+							if (newNode == newNode->_parent->_left)
+							{
+								newNode = newNode->_parent;
+								rightRotate(newNode);
+							}
+							newNode->_parent->_color = BLACK;
+							newNode->_parent->_parent->_color = RED;
+							rightRotate(newNode->_parent->_parent);
+						}
+					}
+					if (newNode == _root)
+						break ;
+				}
+				_root->_color = BLACK;
+			}
+
+			void	delete_fix(node *x)
+			{
+				node *w;
+
+				while (x->_color == BLACK && x != _root)
+				{
+					if (x == x->_parent->_left)
+					{
+						w = x->_parent->_right;
+						if (w->_color = RED)
+						{
+							w->_color = BLACK;
+							x->_parent->_color = RED;
+							leftRotate(x->_parent);
+							w = x->_parent->_right;
+						}
+						if (w->_right->_color == BLACK && w->_left->_color == BLACK)
+						{
+							w->_color = RED;
+							x = x->_parent;
+						}
+						else 
+						{
+							if (w->_right->_color == BLACK)
+							{
+								w->_left->_color = BLACK;
+								w->_color = RED;
+								rightRotate(w);
+								w = x->_parent->_right;
+							}
+							w->_color = x->_parent->_color;
+							x->_parent->_color = BLACK;
+							w->_right->_color = BLACK;
+							leftRotate(x->_parent);
+							x = root;
+						}
+					}
+					else
+					{
+						w = x->_parent->_left;
+						if (w->_color = RED)
+						{
+							w->_color = BLACK;
+							x->_parent->_color = RED;
+							rightRotate(x->_parent);
+							w = x->_parent->_left;
+						}
+						if (w->_right->_color == BLACK && w->_left->_color == BLACK)
+						{
+							w->_color = RED;
+							x = x->_parent;
+						}
+						else 
+						{
+							if (w->_left->_color == BLACK)
+							{
+								w->_right->_color = BLACK;
+								w->_color = RED;
+								leftRotate(w);
+								w = x->_parent->_left;
+							}
+							w->_color = x->_parent->_color;
+							x->_parent->_color = BLACK;
+							w->_left->_color = BLACK;
+							rightRotate(x->_parent);
+							x = root;
+						}
+					}
+				}
+			}
+
 		// ! ---------------------- Private utilitaire ----------------------
 
-			void	left_rotate(node *x)
+			void	leftRotate(node *x)
 			{
 				node *y = x->_right;
 				
@@ -261,7 +370,7 @@ namespace ft
 				y->_left = x;
 			}
 			
-			void	right_rotate(node *y)
+			void	rightRotate(node *y)
 			{
 				node *x = y->_right;
 
