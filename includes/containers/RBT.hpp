@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/16 14:04:25 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:30:12 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 
 #include "RBT_node.hpp"
 #include "pair.hpp"
+#include <iostream>
 #include <memory>
 #include <functional>
+#include <cstddef>
 
 namespace ft
 {
-	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key,T> > >
+	template <class T, class Compare, class Alloc = std::allocator<ft::RBT_node<T> > >
 	class RBT
 	{
 		public:
-			typedef	Key												key_type;
-			typedef	T												mapped_type;
-			typedef	typename pair<const key_type,mapped_type>		value_type;
+			typedef typename T::first_type							key_type;
+			typedef	typename T::second_type							mapped_type;
+			typedef	T												value_type;
 			typedef	Compare											key_compare;
 			typedef	Alloc											allocator_type;
 			typedef	typename allocator_type::reference				reference;
@@ -35,13 +37,16 @@ namespace ft
 			typedef	typename allocator_type::const_pointer			const_pointer;
 			typedef	ptrdiff_t										difference_type;
 			typedef	size_t											size_type;
-			typedef	ft::RBT_node									node;
+			typedef	ft::RBT_node<value_type>						node;
 
-			RBT(): _root(NULL)
+			RBT(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _root(NULL)
 			{
+				this->_comp = comp;
+				this->_alloc = alloc;
+				this->_sentinel = &node(); 
 			}
 
-			RBT(const RBT rhs):
+			RBT(const RBT &rhs)
 			{
 				*this = rhs;
 			}
@@ -54,36 +59,28 @@ namespace ft
 			{
 				if (this != &rhs)
 				{
-					copy_tree(_root, _root);
+					this->_comp = rhs._comp;
+					this->_alloc = rhs._alloc;
+					this->_root = rhs._root;
+					this->sentinel = rhs.sentinel;
 				}
 				return *this;
 			}
 
-			void	copy_tree(node *localRoot, node *copyRoot)
-			{
-				*localRoot = *copyRoot;
-				if (copyRoot->_left != NULL)
-					copy_tree(localRoot->_left, localRoot->_left);
-				if (copyRoot->_right != NULL)
-					copy_tree(localRoot->_right, localRoot->_right);
-			}
 			
 			// ! -------------------------- Utilitaire --------------------------
 			
 
 			node	*find_key(key_type key)
 			{
-				node	*nodeToDelete;
 				node	*tmp;
 				
-				tmp = root;
-				nodeToDelete == NULL;
-				while (!tmp != NULL)
+				tmp = _root;
+				while (tmp != NULL)
 				{
-					y = tmp;
-					if (key_compare(key, tmp->_value.first)) //? true a < b
+					if (_comp(key, tmp->_value.first)) //? true a < b
 						tmp = tmp->_left;
-					else (key_compare(tmp->_value.first, key))
+					else if (_comp(tmp->_value.first, key))
 						tmp = tmp->_right;
 					else
 						return tmp;
@@ -115,7 +112,7 @@ namespace ft
 				return rootMaximum;
 			}
 
-			node	*minimum_node(node *rootMinimum)
+			node	*minimumNode(node *rootMinimum)
 			{
 				if (!rootMinimum)
 					return NULL;
@@ -124,7 +121,7 @@ namespace ft
 				return rootMinimum;
 			}
 
-			node	*maximum_node(node *rootMaximum)
+			node	*maximumNode(node *rootMaximum)
 			{
 				if (!rootMaximum)
 					return NULL;
@@ -136,32 +133,31 @@ namespace ft
 			// ! ------------------------- Insert fonction -------------------------
 			
 			
-			bool	insert_value(value_type data)
+			bool	insert_value(const value_type &data)
 			{
 				node	*y = NULL;
-				node	*x = _root;
 				node	*tmp;
 				node	*newNode;
 
-				newNode = allocator_type.allocate(sizeof(node));
-				allocator_type.construct(newNode, node(data));
+				newNode = _alloc.allocate(sizeof(node));
+				_alloc.construct(newNode, node(data));
 				if (_root == NULL)
 					_root = newNode;
 				else
 				{
 					tmp = _root;
-					while (!tmp != NULL)
+					while (tmp != NULL)
 					{
 						y = tmp;
-						if (key_compare(newNode->_value.first, tmp->_value.first)) //? true a < b
+						if (_comp(newNode->_value.first, tmp->_value.first)) //? true a < b
 							tmp = tmp->_left;
 						else
 							tmp = tmp->_right;
 					}
-					newNode->parent = y;
-					if (key_compare(newNode->_value.first, y->_value.first)) //? true a < b
+					newNode->_parent = y;
+					if (_comp(newNode->_value.first, y->_value.first)) //? true a < b
 						y->_left = newNode;
-					else if (key_compare(y->_value.first, newNode->_value.first))
+					else if (_comp(y->_value.first, newNode->_value.first))
 						y->_right = newNode;
 					else
 						return false;
@@ -181,7 +177,7 @@ namespace ft
 				node		*y;
 				t_RBT_color saveColor;
 				
-				nodeToDelete = find(key);
+				nodeToDelete = find_key(key);
 				if (nodeToDelete == NULL)
 					return false;
 				saveColor = nodeToDelete->_color;
@@ -197,7 +193,7 @@ namespace ft
 				}
 				else
 				{
-					y = minimum_node(nodeToDelete->right);
+					y = minimumNode(nodeToDelete->_right);
 					saveColor = y->_color;
 					x = y->_right;
 					if (y->_parent == nodeToDelete)
@@ -207,23 +203,40 @@ namespace ft
 					else
 					{
 						transplant(y, y->_right);
-						y->_right = z->_right
+						y->_right = nodeToDelete->_right;
 						y->_right->_parent = y;
 					}
 					transplant(nodeToDelete, y);
 					y->_left = nodeToDelete->_left;
 					y->_left->_parent = y;
-					y->_color = z->_color
+					y->_color = nodeToDelete->_color;
 				}
-				allocator_type.destroy(nodeToDelete);
-				allocator_type.deallocate(nodeToDelete);
+				_alloc.destroy(nodeToDelete);
+				_alloc.deallocate(nodeToDelete, sizeof(node));
 				if (saveColor == BLACK)
 					deleteFix(x);
 				return true;
 			}
 
+			void	print()
+			{
+				printHelper(_root);
+			}
+
 		private:
-			node	*_root;
+			node			*_root;
+			key_compare		_comp;
+			allocator_type	_alloc;
+			node			*sentinel;
+
+			void printHelper(node *ptr)
+			{
+				if (!ptr)
+					return ;
+				printHelper(ptr->_left);
+				std::cout << ptr->_value.first << std::endl;
+				printHelper(ptr->_right);
+			}
 
 		// ! ------------------------- Fix founction -------------------------
 
@@ -279,7 +292,7 @@ namespace ft
 				_root->_color = BLACK;
 			}
 
-			void	delete_fix(node *x)
+			void	deleteFix(node *x)
 			{
 				node *w;
 
@@ -288,7 +301,7 @@ namespace ft
 					if (x == x->_parent->_left)
 					{
 						w = x->_parent->_right;
-						if (w->_color = RED)
+						if (w->_color == RED)
 						{
 							w->_color = BLACK;
 							x->_parent->_color = RED;
@@ -313,13 +326,13 @@ namespace ft
 							x->_parent->_color = BLACK;
 							w->_right->_color = BLACK;
 							leftRotate(x->_parent);
-							x = root;
+							x = _root;
 						}
 					}
 					else
 					{
 						w = x->_parent->_left;
-						if (w->_color = RED)
+						if (w->_color == RED)
 						{
 							w->_color = BLACK;
 							x->_parent->_color = RED;
@@ -344,7 +357,7 @@ namespace ft
 							x->_parent->_color = BLACK;
 							w->_left->_color = BLACK;
 							rightRotate(x->_parent);
-							x = root;
+							x = _root;
 						}
 					}
 				}
@@ -357,7 +370,7 @@ namespace ft
 				node *y = x->_right;
 				
 				x->_right = y->_left;
-				if (x->right != NULL)
+				if (x->_right != NULL)
 					x->_right->_parent = x;
 				y->_parent = x->_parent;
 				if (x->_parent == NULL)
@@ -374,7 +387,7 @@ namespace ft
 			{
 				node *x = y->_right;
 
-				y->_left = x->right;
+				y->_left = x->_right;
 				if (y->_left != NULL)
 					y->_left->_parent = y;
 				x->_parent = y->_parent;
@@ -385,18 +398,18 @@ namespace ft
 				else
 					y->_parent->_right = x;
 				y->_parent = x;
+				x->_right = y;
+			}
 
 			void	transplant(node *a, node *b)
 			{
 				if (a == _root)
 					_root = b;
 				else if (a == a->_parent->_left)
-					a->parent->_left = b;
+					a->_parent->_left = b;
 				else
-					a->parent->_right = b;
-				b->parent = a->parent;
-			}
-				x->_right = y;
+					a->_parent->_right = b;
+				b->_parent = a->_parent;
 			}
 	};
 }

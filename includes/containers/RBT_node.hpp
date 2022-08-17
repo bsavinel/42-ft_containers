@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:44:43 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/15 14:26:28 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/17 13:35:27 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define RBT_NODE_HPP
 
 #include "pair.hpp"
+#include <stddef.h>
 
 namespace ft
 {
@@ -23,10 +24,10 @@ namespace ft
 		RED
 	}	t_RBT_color;
 
-	template <class Key, class value>
+	template <class T>
 	struct RBT_node
 	{
-		typedef	typename ft::pair<const key_type,mapped_type>		value_type;
+		typedef	T	value_type;
 
 		RBT_node	*_left;
 		RBT_node	*_right;
@@ -34,25 +35,24 @@ namespace ft
 		value_type	_value;
 		t_RBT_color	_color;
 		
-		RBT_node(): _left(NULL), _right(NULL), _value(value_type()), _color(BLACK), _parent(NULL)
+		RBT_node(): _left(NULL), _right(NULL), _parent(NULL), _value(value_type()), _color(BLACK)
 		{	
 		}
 
-		RBT_node(value_type value): _left(NULL), _right(NULL), _value(value), _color(BLACK), _parent(NULL)
+		RBT_node(value_type value): _left(NULL), _right(NULL), _parent(NULL), _value(value), _color(BLACK)
 		{
 		}
 
-		RBT_node(value_type value, RBT_node *left, RBT_node *right): _left(left), _right(right), _value(value), _color(0), _parent(NULL)
+		RBT_node(value_type value, RBT_node *left, RBT_node *right): _left(left), _right(right), _parent(NULL), _value(value), _color(BLACK)
 		{
 		}
 
-		RBT_node(value_type value, RBT_node *left, RBT_node *right, RBT_node *parent): _left(left), _right(right), _value(value), _color(0), _parent(parent)
+		RBT_node(value_type value, RBT_node *left, RBT_node *right, RBT_node *parent): _left(left), _right(right), _parent(parent), _value(value), _color(BLACK)
 		{
 		}
 
-		RBT_node(const RBT_node rhs)
+		RBT_node(const RBT_node &rhs): _left(rhs._left), _right(rhs._right), _parent(rhs._parent), _value(rhs._value), _color(rhs._color)
 		{
-			*this = rhs;
 		}
 
 		~RBT_node()
@@ -65,7 +65,7 @@ namespace ft
 			{
 				this->_left = rhs._left;
 				this->_right = rhs._right;
-				this->_isLeaf = rhs._isLeaf;
+				this->_right = rhs._parent;
 				this->_value = rhs._value;
 				this->_color = rhs._color;
 			}

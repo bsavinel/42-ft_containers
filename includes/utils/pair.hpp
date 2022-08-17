@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:52 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 11:48:02 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/17 12:25:31 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ namespace ft
 		first_type first;
 		second_type second;
 
-		pair()
+		pair() : first(first_type()), second(second_type())
 		{
 		}
 		
@@ -43,8 +43,10 @@ namespace ft
 
 		pair& operator= (const pair& pr)
 		{
-			first = pr.first;
-			second = pr.second;
+			if ( this == &pr )
+                return *this;
+			this->first = pr.first;
+			this->second = pr.second;
 			return *this;
 		}
 	};
