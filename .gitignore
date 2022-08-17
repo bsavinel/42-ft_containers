@@ -1,6 +1,7 @@
 .vscode
 *.o
 *.d
+*.nfs
 lien.cpp
 test_ft
 test_std

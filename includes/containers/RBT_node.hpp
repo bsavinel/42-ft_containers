@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:44:43 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/17 13:35:27 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/17 17:20:57 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RBT_NODE_HPP
 
 #include "pair.hpp"
-#include <stddef.h>
+#include <cstddef>
 
 namespace ft
 {
@@ -39,15 +39,7 @@ namespace ft
 		{	
 		}
 
-		RBT_node(value_type value): _left(NULL), _right(NULL), _parent(NULL), _value(value), _color(BLACK)
-		{
-		}
-
-		RBT_node(value_type value, RBT_node *left, RBT_node *right): _left(left), _right(right), _parent(NULL), _value(value), _color(BLACK)
-		{
-		}
-
-		RBT_node(value_type value, RBT_node *left, RBT_node *right, RBT_node *parent): _left(left), _right(right), _parent(parent), _value(value), _color(BLACK)
+		RBT_node(value_type value, RBT_node *left, RBT_node *right, RBT_node *parent, t_RBT_color color): _left(left), _right(right), _parent(parent), _value(value), _color(color)
 		{
 		}
 

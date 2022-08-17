@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/17 16:30:12 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/17 17:54:28 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <memory>
 #include <functional>
 #include <cstddef>
+#include <iostream>
 
 namespace ft
 {
@@ -43,7 +44,8 @@ namespace ft
 			{
 				this->_comp = comp;
 				this->_alloc = alloc;
-				this->_sentinel = &node(); 
+				this->_sentinel = new node();
+				this->_root = _sentinel;
 			}
 
 			RBT(const RBT &rhs)
@@ -62,7 +64,7 @@ namespace ft
 					this->_comp = rhs._comp;
 					this->_alloc = rhs._alloc;
 					this->_root = rhs._root;
-					this->sentinel = rhs.sentinel;
+					this->_sentinel = rhs._sentinel;
 				}
 				return *this;
 			}
@@ -76,7 +78,7 @@ namespace ft
 				node	*tmp;
 				
 				tmp = _root;
-				while (tmp != NULL)
+				while (tmp != _sentinel)
 				{
 					if (_comp(key, tmp->_value.first)) //? true a < b
 						tmp = tmp->_left;
@@ -93,7 +95,7 @@ namespace ft
 				node *rootMinimum;
 	
 				rootMinimum = _root;
-				if (!rootMinimum)
+				if (!rootMinimum || rootMinimum == _sentinel)
 					return NULL;
 				while (rootMinimum->_left)
 					rootMinimum = rootMinimum->_left;
@@ -105,7 +107,7 @@ namespace ft
 				node *rootMaximum;
 
 				rootMaximum = _root;
-				if (!rootMaximum)
+				if (!rootMaximum || rootMaximum == _sentinel)
 					return NULL;
 				while (rootMaximum->_right)
 					rootMaximum = rootMaximum->_left;
@@ -114,7 +116,7 @@ namespace ft
 
 			node	*minimumNode(node *rootMinimum)
 			{
-				if (!rootMinimum)
+				if (!rootMinimum || rootMinimum == _sentinel)
 					return NULL;
 				while (rootMinimum->_left)
 					rootMinimum = rootMinimum->_left;
@@ -123,7 +125,7 @@ namespace ft
 
 			node	*maximumNode(node *rootMaximum)
 			{
-				if (!rootMaximum)
+				if (!rootMaximum || rootMaximum == _sentinel)
 					return NULL;
 				while (rootMaximum->_right)
 					rootMaximum = rootMaximum->_left;
@@ -135,35 +137,45 @@ namespace ft
 			
 			bool	insert_value(const value_type &data)
 			{
-				node	*y = NULL;
+				node	*y = _sentinel;
 				node	*tmp;
 				node	*newNode;
 
-				newNode = _alloc.allocate(sizeof(node));
-				_alloc.construct(newNode, node(data));
-				if (_root == NULL)
-					_root = newNode;
-				else
+				tmp = _root;
+				y = NULL;
+				std::cerr << "debut recherche" << std::endl;
+				while (tmp != _sentinel)
 				{
-					tmp = _root;
-					while (tmp != NULL)
-					{
-						y = tmp;
-						if (_comp(newNode->_value.first, tmp->_value.first)) //? true a < b
-							tmp = tmp->_left;
-						else
-							tmp = tmp->_right;
-					}
-					newNode->_parent = y;
-					if (_comp(newNode->_value.first, y->_value.first)) //? true a < b
-						y->_left = newNode;
-					else if (_comp(y->_value.first, newNode->_value.first))
-						y->_right = newNode;
+					y = tmp;
+					if (_comp(data.first, tmp->_value.first)) //? true a < b
+						tmp = tmp->_left;
+					else if (_comp(tmp->_value.first, data.first))
+						tmp = tmp->_right;
 					else
 						return false;
-					newNode->_color = RED;
-					insertFix(newNode);
 				}
+
+				std::cerr << "apres recherche" << std::endl;
+				newNode = _alloc.allocate(sizeof(node));
+				_alloc.construct(newNode, node(data, _sentinel, _sentinel, _sentinel, RED));
+
+				std::cerr << "mise en place dans l'arbre" << std::endl;
+				if (y == NULL)
+				{
+					_root = newNode;
+					_root->_color = BLACK;
+					return true;
+				}
+				else if (_comp(newNode->_value.first, y->_value.first))
+					y->_left = newNode;
+				else
+					y->_right = newNode;
+				newNode->_parent = y;
+				
+				std::cerr << "debut insert fix" << std::endl;
+				if (newNode->_parent->_parent != _sentinel)
+					insertFix(newNode);
+				std::cerr << "fin insert fix" << std::endl;
 				return true;
 			}
 
@@ -181,12 +193,12 @@ namespace ft
 				if (nodeToDelete == NULL)
 					return false;
 				saveColor = nodeToDelete->_color;
-				if (nodeToDelete->_left == NULL)
+				if (nodeToDelete->_left == _sentinel)
 				{
 					x = nodeToDelete->_right;
 					transplant(nodeToDelete, x);
 				}
-				else if (nodeToDelete->_right == NULL)
+				else if (nodeToDelete->_right == _sentinel)
 				{
 					x = nodeToDelete->_left;
 					transplant(nodeToDelete, x);
@@ -227,11 +239,11 @@ namespace ft
 			node			*_root;
 			key_compare		_comp;
 			allocator_type	_alloc;
-			node			*sentinel;
+			node			*_sentinel;
 
 			void printHelper(node *ptr)
 			{
-				if (!ptr)
+				if (!ptr || ptr == _sentinel)
 					return ;
 				printHelper(ptr->_left);
 				std::cout << ptr->_value.first << std::endl;
@@ -249,7 +261,7 @@ namespace ft
 						if (newNode->_parent->_parent->_right->_color == RED)
 						{
 							newNode->_parent->_parent->_right->_color = BLACK;
-							newNode->_parent->_parent->_left->_color = BLACK;
+							newNode->_parent->_color = BLACK;
 							newNode->_parent->_parent->_color = RED;
 							newNode = newNode->_parent->_parent;
 						}
@@ -270,7 +282,7 @@ namespace ft
 						if (newNode->_parent->_parent->_left->_color == RED)
 						{
 							newNode->_parent->_parent->_left->_color = BLACK;
-							newNode->_parent->_parent->_right->_color = BLACK;
+							newNode->_parent->_color = BLACK;
 							newNode->_parent->_parent->_color = RED;
 							newNode = newNode->_parent->_parent;
 						}
@@ -367,13 +379,14 @@ namespace ft
 
 			void	leftRotate(node *x)
 			{
+				std::cerr << "debut left rotate" << std::endl;
 				node *y = x->_right;
 				
 				x->_right = y->_left;
-				if (x->_right != NULL)
+				if (x->_left != _sentinel)
 					x->_right->_parent = x;
 				y->_parent = x->_parent;
-				if (x->_parent == NULL)
+				if (x->_parent == _sentinel)
 					_root = y;
 				else if (x == x->_parent->_left)
 					x->_parent->_left = y;
@@ -381,24 +394,27 @@ namespace ft
 					x->_parent->_right = y;
 				x->_parent = y;
 				y->_left = x;
+				std::cerr << "fin left rotate" << std::endl;
 			}
 			
-			void	rightRotate(node *y)
+			void	rightRotate(node *x)
 			{
-				node *x = y->_right;
+				std::cerr << "debut right rotate" << std::endl;
+				node *y = x->_left;
 
-				y->_left = x->_right;
-				if (y->_left != NULL)
-					y->_left->_parent = y;
-				x->_parent = y->_parent;
-				if (y->_parent == NULL)
-					_root = x;
-				else if (y == y->_parent->_left)
-					y->_parent->_left = x;
+				x->_left = y->_right;
+				if (y->_right != _sentinel)
+					y->_right->_parent = x;
+				y->_parent = x->_parent;
+				if (x->_parent == _sentinel)
+					_root = y;
+				else if (x == x->_parent->_right)
+					x->_parent->_right = y;
 				else
-					y->_parent->_right = x;
-				y->_parent = x;
-				x->_right = y;
+					x->_parent->_left = y;
+				x->_parent = y;
+				y->_right = x;
+				std::cerr << "fin right rotate" << std::endl;
 			}
 
 			void	transplant(node *a, node *b)
