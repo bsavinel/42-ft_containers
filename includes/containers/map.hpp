@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/17 14:14:52 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:11:05 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ namespace ft
 			{
 				this->comp = comp;
 				this->alloc = alloc;
-				tree = RBT<value_type, Compare>(comp, alloc);
+				tree = new RBT<value_type, Compare>(comp);
 			}
 
 			// template <class InputIterator>
@@ -70,7 +70,7 @@ namespace ft
 		
 			~map()
 			{
-			
+				delete tree;
 			}
 
 		// //! ------------------------- Iterators -------------------------
@@ -143,12 +143,7 @@ namespace ft
 
 			/*pair<iterator,bool>*/void insert(const value_type& val)
 			{
-				tree.insert_value(val);
-			}
-
-			void	print()
-			{
-				tree.print();
+				tree->insert_value(val);
 			}
 
 			// iterator insert(iterator position, const value_type& val)
@@ -169,7 +164,7 @@ namespace ft
 
 			size_type erase(const key_type& k)
 			{
-				tree.delete_value(k);
+				tree->delete_value(k);
 				return 1;
 			}
 
@@ -255,7 +250,7 @@ namespace ft
 			// }
 
 		private:
-			RBT<value_type,Compare> tree;
+			RBT<value_type,Compare> *tree;
 			key_compare comp;
 			allocator_type alloc;
 	};

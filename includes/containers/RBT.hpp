@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/18 18:10:30 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:10:31 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 namespace ft
 {
-	template <class T, class Compare, class Alloc = std::allocator<ft::RBT_node<T> > >
+	template <class T, class Compare>
 	class RBT
 	{
 		public:
@@ -31,21 +31,17 @@ namespace ft
 			typedef	typename T::second_type							mapped_type;
 			typedef	T												value_type;
 			typedef	Compare											key_compare;
-			typedef	Alloc											allocator_type;
-			typedef	typename allocator_type::reference				reference;
-			typedef	typename allocator_type::const_reference		const_reference;
-			typedef	typename allocator_type::pointer				pointer;
-			typedef	typename allocator_type::const_pointer			const_pointer;
 			typedef	ptrdiff_t										difference_type;
 			typedef	size_t											size_type;
 			typedef	ft::RBT_node<value_type>						node;
 
-			RBT(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _root(NULL)
+			RBT(const key_compare& comp = key_compare()): _root(NULL)
 			{
+				std::cout << "1" << std::endl;
 				this->_comp = comp;
-				this->_alloc = alloc;
 				this->_sentinel = new node();
 				this->_root = _sentinel;
+				std::cout << "2" << std::endl;
 			}
 
 			RBT(const RBT &rhs)
@@ -55,6 +51,9 @@ namespace ft
 
 			~RBT()
 			{
+				std::cout << "salut" << std::endl;
+				destroyHelper(this->_root);
+				delete _sentinel;
 			}
 
 			RBT& operator= (const RBT& rhs)
@@ -136,8 +135,7 @@ namespace ft
 					else
 						return false;
 				}
-				newNode = _alloc.allocate(sizeof(node));
-				_alloc.construct(newNode, node(data, _sentinel, _sentinel, _sentinel, RED));
+				newNode = new node(data, _sentinel, _sentinel, _sentinel, RED);
 				if (y == NULL)
 				{
 					_root = newNode;
@@ -197,31 +195,24 @@ namespace ft
 					y->_left->_parent = y;
 					y->_color = z->_color;
 				}
-				_alloc.destroy(z);
-				_alloc.deallocate(z, sizeof(node));
+				delete z;
 				if (saveColor == BLACK)
 					deleteFix(x);
 				return true;
 			}
 
-			void	print()
-			{
-				printHelper(_root);
-			}
-
 		private:
 			node			*_root;
 			key_compare		_comp;
-			allocator_type	_alloc;
 			node			*_sentinel;
 
-			void printHelper(node *ptr)
+			void	destroyHelper(node *ptr)
 			{
 				if (!ptr || ptr == _sentinel)
 					return ;
-				printHelper(ptr->_left);
-				std::cout << ptr->_value.first << std::endl;
-				printHelper(ptr->_right);
+				destroyHelper(ptr->_left);
+				destroyHelper(ptr->_right);
+				delete ptr;
 			}
 
 		// ! ------------------------- Fix founction -------------------------
