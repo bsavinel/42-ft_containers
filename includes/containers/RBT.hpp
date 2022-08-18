@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/17 17:54:28 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:11:07 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ namespace ft
 				rootMinimum = _root;
 				if (!rootMinimum || rootMinimum == _sentinel)
 					return NULL;
-				while (rootMinimum->_left)
+				while (rootMinimum->_left != _sentinel)
 					rootMinimum = rootMinimum->_left;
 				return rootMinimum;
 			}
@@ -109,28 +109,11 @@ namespace ft
 				rootMaximum = _root;
 				if (!rootMaximum || rootMaximum == _sentinel)
 					return NULL;
-				while (rootMaximum->_right)
-					rootMaximum = rootMaximum->_left;
+				while (rootMaximum->_right != _sentinel)
+					rootMaximum = rootMaximum->_right;
 				return rootMaximum;
 			}
 
-			node	*minimumNode(node *rootMinimum)
-			{
-				if (!rootMinimum || rootMinimum == _sentinel)
-					return NULL;
-				while (rootMinimum->_left)
-					rootMinimum = rootMinimum->_left;
-				return rootMinimum;
-			}
-
-			node	*maximumNode(node *rootMaximum)
-			{
-				if (!rootMaximum || rootMaximum == _sentinel)
-					return NULL;
-				while (rootMaximum->_right)
-					rootMaximum = rootMaximum->_left;
-				return rootMaximum;
-			}
 			
 			// ! ------------------------- Insert fonction -------------------------
 			
@@ -143,7 +126,6 @@ namespace ft
 
 				tmp = _root;
 				y = NULL;
-				std::cerr << "debut recherche" << std::endl;
 				while (tmp != _sentinel)
 				{
 					y = tmp;
@@ -154,12 +136,8 @@ namespace ft
 					else
 						return false;
 				}
-
-				std::cerr << "apres recherche" << std::endl;
 				newNode = _alloc.allocate(sizeof(node));
 				_alloc.construct(newNode, node(data, _sentinel, _sentinel, _sentinel, RED));
-
-				std::cerr << "mise en place dans l'arbre" << std::endl;
 				if (y == NULL)
 				{
 					_root = newNode;
@@ -171,11 +149,8 @@ namespace ft
 				else
 					y->_right = newNode;
 				newNode->_parent = y;
-				
-				std::cerr << "debut insert fix" << std::endl;
 				if (newNode->_parent->_parent != _sentinel)
 					insertFix(newNode);
-				std::cerr << "fin insert fix" << std::endl;
 				return true;
 			}
 
@@ -184,47 +159,46 @@ namespace ft
 			
 			bool	delete_value(key_type key)
 			{
-				node		*nodeToDelete;
+				node		*z;
 				node		*x;
 				node		*y;
 				t_RBT_color saveColor;
-				
-				nodeToDelete = find_key(key);
-				if (nodeToDelete == NULL)
+								
+				z = find_key(key);
+				if (z == NULL)
 					return false;
-				saveColor = nodeToDelete->_color;
-				if (nodeToDelete->_left == _sentinel)
+				y = z;
+				saveColor = y->_color;
+				if (z->_left == _sentinel)
 				{
-					x = nodeToDelete->_right;
-					transplant(nodeToDelete, x);
+					x = z->_right;
+					transplant(z, z->_right);
 				}
-				else if (nodeToDelete->_right == _sentinel)
+				else if (z->_right == _sentinel)
 				{
-					x = nodeToDelete->_left;
-					transplant(nodeToDelete, x);
+					x = z->_left;
+					transplant(z, z->_left);
 				}
 				else
 				{
-					y = minimumNode(nodeToDelete->_right);
+					y = minimumNode(z->_right);
 					saveColor = y->_color;
 					x = y->_right;
-					if (y->_parent == nodeToDelete)
-					{
+					if (y->_parent == z)
 						x->_parent = y;
-					}
 					else
 					{
 						transplant(y, y->_right);
-						y->_right = nodeToDelete->_right;
+						y->_right = z->_right;
 						y->_right->_parent = y;
 					}
-					transplant(nodeToDelete, y);
-					y->_left = nodeToDelete->_left;
+					transplant(z, y);
+					y->_left = z->_left;
 					y->_left->_parent = y;
-					y->_color = nodeToDelete->_color;
+					y->_color = z->_color;
 				}
-				_alloc.destroy(nodeToDelete);
-				_alloc.deallocate(nodeToDelete, sizeof(node));
+				_alloc.destroy(z);
+				_alloc.deallocate(z, sizeof(node));
 				if (saveColor == BLACK)
 					deleteFix(x);
 				return true;
@@ -295,7 +269,7 @@ namespace ft
 							}
 							newNode->_parent->_color = BLACK;
 							newNode->_parent->_parent->_color = RED;
-							rightRotate(newNode->_parent->_parent);
+							leftRotate(newNode->_parent->_parent);
 						}
 					}
 					if (newNode == _root)
@@ -306,76 +280,103 @@ namespace ft
 
 			void	deleteFix(node *x)
 			{
-				node *w;
+				node *s;
 
-				while (x->_color == BLACK && x != _root)
+				while (x != _root && x->_color == BLACK)
 				{
+					std::cout << "passage" << std::endl;
 					if (x == x->_parent->_left)
 					{
-						w = x->_parent->_right;
-						if (w->_color == RED)
+						s = x->_parent->_right;
+						if (s->_color == RED)
 						{
-							w->_color = BLACK;
+							s->_color = BLACK;
 							x->_parent->_color = RED;
 							leftRotate(x->_parent);
-							w = x->_parent->_right;
+							s = x->_parent->_right;
 						}
-						if (w->_right->_color == BLACK && w->_left->_color == BLACK)
+						if (s->_right->_color == BLACK && s->_left->_color == BLACK)
 						{
-							w->_color = RED;
+							s->_color = RED;
 							x = x->_parent;
 						}
 						else 
 						{
-							if (w->_right->_color == BLACK)
+							if (s->_right->_color == BLACK)
 							{
-								w->_left->_color = BLACK;
-								w->_color = RED;
-								rightRotate(w);
-								w = x->_parent->_right;
+								s->_left->_color = BLACK;
+								s->_color = RED;
+								rightRotate(s);
+								s = x->_parent->_right;
 							}
-							w->_color = x->_parent->_color;
+							s->_color = x->_parent->_color;
 							x->_parent->_color = BLACK;
-							w->_right->_color = BLACK;
+							s->_right->_color = BLACK;
 							leftRotate(x->_parent);
 							x = _root;
 						}
 					}
 					else
 					{
-						w = x->_parent->_left;
-						if (w->_color == RED)
+						s = x->_parent->_left;
+						if (s->_color == RED)
 						{
-							w->_color = BLACK;
+							s->_color = BLACK;
 							x->_parent->_color = RED;
 							rightRotate(x->_parent);
-							w = x->_parent->_left;
+							s = x->_parent->_left;
 						}
-						if (w->_right->_color == BLACK && w->_left->_color == BLACK)
+						if (s->_right->_color == BLACK && s->_left->_color == BLACK)
 						{
-							w->_color = RED;
+							s->_color = RED;
 							x = x->_parent;
 						}
 						else 
 						{
-							if (w->_left->_color == BLACK)
+							if (s->_left->_color == BLACK)
 							{
-								w->_right->_color = BLACK;
-								w->_color = RED;
-								leftRotate(w);
-								w = x->_parent->_left;
+								s->_right->_color = BLACK;
+								s->_color = RED;
+								leftRotate(s);
+								s = x->_parent->_left;
 							}
-							w->_color = x->_parent->_color;
+							s->_color = x->_parent->_color;
 							x->_parent->_color = BLACK;
-							w->_left->_color = BLACK;
+							s->_left->_color = BLACK;
 							rightRotate(x->_parent);
 							x = _root;
 						}
 					}
 				}
+				x->_color = BLACK;
 			}
 
 		// ! ---------------------- Private utilitaire ----------------------
+
+			node	*minimumNode(node *rootMinimum)
+			{
+				if (!rootMinimum || rootMinimum == _sentinel)
+					return NULL;
+				while (rootMinimum->_left != _sentinel)
+					rootMinimum = rootMinimum->_left;
+				return rootMinimum;
+			}
+
+			node	*maximumNode(node *rootMaximum)
+			{
+				if (!rootMaximum || rootMaximum == _sentinel)
+					return NULL;
+				while (rootMaximum->_right != _sentinel)
+					rootMaximum = rootMaximum->_right;
+				return rootMaximum;
+			}
+
+			void resetSentinel()
+			{
+				_sentinel->_parent = NULL;
+				_sentinel->_right = NULL;
+				_sentinel->_left = NULL;
+			}
 
 			void	leftRotate(node *x)
 			{
@@ -402,6 +403,7 @@ namespace ft
 				std::cerr << "debut right rotate" << std::endl;
 				node *y = x->_left;
 
+				resetSentinel();
 				x->_left = y->_right;
 				if (y->_right != _sentinel)
 					y->_right->_parent = x;
@@ -419,7 +421,7 @@ namespace ft
 
 			void	transplant(node *a, node *b)
 			{
-				if (a == _root)
+				if (a->_parent == _sentinel)
 					_root = b;
 				else if (a == a->_parent->_left)
 					a->_parent->_left = b;
