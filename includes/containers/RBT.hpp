@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/18 15:11:07 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/08/18 18:10:30 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,6 @@ namespace ft
 
 				while (x != _root && x->_color == BLACK)
 				{
-					std::cout << "passage" << std::endl;
 					if (x == x->_parent->_left)
 					{
 						s = x->_parent->_right;
@@ -371,16 +370,8 @@ namespace ft
 				return rootMaximum;
 			}
 
-			void resetSentinel()
-			{
-				_sentinel->_parent = NULL;
-				_sentinel->_right = NULL;
-				_sentinel->_left = NULL;
-			}
-
 			void	leftRotate(node *x)
 			{
-				std::cerr << "debut left rotate" << std::endl;
 				node *y = x->_right;
 				
 				x->_right = y->_left;
@@ -395,15 +386,12 @@ namespace ft
 					x->_parent->_right = y;
 				x->_parent = y;
 				y->_left = x;
-				std::cerr << "fin left rotate" << std::endl;
 			}
 			
 			void	rightRotate(node *x)
 			{
-				std::cerr << "debut right rotate" << std::endl;
 				node *y = x->_left;
 
-				resetSentinel();
 				x->_left = y->_right;
 				if (y->_right != _sentinel)
 					y->_right->_parent = x;
@@ -416,7 +404,6 @@ namespace ft
 					x->_parent->_left = y;
 				x->_parent = y;
 				y->_right = x;
-				std::cerr << "fin right rotate" << std::endl;
 			}
 
 			void	transplant(node *a, node *b)
