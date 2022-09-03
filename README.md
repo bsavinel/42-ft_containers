@@ -124,6 +124,21 @@ Cette règle signifie: *Substitution Failure Is Not An Error*. Cela veut dire qu
 </details>
 
 <details>
+<summary> <h2> Red-black tree: </h2> </summary> 
+
+Un red-black tree est un arbre binaire particulier, pour qu'il soit qualifier comme tel il doit suivre ces règles :
+- Chaque noeud de l'arbre est soit rouge soit noir
+- La racine est noire.
+- Les enfants d'un noeud rouge sont noir
+- Tous les nœuds ont 2 enfants, si aucun élément ne peut être placé, il y a donc une feuille qui est
+- Le chemin de la racine à n'importe quelle feuille (NIL) contient le même nombre de noeuds noirs.
+
+Le red-black tree est utilisé pour optimiser l'insertion est la délétion d'élément. En effet, il n'est pas forcément équilibré ce qui peut rendre la recherche plus longue que dans un AVL (un type d'arbre équilibré) par exemple.
+
+</details>
+
+
+<details>
 <summary> <h2> Mot clé: inline </h2> </summary> 
 
 Le mot clé "inline" se place avant la déclaration d'une fonction. Il permet de dire au compilateur que lorsqu'il rencontre une fonction comme celle-ci il doit inseret une copie de la fonction. Cepandant le compilateur peut ne pas le faire pour proteger la compilatiom pour deux cas: les fonctions recursives et les fonctions referencées par un pointeur.
