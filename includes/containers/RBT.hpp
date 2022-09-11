@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/18 19:10:31 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:22:53 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 #include <functional>
 #include <cstddef>
 #include <iostream>
+#include <memory>
 
 namespace ft
 {
-	template <class T, class Compare>
+	template <class T, class Compare, class Alloc = std::allocator<T> >
 	class RBT
 	{
 		public:
@@ -33,20 +34,21 @@ namespace ft
 			typedef	Compare											key_compare;
 			typedef	ptrdiff_t										difference_type;
 			typedef	size_t											size_type;
-			typedef	ft::RBT_node<value_type>						node;
+			typedef Alloc											allocator_type;
+			typedef	ft::RBT_node<value_type, allocator_type>		node;
 
-			RBT(const key_compare& comp = key_compare()): _root(NULL)
+			RBT(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _root(NULL)
 			{
-				std::cout << "1" << std::endl;
 				this->_comp = comp;
 				this->_sentinel = new node();
 				this->_root = _sentinel;
-				std::cout << "2" << std::endl;
+				_alloc = alloc;
 			}
 
-			RBT(const RBT &rhs)
+			RBT(const RBT &rhs, const allocator_type& alloc = allocator_type())
 			{
 				*this = rhs;
+				_alloc = alloc;
 			}
 
 			~RBT()
@@ -60,10 +62,10 @@ namespace ft
 			{
 				if (this != &rhs)
 				{
+					_alloc.destroy(this);
 					this->_comp = rhs._comp;
 					this->_alloc = rhs._alloc;
-					this->_root = rhs._root;
-					this->_sentinel = rhs._sentinel;
+					//! Mettre iterator pour inserer les element corectement
 				}
 				return *this;
 			}
@@ -71,6 +73,12 @@ namespace ft
 			
 			// ! -------------------------- Utilitaire --------------------------
 			
+			bool	*empty() const
+			{
+				if (_root == _sentinel)
+					return true;
+				return false;
+			}
 
 			node	*find_key(key_type key)
 			{
@@ -135,7 +143,7 @@ namespace ft
 					else
 						return false;
 				}
-				newNode = new node(data, _sentinel, _sentinel, _sentinel, RED);
+				newNode = new node(data, _sentinel, _sentinel, _sentinel, RED, _alloc);
 				if (y == NULL)
 				{
 					_root = newNode;
@@ -157,7 +165,7 @@ namespace ft
 			
 			bool	delete_value(key_type key)
 			{
-				node		*z;
+				node		*z = NULL;
 				node		*x;
 				node		*y;
 				t_RBT_color saveColor;
@@ -201,10 +209,25 @@ namespace ft
 				return true;
 			}
 
+			void	print()
+			{
+				this->printHelper(_root);	
+			}
+			
 		private:
 			node			*_root;
 			key_compare		_comp;
 			node			*_sentinel;
+			allocator_type	_alloc;
+
+			void	printHelper(node *nd)
+			{
+				if (nd == _sentinel)
+					return;
+				this->printHelper(nd->_left);
+				std::cout << "{ " << nd->_value.first << " , " << nd->_value.second << " }" << std::endl;
+				this->printHelper(nd->_right);
+			}
 
 			void	destroyHelper(node *ptr)
 			{

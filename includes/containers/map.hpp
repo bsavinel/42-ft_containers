@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/18 19:11:05 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:30:48 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,32 +45,43 @@ namespace ft
 		
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
 			{
-				this->comp = comp;
-				this->alloc = alloc;
-				tree = new RBT<value_type, Compare>(comp);
+				this->_comp = comp;
+				this->_alloc = alloc;
 			}
 
-			// template <class InputIterator>
-			// map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-			// {
+			template <class InputIterator>
+			map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+			{
+				for (;first != last; first++)
+					_tree.insert_value(*first);
+				this->_comp = comp;
+				this->_alloc = alloc;
+			}
 
-			// }
+			/*void	print()
+			{
+				tree.print();
+			}*/
 		
-			// map (const map& x)
-			// {
-			
-			// }
+			map (const map& rhs)
+			{
+				*this = rhs;
+			}
 		
-			// map& operator= (const map& x)
-			// {
-			
-			// }
+			map& operator= (const map& rhs)
+			{
+				if (this != &rhs)
+				{
+					this->_alloc = rhs._alloc;
+					this->_comp = rhs._comp;
+					this->_tree = rhs._tree;
+				}
+			}
 		
 		// //! ------------------------- Destructor -------------------------
 		
 			~map()
 			{
-				delete tree;
 			}
 
 		// //! ------------------------- Iterators -------------------------
@@ -117,20 +128,22 @@ namespace ft
 		
 		// //! ------------------------- Capacity -------------------------
 
-			// bool empty() const
-			// {
+			bool empty() const
+			{
+				return _tree.empty();
+			}
 
-			// }
-
-			// size_type size() const
-			// {
-			
-			// }
+			size_type size() const
+			{
+				
+			}
 		
-			// size_type max_size() const
-			// {
-			
-			// }
+			size_type max_size() const
+			{
+				std::allocator<_tree::node> tmp;
+				
+				tmp.max_size();
+			}
 		
 		// //! ------------------------- Element access  -------------------------
 
@@ -143,7 +156,7 @@ namespace ft
 
 			/*pair<iterator,bool>*/void insert(const value_type& val)
 			{
-				tree->insert_value(val);
+				_tree.insert_value(val);
 			}
 
 			// iterator insert(iterator position, const value_type& val)
@@ -151,51 +164,68 @@ namespace ft
 
 			// }
 
-			// template <class InputIterator>
-			// void insert(InputIterator first, InputIterator last)
-			// {
-				
-			// }
+			template <class InputIterator>
+			void insert(InputIterator first, InputIterator last)
+			{
+				for (;first != last; first++)
+					_tree.insert_value(*first);
+			}
 
-			// void erase(iterator position)
-			// {
-
-			// }
+			void erase(iterator position)
+			{
+				_tree.delete_value(first.base()->_value.first);
+			}
 
 			size_type erase(const key_type& k)
 			{
-				tree->delete_value(k);
-				return 1;
+				if(_tree.delete_value(k));
+					return 1;
+				return 0;
 			}
 
-			// void erase (iterator first, iterator last)
-			// {
-			
-			// }
+			void erase (iterator first, iterator last)
+			{
+				for (;first != last; first++)
+					_tree.delete_value(first.base()->_value.first);
+			}
 
-			// void swap (map& x)
-			// {
+			void swap (map& x)
+			{
+				RBT<value_type, Compare, Alloc>	tmpTree;
+				key_compare						tmpComp;
+				allocator_type					tmpAlloc;
 
-			// }
+				tmpTree = this->_tree;
+				tmpComp = this->_comp;
+				tmpAlloc = this->_alloc;
+
+				this->_tree = rhs._tree;
+				this->_comp = rhs._comp;
+				this->_alloc = rhs._alloc;
+
+				rhs._tree = tmpTree;
+				rhs._comp = tmpComp;
+				rhs._alloc = tmpAlloc;	
+			}
 		
 			// void clear()
 			// {
-			
+			//		this->erase(this->begin(), this->end());
 			// }
 
 		// //! ------------------------- Observers -------------------------
 
-			// key_compare key_comp() const
-			// {
-			
-			// }
+			key_compare key_comp() const
+			{
+				return _comp;
+			}
 
 			// value_compare value_comp() const
 			// {
-			
+				
 			// }
 
-			// 	// ! ------------------------- Operations -------------------------
+		// 	//! ------------------------- Operations -------------------------
 
 			// iterator find (const key_type& k)
 			// {
@@ -231,12 +261,7 @@ namespace ft
 			// {
 
 			// }
-		
-			// pair<const_iterator,const_iterator> equal_range (const key_type& k) const
-			// {
 
-			// }
-		
 			// pair<iterator,iterator> equal_range (const key_type& k)
 			// {
 			
@@ -244,15 +269,15 @@ namespace ft
 
 		// //! ------------------------- Allocator -------------------------
 
-			// allocator_type get_allocator() const
-			// {
-			
-			// }
+			allocator_type get_allocator() const
+			{
+				return _alloc;
+			}
 
 		private:
-			RBT<value_type,Compare> *tree;
-			key_compare comp;
-			allocator_type alloc;
+			RBT<value_type, Compare, Alloc>	_tree;
+			key_compare						_comp;
+			allocator_type					_alloc;
 	};
 }
 
