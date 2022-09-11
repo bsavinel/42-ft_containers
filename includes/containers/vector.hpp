@@ -78,9 +78,7 @@ namespace ft
 				reserve(std::distance(first, last));
 				_size = std::distance(first, last);
 				for (size_type i = 0; i < _size; i++, first++)
-				{
-					*(_start + i) = *(first);
-				}
+					_alloc.construct(_start + i,*(first));
 				_end = _start + _size;
 			}
 
@@ -100,7 +98,8 @@ namespace ft
 					reserve(x._size);
 					this->clear();
 					for (size_type i = 0; i < x._size; i++)
-						*(this->_start + i) = *(x._start + i); 
+						_alloc.construct(this->_start + i, *(x._start + i));
+					//	*(this->_start + i) = *(x._start + i); 
 					this->_size = x._size;
 					this->_end = this->_start + this->_size;
 				}
@@ -181,7 +180,8 @@ namespace ft
 				{
 					reserve(n);
 					for (size_type i = _size; i < n; i++)
-						*(_start + i) = val;
+						_alloc.construct(_start + i, val);
+						// *(_start + i) = val;
 				}
 				_size = n;
 				_end = _start + n;
@@ -209,7 +209,11 @@ namespace ft
 					throw std::length_error("vector::reserve");
 				new_stock = _alloc.allocate(sizeof(value_type) * n);
 				for (size_type i = 0; i < _size; i++)
-					*(new_stock + i) = *(_start + i);
+				{
+					_alloc.construct(new_stock + i, *(_start + i));
+					// *(new_stock + i) = *(_start + i);
+					_alloc.destroy(_start + i); // ? pas sur avec ajout de construct
+				}
 				if (_capacity != 0)
 					_alloc.deallocate(_start, sizeof(value_type) * _capacity);
 				_start = new_stock;
@@ -273,7 +277,8 @@ namespace ft
 				reserve(std::distance(first, last));
 				_size = std::distance(first, last);
 				for (size_type i = 0; i < _size; i++, first++)
-					*(_start + i) = *first;
+					_alloc.construct(_start + i, *first);
+					// *(_start + i) = *first;
 				_end = _start + _size;
 			}
 			
@@ -283,7 +288,8 @@ namespace ft
 				reserve(n);
 				_size = n;
 				for (size_type i = 0; i < _size; i++)
-					*(_start + i) = val;
+					_alloc.construct(_start + i, val);
+					//*(_start + i) = val;
 				_end = _start + _size;
 			}
 
@@ -293,7 +299,8 @@ namespace ft
 					reserve(1);
 				if (_size + 1 > _capacity)
 					reserve(_capacity * 2);
-				*_end = val;
+				_alloc.construct(_end, val);
+				//*_end = val;
 				_end = _end + 1;
 				_size++;
 			}
@@ -315,10 +322,14 @@ namespace ft
 				position = _start + dist_sp;
 
 				iterator tmp = _end;
-				for (;tmp != position; tmp--) 
-					*(tmp) = *(tmp - 1);
-				*position = val;
-					
+				for (;tmp != position; tmp--)
+				{
+					_alloc.construct(tmp, *(tmp - 1));
+					_alloc.destroy(tmp - 1);
+					// *(tmp) = *(tmp - 1);
+				}
+				_alloc.construct(position, val);
+				// *position = val;
 				_end = _end + 1;
 				_size = _size + 1;
 				return position;
@@ -343,12 +354,15 @@ namespace ft
 				iterator new_place = (_end - 1) + n;
 				for (;tmp != (position - 1); tmp--, new_place--) 
 				{
-					*(new_place) = *(tmp);
+					_alloc.construct(new_place, *tmp);
+					_alloc.destroy(tmp);
+					// *(new_place) = *(tmp);
 				}
 				new_place++;
 				for (;position != new_place; position++)
 				{
-					*(position) = val;
+					_alloc.construct(position, val);
+					// *(position) = val;
 				}
 
 				_end = _end + n;
@@ -378,12 +392,15 @@ namespace ft
 				iterator new_place = (_end - 1) + dist_lf;
 				for (;tmp != (position - 1); tmp--, new_place--) 
 				{
-					*(new_place) = *(tmp);
+					_alloc.construct(new_place, *tmp);
+					_alloc.destroy(tmp);
+					// *(new_place) = *(tmp);
 				}
 
 				for (;first != last; position++, first++)
 				{
-					*(position) = *(first);
+					_alloc.construct(position, *(first));
+					// *(position) = *(first);
 				}
 				_end = _end + dist_lf;
 				_size = new_size;
@@ -393,7 +410,11 @@ namespace ft
 			{
 				_alloc.destroy(position);
 				for (size_type i = 1; position + i != _end; i++)
-					*(position + i - 1) = *(position + i);
+				{
+					_alloc.destroy(position + i - 1);
+					_alloc.construct(position + i - 1, *(position + i));
+					// *(position + i - 1) = *(position + i);
+				}
 				_size--;
 				_end = _end - 1;
 				return (position);
@@ -410,7 +431,9 @@ namespace ft
 				}
 				for (; first != _end; first++, tmp++)
 				{
-					*tmp = *first;
+					_alloc.construct(tmp, *(first));
+					_alloc.destroy(first);
+					// *tmp = *first;
 				}
 				_end = tmp;
 				return ret;
