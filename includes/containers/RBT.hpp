@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/11 17:22:53 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:10:08 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <cstddef>
 #include <iostream>
 #include <memory>
+#include "pair.hpp"
+#include "make_pair.hpp"
 
 namespace ft
 {
@@ -69,7 +71,6 @@ namespace ft
 				}
 				return *this;
 			}
-
 			
 			// ! -------------------------- Utilitaire --------------------------
 			
@@ -80,7 +81,7 @@ namespace ft
 				return false;
 			}
 
-			node	*find_key(key_type key)
+			node	*find_key(const key_type key)
 			{
 				node	*tmp;
 				
@@ -121,11 +122,16 @@ namespace ft
 				return rootMaximum;
 			}
 
+			node	*giveSentinel()
+			{
+				return _sentinel;
+			}
+
 			
 			// ! ------------------------- Insert fonction -------------------------
 			
 			
-			bool	insert_value(const value_type &data)
+			ft::pair<node *,bool>	insert_value(const value_type &data)
 			{
 				node	*y = _sentinel;
 				node	*tmp;
@@ -141,14 +147,14 @@ namespace ft
 					else if (_comp(tmp->_value.first, data.first))
 						tmp = tmp->_right;
 					else
-						return false;
+						return ft::make_pair(_sentinel, false);
 				}
 				newNode = new node(data, _sentinel, _sentinel, _sentinel, RED, _alloc);
 				if (y == NULL)
 				{
 					_root = newNode;
 					_root->_color = BLACK;
-					return true;
+					return ft::make_pair(newNode, true);
 				}
 				else if (_comp(newNode->_value.first, y->_value.first))
 					y->_left = newNode;
@@ -157,7 +163,7 @@ namespace ft
 				newNode->_parent = y;
 				if (newNode->_parent->_parent != _sentinel)
 					insertFix(newNode);
-				return true;
+				return ft::make_pair(newNode, true);
 			}
 
 			// ! ------------------- Delete fonction -------------------

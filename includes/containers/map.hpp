@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/17 13:10:37 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/17 21:36:31 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define MAP_HPP
 
 #include "pair.hpp"
+#include "make_pair.hpp"
 #include "RBT.hpp"
+#include "RBT_node.hpp"
 #include <memory>
 #include <functional>
 #include "reverse_iterator.hpp"
@@ -35,14 +37,37 @@ namespace ft
 			typedef	typename allocator_type::const_reference		const_reference;
 			typedef	typename allocator_type::pointer				pointer;
 			typedef	typename allocator_type::const_pointer			const_pointer;
-			typedef	iterator_map<Key, T, Compare, Alloc>			iterator;
-			typedef	const iterator									const_iterator;
+			typedef	ft::Iterator_map<Key, T, Compare, Alloc>		iterator;
+			typedef	ft::constIterator_map<Key, T, Compare, Alloc>	const_iterator;
 			typedef	typename ft::reverse_iterator<iterator>			reverse_iterator;
 			typedef	typename ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 			typedef	ptrdiff_t										difference_type;
 			typedef	size_t											size_type;
 		
-		// //! ------------------------- Constructor -------------------------
+		class value_compare
+		{
+			public:
+				typedef	value_type	first_argument_type;
+				typedef	value_type	second_argument_type;
+				typedef	bool		result_type;
+				
+				value_compare()
+				{
+					comp = Compare();
+				}
+
+				bool operator()(first_argument_type a, second_argument_type b)
+				{
+					if (!comp(a, b) && !comp(b, a))
+						return true;
+					return false;
+				}
+				
+			private:
+				Compare	comp;
+		};
+		
+		//! ------------------------- Constructor -------------------------
 		
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
 			{
@@ -58,11 +83,6 @@ namespace ft
 				this->_comp = comp;
 				this->_alloc = alloc;
 			}
-
-			/*void	print()
-			{
-				tree.print();
-			}*/
 		
 			map (const map& rhs)
 			{
@@ -79,55 +99,55 @@ namespace ft
 				}
 			}
 		
-		// //! ------------------------- Destructor -------------------------
+		//! ------------------------- Destructor -------------------------
 		
 			~map()
 			{
 			}
 
-		// //! ------------------------- Iterators -------------------------
+		//! ------------------------- Iterators -------------------------
 
-			// iterator begin()
-			// {
+			iterator begin()
+			{
+				return iterator(&_tree, _tree.giveSentinel, _tree.minimum(), 0);
+			}
 
-			// }
+			const_iterator begin() const
+			{
+				return const_iterator(&_tree, _tree.giveSentinel, _tree.minimum(), 0);
+			}
 
-			// const_iterator begin() const
-			// {
+			iterator end()
+			{
+				return iterator(&_tree, _tree.giveSentinel, _tree.giveSentinel, 1);
+			}
 
-			// }
+			const_iterator end() const
+			{
+				return const_iterator(&_tree, _tree.giveSentinel, _tree.giveSentinel, 1);
+			}
 
-			// iterator end()
-			// {
-
-			// }
-
-			// const_iterator end() const
-			// {
-
-			// }
-
-			// reverse_iterator rbegin()
-			// {
-
-			// }
+			reverse_iterator rbegin()
+			{
+				return reverse_iterator(iterator(&_tree, _tree.giveSentinel, _tree.minimum(), 0));
+			}
 			
-			// const_reverse_iterator rbegin() const
-			// {
+			const_reverse_iterator rbegin() const
+			{
+				return const_reverse_iterator(const_iterator(&_tree, _tree.giveSentinel, _tree.minimum(), 0));
+			}
 
-			// }
+			reverse_iterator rend()
+			{
+				return reverse_iterator(iterator(&_tree, _tree.giveSentinel, _tree.giveSentinel, 1));
+			}
 
-			// reverse_iterator rend()
-			// {
-
-			// }
-
-			// const_reverse_iterator rend() const
-			// {
-
-			// }
+			const_reverse_iterator rend() const
+			{
+				return const_reverse_iterator(const_iterator(&_tree, _tree.giveSentinel, _tree.giveSentinel, 1));
+			}
 		
-		// //! ------------------------- Capacity -------------------------
+		//! ------------------------- Capacity -------------------------
 
 			bool empty() const
 			{
@@ -142,28 +162,42 @@ namespace ft
 			size_type max_size() const
 			{
 				std::allocator<_tree::node> tmp;
-				
-				tmp.max_size();
+				return(tmp.max_size());
 			}
 		
-		// //! ------------------------- Element access  -------------------------
+		//! ------------------------- Element access  -------------------------
 
-			// mapped_type& operator[] (const key_type& k)
-			// {
-
-			// }
-		
-		// //! ------------------------- Modifiers -------------------------
-
-			/*pair<iterator,bool>*/void insert(const value_type& val)
+			mapped_type& operator[] (const key_type& k)
 			{
-				_tree.insert_value(val);
+				node *tmp;
+
+				tmp = _tree.find_key(k);
+				if (tmp)
+					return tmp->_value.second;
+				_tree.insert_value(value_type(k, mapped_type()));
+				return _tree.find_key(k)->_value.second;
+			}
+		
+		//! ------------------------- Modifiers -------------------------
+
+			ft::pair<iterator,bool> insert(const value_type& val)
+			{
+				pair<node *, bool> ret;
+				
+				ret = _tree.insert_value(val);
+				return ft::make_pair(iterator(_tree, _tree.giveSentinel(), ret.fisrt, 0), ret.second);
 			}
 
-			// iterator insert(iterator position, const value_type& val)
-			// {
-
-			// }
+			iterator insert(iterator position, const value_type& val)
+			{
+				pair<node *, bool> ret;
+				
+				(void) position;
+				ret = _tree.insert_value(val);
+				if (ret.second == false)
+					return this->end();
+				return iterator(_tree, _tree.giveSentinel(), ret.fisrt ,0);
+			}
 
 			template <class InputIterator>
 			void insert(InputIterator first, InputIterator last)
@@ -174,7 +208,7 @@ namespace ft
 
 			void erase(iterator position)
 			{
-				_tree.delete_value(first.base()->_value.first);
+				_tree.delete_value(first->first);
 			}
 
 			size_type erase(const key_type& k)
@@ -187,7 +221,7 @@ namespace ft
 			void erase (iterator first, iterator last)
 			{
 				for (;first != last; first++)
-					_tree.delete_value(first.base()->_value.first);
+					_tree.delete_value(first->first);
 			}
 
 			void swap (map& x)
@@ -209,66 +243,123 @@ namespace ft
 				rhs._alloc = tmpAlloc;	
 			}
 		
-			// void clear()
-			// {
-			//		this->erase(this->begin(), this->end());
-			// }
+			void clear()
+			{
+				this->erase(this->begin(), this->end());
+			}
 
-		// //! ------------------------- Observers -------------------------
+		//! ------------------------- Observers -------------------------
 
 			key_compare key_comp() const
 			{
 				return _comp;
 			}
 
-			// value_compare value_comp() const
-			// {
+			value_compare value_comp() const
+			{
+				return value_compare();
+			}
+
+		//! ------------------------- Operations -------------------------
+
+			iterator find (const key_type& k)
+			{
+				node *tmp;
+
+				tmp = _tree.find_key(k);
+				if (tmp)
+					return iterator(&_tree, tmp, tree.giveSentinel(), 0);
+				return end();
+			}
+		
+			const_iterator find (const key_type& k) const
+			{
+				node *tmp;
+
+				tmp = _tree.find_key(k);
+				if (tmp)
+					return const_iterator(&_tree, tmp, tree.giveSentinel(), 0);
+				return end();
+			}
+
+			size_type count (const key_type& k) const
+			{
+				if (_tree.find_key(k) == tree.giveSentinel())
+					return 0;
+				return 1;
+			}
+
+			iterator lower_bound (const key_type& k)
+			{
+				iterator it;
 				
-			// }
+				for (it = this->begin(); it != this->end(); it++)
+				{
+					if (_comp(it->first, k) || !_comp(k, it->first)) //?true si a < b
+						return it;
+				}
+				return end();
+			}
 
-		// 	//! ------------------------- Operations -------------------------
+			const_iterator lower_bound (const key_type& k) const
+			{
+				const_iterator it;
+				
+				for (it = this->begin(); it != this->end(); it++)
+				{
+					if (_comp(it->first, k) || !_comp(k, it->first)) //?true si a < b
+						return it;
+				}
+				return end();
+			}
 
-			// iterator find (const key_type& k)
-			// {
-
-			// }
+			iterator upper_bound (const key_type& k)
+			{
+				iterator it;
+				
+				for (it = this->begin(); it != this->end(); it++)
+				{
+					if (_comp(k, it->first) || !_comp(it->first, k)) //?true si a < b
+						return it;
+				}
+				return end();
+			}
 		
-			// const_iterator find (const key_type& k) const
-			// {
+			const_iterator upper_bound (const key_type& k) const
+			{
+				const_iterator it;
+				
+				for (it = this->begin(); it != this->end(); it++)
+				{
+					if (_comp(k, it->first) || !_comp(it->first, k)) //?true si a < b
+						return it;
+				}
+				return end();
+			}
+
+			pair<const_iterator,const_iterator>	equal_range (const key_type& k) const
+			{
+				const_iterator it;
+
+				it = this->find(k)
+				if (it != this->end())
+					return ft::make_pair(it, it);
+				it = upper_bound(k);
+				return ft::make_pair(it, it);
+			}
+
+			pair<iterator,iterator>		equal_range (const key_type& k)
+			{
+				iterator it;
+
+				it = this->find(k)
+				if (it != this->end())
+					return ft::make_pair(it, it);
+				it = upper_bound(k);
+				return ft::make_pair(it, it);
+			}
 			
-			// }
-
-			// size_type count (const key_type& k) const
-			// {
-			
-			// }
-
-			// iterator lower_bound (const key_type& k)
-			// {
-
-			// }
-
-			// const_iterator lower_bound (const key_type& k) const
-			// {
-	
-			// }
-
-			// iterator upper_bound (const key_type& k)
-			// {
-
-			// }
-		
-			// const_iterator upper_bound (const key_type& k) const
-			// {
-
-			// }
-
-			// pair<iterator,iterator> equal_range (const key_type& k)
-			// {
-			
-			// }
-
-		// //! ------------------------- Allocator -------------------------
+		//! ------------------------- Allocator -------------------------
 
 			allocator_type get_allocator() const
 			{
@@ -276,7 +367,8 @@ namespace ft
 			}
 
 		private:
-			RBT_node<value_type, Alloc>		_tree;
+			typedef	ft::RBT_node<value_type, allocator_type>	node;
+			RBT<value_type, Alloc>			_tree;
 			key_compare						_comp;
 			allocator_type					_alloc;
 	};
