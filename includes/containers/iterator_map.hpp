@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/18 21:38:14 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:20:40 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ namespace ft
 				}
 				while (_current->_parent != _sentinel && _current->_parent->_right == _current)
 					_current = _current->_parent;
+				_current = _current->_parent;
 				return *this;
 			}
 
@@ -118,6 +119,7 @@ namespace ft
 				}
 				while (_current->_parent != _sentinel && _current->_parent->_left == _current)
 					_current = _current->_parent;
+				_current = _current->_parent;
 				return *this;
 			}
 
@@ -241,6 +243,7 @@ namespace ft
 				}
 				while (_current->_parent != _sentinel && _current->_parent->_right == _current)
 					_current = _current->_parent;
+				_current = _current->_parent;
 				return *this;
 			}
 
@@ -269,6 +272,7 @@ namespace ft
 				}
 				while (_current->_parent != _sentinel && _current->_parent->_left == _current)
 					_current = _current->_parent;
+				_current = _current->_parent;
 				return *this;
 			}
 

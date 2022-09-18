@@ -14,11 +14,121 @@ Ce projet vise à recoder les containers: vector, stack et map du C++98, mais po
 ## Containers:
 
 
-<details>
+<details open>
 <summary> <h3> Vector: </h3> </summary>
 
 Vector est un container ayant pour but de stocker ces éléments dans un espace continue de la mémoire. Ce qui permet de changer d'élément non seulement grâce au iterateurs, mais aussi avec des pointeurs comme un tableau normal.
 
+<details>
+<summary> fonction membre : </summary>
+
+<details>
+<summary> constructeur : </summary>
+
+Il y a quatre constructeurs:
+- un contructeur sans argument pour creer simplement creer le vecteur
+- un constructeur par compie
+- un constructeur avec un page d'iterateur a mettre a l'iterieur a l'initalisation
+- un constructeur avec un taille de base, le deuxieme argument est la valeur a mettre dans tout les case, si elle n'est as presente la valeur du constructeur par default est utilise
+
+Le dernier argument de chaque constructeur est l'alocateur utiise par le vecteur, si rien n'est precise un "alocator_type" seras instencie.
+
+</details>
+
+
+<details>
+<summary> destructeur : </summary>
+
+Detruit le vecteur en liberant l'espace meoire aloue par celui-ci et en detruissant tout les obet a l'interieur. 
+
+</details>
+
+<details>
+<summary> operateur "=" : </summary>
+
+Creer une copie profonde d'un autre vecteur touten suprimant l'original
+
+</details>
+
+<details>
+<summary> begin : </summary>
+
+Renvoie un iterateur sur le premier element
+
+</details>
+
+<details>
+<summary> end : </summary>
+
+Renvoie un iterateur sur ce qu'il y a apres le dernier element
+
+</details>
+
+<details>
+<summary> rbegin : </summary>
+
+Renvoie un reverse iterateur sur ce qu'il y a apres le dernier element. donc l'incrementation va le raproche de begin
+
+</details>
+
+<details>
+<summary> rend : </summary>
+
+Renvoie un reverse iterateur sur le premier element. donc l'incrementation va le raproche de end
+
+</details>
+
+<details>
+<summary> size : </summary>
+
+Renvoie le nombre d'element dans le vecteur
+
+</details>
+
+<details>
+<summary> max_size : </summary>
+
+Renvoie le nombre maximum d'element dans le vecteur
+
+</details>
+
+<details>
+<summary> resize : </summary>
+
+Si n, le premier argument designant la nouvelle taille, est inferieur a size alors le taille est reduite a n en detruissant les element apres.<br>
+Sinon des elements sont ajoute jusqu'a atteindre n en utillisant le constructeur par default ou le second argument si il est present. Si la capacite n'est pas assez grande alors, capacity seras egal a n.
+
+</details>
+
+<details>
+<summary> capacity : </summary>
+
+Renvoie le nombre d'element que peut aceuille le vecteur avant de devoir s'agrandir.
+
+</details>
+
+<details>
+<summary> &emsp; : </summary>
+
+
+</details>
+
+
+<details>
+<summary> empty : </summary>
+
+Revoie true si le vecteur est vide.
+
+</details>
+
+<details>
+<summary> reserve : </summary>
+
+Si la taille donne en argument est inferieur a la capacity ou superieur a max_size alors rienn'est fait. Sinon il aloue la taille passe en argument.
+
+</details>
+
+</details>
 </details>
 
 <details>

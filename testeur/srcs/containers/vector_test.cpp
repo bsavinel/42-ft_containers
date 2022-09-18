@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:01:19 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/22 14:03:15 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:34:06 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,60 @@
 #include "testeur.hpp"
 #include <iostream>
 #include <string>
+#include <stdlib.h>
+
+template <typename T>
+class foo {
+	public:
+		typedef T	value_type;
+
+		foo(void) : value(), _verbose(false) { };
+		foo(value_type src, const bool verbose = false) : value(src), _verbose(verbose) { };
+		foo(foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose) { };
+		~foo(void) { if (this->_verbose) std::cout << "~foo::foo()" << std::endl; };
+		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
+		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
+		foo &operator=(value_type src) { this->value = src; return *this; };
+		foo &operator=(foo const &src) {
+			if (this->_verbose || src._verbose)
+				std::cout << "foo::operator=(foo) CALLED" << std::endl;
+			this->value = src.value;
+			return *this;
+		};
+		value_type	getValue(void) const { return this->value; };
+		void		switchVerbose(void) { this->_verbose = !(this->_verbose); };
+
+		operator value_type(void) const {
+			return value_type(this->value);
+		}
+	private:
+		value_type	value;
+		bool		_verbose;
+};
+
+template <typename T>
+std::ostream	&operator<<(std::ostream &o, foo<T> const &bar) {
+	o << bar.getValue();
+	return o;
+}
+// --- End of class foo
+
+template <typename T>
+T	inc(T it, int n)
+{
+	while (n-- > 0)
+		++it;
+	return (it);
+}
+
+template <typename T>
+T	dec(T it, int n)
+{
+	while (n-- > 0)
+		--it;
+	return (it);
+}
+
 
 using namespace NAMESPACE_USE;
 
@@ -53,10 +107,84 @@ void	printSize(vector<T> const &vct, bool print_content = true)
 	std::cout << "###############################################" << std::endl;
 }
 
+template <typename Ite_1, typename Ite_2>
+void ft_eq_ope(const Ite_1 &first, const Ite_2 &second, const bool redo = 1)
+{
+	std::cout << (first < second) << std::endl;
+	std::cout << (first <= second) << std::endl;
+	std::cout << (first > second) << std::endl;
+	std::cout << (first >= second) << std::endl;
+	if (redo)
+		ft_eq_ope(second, first, 0);
+}
+
 void	vector_test()
 {
-	std::cout << std::endl << std::endl << "Test vector:" << std::endl << std::endl;
-	/*{
+	const int size = 5;
+	vector<foo<int> > vct(size);
+	vector<foo<int> >::reverse_iterator it_0(vct.rbegin());
+	vector<foo<int> >::reverse_iterator it_1(vct.rend());
+	vector<foo<int> >::reverse_iterator it_mid;
+
+	vector<foo<int> >::const_reverse_iterator cit_0 = vct.rbegin();
+	vector<foo<int> >::const_reverse_iterator cit_1;
+	vector<foo<int> >::const_reverse_iterator cit_mid;
+
+	for (int i = size; it_0 != it_1; --i)
+		*it_0++ = i;
+	printSize(vct, 1);
+	
+	it_0 = vct.rbegin();
+	cit_1 = vct.rend();
+	it_mid = it_0 + 3;
+	cit_mid = it_0 + 3; 
+	cit_mid = cit_0 + 3; 
+	cit_mid = it_mid;
+
+	std::cout << std::boolalpha;
+	std::cout << ((it_0 + 3 == cit_0 + 3) && (cit_0 + 3 == it_mid)) << std::endl;
+
+	std::cout << "\t\tft_eq_ope:" << std::endl;
+	// regular it
+	ft_eq_ope(it_0 + 3, it_mid);
+	ft_eq_ope(it_0, it_1);
+	ft_eq_ope(it_1 - 3, it_mid);
+	// const it
+	ft_eq_ope(cit_0 + 3, cit_mid);
+	ft_eq_ope(cit_0, cit_1);
+	ft_eq_ope(cit_1 - 3, cit_mid);
+	// both it
+	ft_eq_ope(it_0 + 3, cit_mid);
+	ft_eq_ope(it_mid, cit_0 + 3);
+	ft_eq_ope(it_0, cit_1);
+	ft_eq_ope(it_1, cit_0);
+	ft_eq_ope(it_1 - 3, cit_mid);
+	ft_eq_ope(it_mid, cit_1 - 3);
+	exit(0);
+	
+}
+	/*std::cout << std::endl << std::endl << "Test vector:" << std::endl << std::endl;
+	
+	vector<int> vct;
+	vector<int>::iterator it = vct.begin();
+	vector<int>::const_iterator cit = vct.begin();
+
+	vector<int>::reverse_iterator rit(it);
+
+	vector<int>::const_reverse_iterator crit(rit);
+	vector<int>::const_reverse_iterator crit_(it);
+	vector<int>::const_reverse_iterator crit_2(cit);*/
+
+	/* error expected
+	TESTED_NAMESPACE::vector<int>::reverse_iterator rit_(crit);
+	TESTED_NAMESPACE::vector<int>::reverse_iterator rit2(cit);
+	TESTED_NAMESPACE::vector<int>::iterator it2(rit);
+	TESTED_NAMESPACE::vector<int>::const_iterator cit2(crit);
+	*/
+
+	/*std::cout << "OK" << std::endl;	
+
+	{
 		vector<int> test1;
 
 		std::cout << test1.size() << " " << test1.capacity() << std::endl;
@@ -292,7 +420,7 @@ void	vector_test()
 			vct3.insert(vct3.end(), i);
 		vct3.insert(vct3.begin() + 1, 2, 111);
 		printSize(vct3);
-	}*/
+	}
 	{
 		const int size = 5;
 		vector<int> vct(size);
@@ -319,4 +447,26 @@ void	vector_test()
 		std::cout << *(it - 0).base() << std::endl;
 		std::cout << *(it - 1).base() << std::endl;
 	}
-}
+	{
+
+		vector<int> vct(4);
+		vector<int> vct2(4);
+	
+		cmp(vct, vct);  // 0
+		cmp(vct, vct2); // 1
+	
+		vct2.resize(10);
+	
+		cmp(vct, vct2); // 2
+		cmp(vct2, vct); // 3
+	
+		vct[2] = 42;
+	
+		cmp(vct, vct2); // 4
+		cmp(vct2, vct); // 5
+	
+		swap(vct, vct2);
+	
+		cmp(vct, vct2); // 6
+		cmp(vct2, vct); // 7
+	}*/
