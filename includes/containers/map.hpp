@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/18 13:55:21 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/18 15:46:02 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ namespace ft
 
 		private:
 			typedef	ft::RBT_node<value_type, allocator_type>	node;
-		
+
 		public:
 			class value_compare
 			{
@@ -70,9 +70,9 @@ namespace ft
 				private:
 					Compare	comp;
 			};
-		
+
 		//! ------------------------- Constructor -------------------------
-		
+
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
 			{
 				this->_comp = comp;
@@ -102,9 +102,9 @@ namespace ft
 					this->_tree = rhs._tree;
 				}
 			}
-		
+
 		//! ------------------------- Destructor -------------------------
-		
+
 			~map()
 			{
 			}
@@ -113,44 +113,44 @@ namespace ft
 
 			iterator begin()
 			{
-				return iterator(&_tree, _tree.giveSentinel, _tree.minimum(), 0);
+				return iterator(&_tree, _tree.giveSentinel(), _tree.minimum(), 0);
 			}
 
 			const_iterator begin() const
 			{
-				return const_iterator(&_tree, _tree.giveSentinel, _tree.minimum(), 0);
+				return const_iterator(&_tree, _tree.giveSentinel(), _tree.minimum(), 0);
 			}
 
 			iterator end()
 			{
-				return iterator(&_tree, _tree.giveSentinel, _tree.giveSentinel, 1);
+				return iterator(&_tree, _tree.giveSentinel(), _tree.giveSentinel(), 1);
 			}
 
 			const_iterator end() const
 			{
-				return const_iterator(&_tree, _tree.giveSentinel, _tree.giveSentinel, 1);
+				return const_iterator(&_tree, _tree.giveSentinel(), _tree.giveSentinel(), 1);
 			}
 
 			reverse_iterator rbegin()
 			{
-				return reverse_iterator(iterator(&_tree, _tree.giveSentinel, _tree.minimum(), 0));
+				return reverse_iterator(iterator(&_tree, _tree.giveSentinel(), _tree.minimum(), 0));
 			}
 			
 			const_reverse_iterator rbegin() const
 			{
-				return const_reverse_iterator(const_iterator(&_tree, _tree.giveSentinel, _tree.minimum(), 0));
+				return const_reverse_iterator(const_iterator(&_tree, _tree.giveSentinel(), _tree.minimum(), 0));
 			}
 
 			reverse_iterator rend()
 			{
-				return reverse_iterator(iterator(&_tree, _tree.giveSentinel, _tree.giveSentinel, 1));
+				return reverse_iterator(iterator(&_tree, _tree.giveSentinel(), _tree.giveSentinel(), 1));
 			}
 
 			const_reverse_iterator rend() const
 			{
-				return const_reverse_iterator(const_iterator(&_tree, _tree.giveSentinel, _tree.giveSentinel, 1));
+				return const_reverse_iterator(const_iterator(&_tree, _tree.giveSentinel(), _tree.giveSentinel(), 1));
 			}
-		
+
 		//! ------------------------- Capacity -------------------------
 
 			bool empty() const
@@ -160,7 +160,7 @@ namespace ft
 
 			size_type size() const
 			{
-				
+				return _tree.size();
 			}
 		
 			size_type max_size() const
@@ -168,7 +168,7 @@ namespace ft
 				std::allocator<node> tmp;
 				return(tmp.max_size());
 			}
-		
+
 		//! ------------------------- Element access  -------------------------
 
 			mapped_type& operator[] (const key_type& k)
@@ -181,7 +181,7 @@ namespace ft
 				_tree.insert_value(value_type(k, mapped_type()));
 				return _tree.find_key(k)->_value.second;
 			}
-		
+
 		//! ------------------------- Modifiers -------------------------
 
 			ft::pair<iterator,bool> insert(const value_type& val)
@@ -362,7 +362,7 @@ namespace ft
 				it = upper_bound(k);
 				return ft::make_pair(it, it);
 			}
-			
+
 		//! ------------------------- Allocator -------------------------
 
 			allocator_type get_allocator() const
@@ -371,7 +371,7 @@ namespace ft
 			}
 
 		private:
-			RBT<value_type, Compare, Alloc>			_tree;
+			RBT<value_type, Compare, Alloc>	_tree;
 			key_compare						_comp;
 			allocator_type					_alloc;
 	};
