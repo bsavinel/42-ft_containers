@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/17 21:36:31 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/18 13:55:21 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,29 +43,33 @@ namespace ft
 			typedef	typename ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 			typedef	ptrdiff_t										difference_type;
 			typedef	size_t											size_type;
-		
-		class value_compare
-		{
-			public:
-				typedef	value_type	first_argument_type;
-				typedef	value_type	second_argument_type;
-				typedef	bool		result_type;
-				
-				value_compare()
-				{
-					comp = Compare();
-				}
 
-				bool operator()(first_argument_type a, second_argument_type b)
-				{
-					if (!comp(a, b) && !comp(b, a))
-						return true;
-					return false;
-				}
-				
-			private:
-				Compare	comp;
-		};
+		private:
+			typedef	ft::RBT_node<value_type, allocator_type>	node;
+		
+		public:
+			class value_compare
+			{
+				public:
+					typedef	value_type	first_argument_type;
+					typedef	value_type	second_argument_type;
+					typedef	bool		result_type;
+					
+					value_compare()
+					{
+						comp = Compare();
+					}
+
+					bool operator()(first_argument_type a, second_argument_type b)
+					{
+						if (!comp(a, b) && !comp(b, a))
+							return true;
+						return false;
+					}
+					
+				private:
+					Compare	comp;
+			};
 		
 		//! ------------------------- Constructor -------------------------
 		
@@ -161,7 +165,7 @@ namespace ft
 		
 			size_type max_size() const
 			{
-				std::allocator<_tree::node> tmp;
+				std::allocator<node> tmp;
 				return(tmp.max_size());
 			}
 		
@@ -182,10 +186,10 @@ namespace ft
 
 			ft::pair<iterator,bool> insert(const value_type& val)
 			{
-				pair<node *, bool> ret;
+				ft::pair<node *, bool> ret;
 				
 				ret = _tree.insert_value(val);
-				return ft::make_pair(iterator(_tree, _tree.giveSentinel(), ret.fisrt, 0), ret.second);
+				return ft::make_pair(iterator(&_tree, _tree.giveSentinel(), ret.first, 0), ret.second);
 			}
 
 			iterator insert(iterator position, const value_type& val)
@@ -208,12 +212,12 @@ namespace ft
 
 			void erase(iterator position)
 			{
-				_tree.delete_value(first->first);
+				_tree.delete_value(position->first);
 			}
 
 			size_type erase(const key_type& k)
 			{
-				if(_tree.delete_value(k));
+				if(_tree.delete_value(k))
 					return 1;
 				return 0;
 			}
@@ -234,13 +238,13 @@ namespace ft
 				tmpComp = this->_comp;
 				tmpAlloc = this->_alloc;
 
-				this->_tree = rhs._tree;
-				this->_comp = rhs._comp;
-				this->_alloc = rhs._alloc;
+				this->_tree = x._tree;
+				this->_comp = x._comp;
+				this->_alloc = x._alloc;
 
-				rhs._tree = tmpTree;
-				rhs._comp = tmpComp;
-				rhs._alloc = tmpAlloc;	
+				x._tree = tmpTree;
+				x._comp = tmpComp;
+				x._alloc = tmpAlloc;	
 			}
 		
 			void clear()
@@ -268,7 +272,7 @@ namespace ft
 
 				tmp = _tree.find_key(k);
 				if (tmp)
-					return iterator(&_tree, tmp, tree.giveSentinel(), 0);
+					return iterator(&_tree, tmp, _tree.giveSentinel(), 0);
 				return end();
 			}
 		
@@ -278,13 +282,13 @@ namespace ft
 
 				tmp = _tree.find_key(k);
 				if (tmp)
-					return const_iterator(&_tree, tmp, tree.giveSentinel(), 0);
+					return const_iterator(&_tree, tmp, _tree.giveSentinel(), 0);
 				return end();
 			}
 
 			size_type count (const key_type& k) const
 			{
-				if (_tree.find_key(k) == tree.giveSentinel())
+				if (_tree.find_key(k) == _tree.giveSentinel())
 					return 0;
 				return 1;
 			}
@@ -341,7 +345,7 @@ namespace ft
 			{
 				const_iterator it;
 
-				it = this->find(k)
+				it = this->find(k);
 				if (it != this->end())
 					return ft::make_pair(it, it);
 				it = upper_bound(k);
@@ -352,7 +356,7 @@ namespace ft
 			{
 				iterator it;
 
-				it = this->find(k)
+				it = this->find(k);
 				if (it != this->end())
 					return ft::make_pair(it, it);
 				it = upper_bound(k);
@@ -367,8 +371,7 @@ namespace ft
 			}
 
 		private:
-			typedef	ft::RBT_node<value_type, allocator_type>	node;
-			RBT<value_type, Alloc>			_tree;
+			RBT<value_type, Compare, Alloc>			_tree;
 			key_compare						_comp;
 			allocator_type					_alloc;
 	};

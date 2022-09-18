@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/12 09:48:29 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/18 13:10:35 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ namespace ft
 			template< class U >
 			reverse_iterator& operator=( const reverse_iterator<U>& other )
 			{
-				this->_current = other._current;
+				this->_current = other.base();
+				return *this;
 			}
 
 			reference operator*() const

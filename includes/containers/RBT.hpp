@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/17 21:10:08 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/18 13:11:12 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ namespace ft
 			
 			// ! -------------------------- Utilitaire --------------------------
 			
-			bool	*empty() const
+			bool	empty() const
 			{
 				if (_root == _sentinel)
 					return true;
