@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/18 13:11:12 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/18 15:00:02 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ namespace ft
 				return false;
 			}
 
-			node	*find_key(const key_type key)
+			node	*find_key(const key_type key) const
 			{
 				node	*tmp;
 				
@@ -98,7 +98,7 @@ namespace ft
 				return NULL;
 			}
 
-			node	*minimum()
+			node	*minimum() const
 			{
 				node *rootMinimum;
 	
@@ -110,7 +110,7 @@ namespace ft
 				return rootMinimum;
 			}
 
-			node	*maximum()
+			node	*maximum() const
 			{
 				node *rootMaximum;
 
@@ -122,7 +122,7 @@ namespace ft
 				return rootMaximum;
 			}
 
-			node	*giveSentinel()
+			node	*giveSentinel() const
 			{
 				return _sentinel;
 			}
@@ -215,9 +215,17 @@ namespace ft
 				return true;
 			}
 
-			void	print()
+			void	print() const
 			{
 				this->printHelper(_root);	
+			}
+
+			size_t	size() const
+			{
+				size_t i = 0;
+
+				this->sizeHelper(_root, &i);
+				return i;
 			}
 			
 		private:
@@ -226,13 +234,22 @@ namespace ft
 			node			*_sentinel;
 			allocator_type	_alloc;
 
-			void	printHelper(node *nd)
+			void	printHelper(node *nd) const
 			{
 				if (nd == _sentinel)
 					return;
 				this->printHelper(nd->_left);
 				std::cout << "{ " << nd->_value.first << " , " << nd->_value.second << " }" << std::endl;
 				this->printHelper(nd->_right);
+			}
+
+			void	sizeHelper(node *nd, size_t *i) const
+			{
+				if (nd == _sentinel)
+					return;
+				(*i)++;
+				this->sizeHelper(nd->_left, i);
+				this->sizeHelper(nd->_right, i);
 			}
 
 			void	destroyHelper(node *ptr)
