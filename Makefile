@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/09/18 14:46:34 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/07/25 13:29:31 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,15 +97,15 @@ $(TEST_FT): $(OBJS_FT)
 
 $(OBJS_PATH)%_std.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) $(CPPFLAGS) -D TESTED_NAMESPACE=std -D NB_NAMESPACE=1 -MMD -c $< -o $@ $(INCS)
+	$(CC) $(CPPFLAGS) -D NAMESPACE_USE=std -D NB_NAMESPACE=1 -MMD -c $< -o $@ $(INCS)
 
 $(OBJS_PATH)%_std11.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) -Wall -Wextra -Werror -D TESTED_NAMESPACE=std -D NB_NAMESPACE=1 -MMD -c $< -o $@ $(INCS)
+	$(CC) -Wall -Wextra -Werror -D NAMESPACE_USE=std -D NB_NAMESPACE=1 -MMD -c $< -o $@ $(INCS)
 
 $(OBJS_PATH)%_ft.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) $(CPPFLAGS) -D TESTED_NAMESPACE=ft -D NB_NAMESPACE=0 -MMD -c $< -o $@ $(INCS)
+	$(CC) $(CPPFLAGS) -D NAMESPACE_USE=ft -D NB_NAMESPACE=0 -MMD -c $< -o $@ $(INCS)
 
 clean :
 	$(RM) $(OBJS_PATH)
