@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/18 22:24:18 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:48:45 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ namespace ft
 				this->_current = rhs._current;
 				this->_sentinel = rhs._sentinel;
 				this->_tree = rhs._tree;
-				this->_sensDepassement = _sensDepassement;
+				this->_sensDepassement = rhs._sensDepassement;
 				return *this;
 			}
 
@@ -216,7 +216,7 @@ namespace ft
 				this->_current = rhs._current;
 				this->_sentinel = rhs._sentinel;
 				this->_tree = rhs._tree;
-				this->_sensDepassement = _sensDepassement;
+				this->_sensDepassement = rhs._sensDepassement;
 				return *this;
 			}
 
@@ -268,7 +268,7 @@ namespace ft
 					_current = _current->_left;
 					while (_current->_right != _sentinel)
 						_current = _current->_right;
-					return *this;
+					return *this; 
 				}
 				while (_current->_parent != _sentinel && _current->_parent->_left == _current)
 					_current = _current->_parent;
@@ -290,6 +290,7 @@ namespace ft
 			
 			friend bool operator== (const constIterator_type& lhs, const constIterator_type& rhs)
 			{
+				//std::cout << "entre  dans operateur" << std::endl;
 				if (lhs._current == rhs._current && lhs._sentinel == rhs._sentinel && lhs._tree == rhs._tree)
 				{
 					if (lhs._current == lhs._sentinel && lhs._sensDepassement != rhs._sensDepassement)

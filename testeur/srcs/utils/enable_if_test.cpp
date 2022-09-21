@@ -6,38 +6,28 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:03:13 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 15:59:25 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:58:04 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NAMESPACE_USE
-# define NAMESPACE_USE std
-# define NB_NAMESPACE 1
+#ifndef TESTED_NAMESPACE
+# define TESTED_NAMESPACE ft
 #endif
 
-//? partie if pour namespace std
-//? partie else pour namespace ft
-
-#if NB_NAMESPACE
-# include <type_traits>
-#else
-# include "is_integral.hpp"
-# include "enable_if.hpp"
-#endif
-
+#include <type_traits>
+#include "is_integral.hpp"
+#include "enable_if.hpp"
 #include "testeur.hpp"
 #include <iostream>
 
-using namespace NAMESPACE_USE;
-
 template <class T>
-typename enable_if<is_integral<T>::value ,bool>::type is_odd (T i)
+typename TESTED_NAMESPACE::enable_if<TESTED_NAMESPACE::is_integral<T>::value ,bool>::type is_odd (T i)
 {
 	return bool(i%2);
 }
 
 template <class T>
-typename enable_if<is_integral<T>::value ,bool>::type is_even (T i)
+typename TESTED_NAMESPACE::enable_if<TESTED_NAMESPACE::is_integral<T>::value ,bool>::type is_even (T i)
 {
 	return !bool(i%2);
 }

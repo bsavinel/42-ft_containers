@@ -6,19 +6,12 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:15:26 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/08/15 09:54:08 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:57:07 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NAMESPACE_USE
-# define NAMESPACE_USE std
-# define NB_NAMESPACE 1
-#endif
-
 #include "testeur.hpp"
 #include <iostream>
-
-using namespace NAMESPACE_USE;
 
 int main()
 {

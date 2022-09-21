@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:11:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/18 22:18:08 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:47:15 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,9 +171,7 @@ void	map_test()
 	ft_const_bound(mp, 50);
 
 	printSize(mp);
-	printf("coucou\n");
 	mp.lower_bound(3)->second = 404;
-	printf("recoucou\n");
 	mp.upper_bound(7)->second = 842;
 	ft_bound(mp, 5);
 	ft_bound(mp, 7);

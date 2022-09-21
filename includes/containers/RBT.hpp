@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/18 15:00:02 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:19:53 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ namespace ft
 
 			~RBT()
 			{
-				std::cout << "salut" << std::endl;
 				destroyHelper(this->_root);
 				delete _sentinel;
 			}

@@ -6,29 +6,19 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:22:48 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/18 16:03:37 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:52:25 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NAMESPACE_USE
-# define NAMESPACE_USE std
-# define NB_NAMESPACE 1
+#ifndef TESTED_NAMESPACE
+# define TESTED_NAMESPACE ft
 #endif
 
-//? partie if pour namespace std
-//? partie else pour namespace ft
-
-#if NB_NAMESPACE
-# include <algorithm>
-#else
-//# include "equal.hpp"
-#endif
-
+#include <algorithm>
+#include "equal.hpp"
 #include "testeur.hpp"
 #include <iostream>
 #include <vector>
-
-using namespace NAMESPACE_USE;
 
 bool mypredicate (int i, int j)
 {
@@ -47,18 +37,18 @@ void	equal_test()
 	int myints[] = {20,40,60,80,100};               //   myints: 20 40 60 80 100
 	std::vector<int>myvector (myints,myints+5);     // myvector: 20 40 60 80 100
 
-	if (equal (myvector.begin(), myvector.end(), myints))
+	if (TESTED_NAMESPACE::equal(myvector.begin(), myvector.end(), myints))
 		std::cout << "The contents of both sequences are equal." << std::endl;
 	else
 		std::cout << "The contents of both sequences differ." << std::endl;
 
 	myvector[3]=81;
-	if (equal (myvector.begin(), myvector.end(), myints, mypredicate))
+	if (TESTED_NAMESPACE::equal(myvector.begin(), myvector.end(), myints, mypredicate))
 		std::cout << "The contents of both sequences are equal." << std::endl;
 	else
 		std::cout << "The contents of both sequences differ." << std::endl;
 
-	if (equal (myvector.begin(), myvector.end(), myints, mypredicate2))
+	if (TESTED_NAMESPACE::equal(myvector.begin(), myvector.end(), myints, mypredicate2))
 		std::cout << "The contents of both sequences are equal." << std::endl;
 	else
 		std::cout << "The contents of both sequences differ." << std::endl;

@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/18 22:24:31 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:39:51 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <functional>
 #include "reverse_iterator.hpp"
 #include "iterator_map.hpp"
+#include <iostream>
 
 namespace ft
 {
@@ -133,22 +134,22 @@ namespace ft
 
 			reverse_iterator rbegin()
 			{
-				return reverse_iterator(iterator(&_tree, _tree.giveSentinel(), _tree.minimum(), 0));
+				return reverse_iterator(end());
 			}
 			
 			const_reverse_iterator rbegin() const
 			{
-				return const_reverse_iterator(const_iterator(&_tree, _tree.giveSentinel(), _tree.minimum(), 0));
+				return const_reverse_iterator(end());
 			}
 
 			reverse_iterator rend()
 			{
-				return reverse_iterator(iterator(&_tree, _tree.giveSentinel(), _tree.giveSentinel(), 1));
+				return reverse_iterator(begin());
 			}
 
 			const_reverse_iterator rend() const
 			{
-				return const_reverse_iterator(const_iterator(&_tree, _tree.giveSentinel(), _tree.giveSentinel(), 1));
+				return const_reverse_iterator(begin());
 			}
 
 		//! ------------------------- Capacity -------------------------
@@ -299,7 +300,7 @@ namespace ft
 				
 				for (it = this->begin(); it != this->end(); it++)
 				{
-					if (_comp(it->first, k) || !_comp(k, it->first)) //?true si a < b
+					if (!_comp(it->first, k)) //?true si a < b
 						return it;
 				}
 				return end();
@@ -311,7 +312,7 @@ namespace ft
 				
 				for (it = this->begin(); it != this->end(); it++)
 				{
-					if (_comp(it->first, k) || !_comp(k, it->first)) //?true si a < b
+					if (!_comp(it->first, k)) //?true si a < b
 						return it;
 				}
 				return end();
@@ -323,7 +324,7 @@ namespace ft
 				
 				for (it = this->begin(); it != this->end(); it++)
 				{
-					if (_comp(k, it->first) || !_comp(it->first, k)) //?true si a < b
+					if (_comp(k, it->first)) //?true si a < b
 						return it;
 				}
 				return end();
@@ -335,7 +336,7 @@ namespace ft
 				
 				for (it = this->begin(); it != this->end(); it++)
 				{
-					if (_comp(k, it->first) || !_comp(it->first, k)) //?true si a < b
+					if (_comp(k, it->first)) //?true si a < b
 						return it;
 				}
 				return end();
@@ -343,24 +344,12 @@ namespace ft
 
 			pair<const_iterator,const_iterator>	equal_range (const key_type& k) const
 			{
-				const_iterator it;
-
-				it = this->find(k);
-				if (it != this->end())
-					return ft::make_pair(it, it);
-				it = upper_bound(k);
-				return ft::make_pair(it, it);
+				return ft::make_pair(lower_bound(k), upper_bound(k));
 			}
 
 			pair<iterator,iterator>		equal_range (const key_type& k)
 			{
-				iterator it;
-
-				it = this->find(k);
-				if (it != this->end())
-					return ft::make_pair(it, it);
-				it = upper_bound(k);
-				return ft::make_pair(it, it);
+				return ft::make_pair(lower_bound(k), upper_bound(k));
 			}
 
 		//! ------------------------- Allocator -------------------------
