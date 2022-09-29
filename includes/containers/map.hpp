@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/21 20:18:40 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/29 19:07:05 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ namespace ft
 			typedef	ft::RBT_node<value_type, allocator_type>	node;
 
 		public:
-			class value_compare
+			/*class value_compare
 			{
 				public:
 					typedef	value_type	first_argument_type;
@@ -70,7 +70,7 @@ namespace ft
 					
 				private:
 					Compare	comp;
-			};
+			};*/
 
 		//! ------------------------- Constructor -------------------------
 
@@ -114,22 +114,22 @@ namespace ft
 
 			iterator begin()
 			{
-				return iterator(&_tree, _tree.giveSentinel(), _tree.minimum(), 0);
+				return iterator(_tree.giveSentinel(), _tree.minimum(), 0);
 			}
 
 			const_iterator begin() const
 			{
-				return const_iterator(&_tree, _tree.giveSentinel(), _tree.minimum(), 0);
+				return const_iterator(_tree.giveSentinel(), _tree.minimum(), 0);
 			}
 
 			iterator end()
 			{
-				return iterator(&_tree, _tree.giveSentinel(), _tree.giveSentinel(), 1);
+				return iterator(_tree.giveSentinel(), _tree.giveSentinel(), 1);
 			}
 
 			const_iterator end() const
 			{
-				return const_iterator(&_tree, _tree.giveSentinel(), _tree.giveSentinel(), 1);
+				return const_iterator(_tree.giveSentinel(), _tree.giveSentinel(), 1);
 			}
 
 			reverse_iterator rbegin()
@@ -190,7 +190,7 @@ namespace ft
 				ft::pair<node *, bool> ret;
 				
 				ret = _tree.insert_value(val);
-				return ft::make_pair(iterator(&_tree, _tree.giveSentinel(), ret.first, 0), ret.second);
+				return ft::make_pair(iterator(_tree.giveSentinel(), ret.first, 0), ret.second);
 			}
 
 			iterator insert(iterator position, const value_type& val)
@@ -201,7 +201,7 @@ namespace ft
 				ret = _tree.insert_value(val);
 				if (ret.second == false)
 					return this->end();
-				return iterator(_tree, _tree.giveSentinel(), ret.fisrt ,0);
+				return iterator(_tree.giveSentinel(), ret.fisrt ,0);
 			}
 
 			template <class InputIterator>
@@ -260,10 +260,10 @@ namespace ft
 				return _comp;
 			}
 
-			value_compare value_comp() const
+			/*value_compare value_comp() const
 			{
 				return value_compare();
-			}
+			}*/
 
 		//! ------------------------- Operations -------------------------
 
@@ -273,7 +273,7 @@ namespace ft
 
 				tmp = _tree.find_key(k);
 				if (tmp)
-					return iterator(&_tree, _tree.giveSentinel(), tmp, 0);
+					return iterator(_tree.giveSentinel(), tmp, 0);
 				return end();
 			}
 		
@@ -283,7 +283,7 @@ namespace ft
 
 				tmp = _tree.find_key(k);
 				if (tmp)
-					return const_iterator(&_tree, _tree.giveSentinel(), tmp, 0);
+					return const_iterator(_tree.giveSentinel(), tmp, 0);
 				return end();
 			}
 

@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/21 22:31:07 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/29 19:04:34 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,14 @@ namespace ft
 			typedef	typename ft::Iterator_map<Key, T, Compare, Alloc>		iterator_type;
 			typedef	typename ft::constIterator_map<Key, T, Compare, Alloc>	constIterator_type;
 			typedef	typename ft::RBT_node<value_type, Alloc>				node;
-			typedef	typename ft::RBT<value_type, Compare, Alloc>			RBTtree;
 
 		public:
             IteratorBase_map()
 			{
 			}
 
-			IteratorBase_map(const RBTtree *tree, node *sentinel, node *start, int sensDepassement)
+			IteratorBase_map(node *sentinel, node *start, int sensDepassement)
 			{
-				_tree = tree;
 				_sentinel = sentinel;
 				_current = start;
 				_sensDepassement = sensDepassement;
@@ -65,12 +63,11 @@ namespace ft
 			~IteratorBase_map()
 			{
 			}
-
+			
 			iteratorBase_type& operator=(const iteratorBase_type& rhs)
 			{
 				this->_current = rhs._current;
 				this->_sentinel = rhs._sentinel;
-				this->_tree = rhs._tree;
 				this->_sensDepassement = rhs._sensDepassement;
 				return *this;
 			}
@@ -80,7 +77,7 @@ namespace ft
 				if (_current == _sentinel)
 				{
 					if (_sensDepassement == -1)
-						_current = _tree->minimum();
+						_current = _current->_left;
 					return *this;
 				}
 				_sensDepassement = 1;
@@ -109,7 +106,7 @@ namespace ft
 				if (_current == _sentinel)
 				{
 					if (_sensDepassement == 1)
-						_current = _tree->maximum();
+						_current = _current->_right;
 					return *this;
 				}
 				_sensDepassement = -1;
@@ -146,7 +143,7 @@ namespace ft
 			template<class Key1, class T1, class Compare1, class Alloc1, class Key2, class T2, class Compare2, class Alloc2>
 			friend inline bool operator== (const IteratorBase_map<Key1, T1, Compare1, Alloc1>& lhs, const IteratorBase_map<Key2, T2, Compare2, Alloc2>& rhs)
 			{
-				if (lhs._current == rhs._current && lhs._sentinel == rhs._sentinel && lhs._tree == rhs._tree)
+				if (lhs._current == rhs._current && lhs._sentinel == rhs._sentinel)
 				{
 					if (lhs._current == lhs._sentinel && lhs._sensDepassement != rhs._sensDepassement)
 						return false;
@@ -162,7 +159,6 @@ namespace ft
 			}
 		
 		private:
-			RBTtree	*_tree;
 			node	*_sentinel;
 			node	*_current;
 			int		_sensDepassement;
@@ -185,16 +181,15 @@ namespace ft
 			typedef	typename ft::Iterator_map<Key, T, Compare, Alloc>		iterator_type;
 			typedef	typename ft::constIterator_map<Key, T, Compare, Alloc>	constIterator_type;
 			typedef	typename ft::RBT_node<value_type, Alloc>				node;
-			typedef	typename ft::RBT<value_type, Compare, Alloc>			RBTtree;
 		
 		public:
 			Iterator_map()
 			{
 			}
 				
-			Iterator_map(const RBTtree *tree, node *sentinel, node *start, int sensDepassement)
+			Iterator_map(node *sentinel, node *start, int sensDepassement)
 			{
-				_current = iteratorBase_type(tree, sentinel, start, sensDepassement);
+				_current = iteratorBase_type(sentinel, start, sensDepassement);
 			}
 
 			Iterator_map(const iterator_type& rhs)
@@ -286,10 +281,10 @@ namespace ft
 			constIterator_map()
 			{
 			}
-				
-			constIterator_map(const RBTtree *tree, node *sentinel, node *start, int sensDepassement)
+
+			constIterator_map(node *sentinel, node *start, int sensDepassement)
 			{
-				_current = iteratorBase_type(tree, sentinel, start, sensDepassement);
+				_current = iteratorBase_type(sentinel, start, sensDepassement);
 			}
 
             constIterator_map(const constIterator_type& rhs)

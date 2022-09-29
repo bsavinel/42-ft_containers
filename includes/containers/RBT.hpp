@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/21 15:19:53 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/29 16:11:53 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ namespace ft
 				while (tmp != _sentinel)
 				{
 					y = tmp;
+					this->setSentinel();
 					if (_comp(data.first, tmp->_value.first)) //? true a < b
 						tmp = tmp->_left;
 					else if (_comp(tmp->_value.first, data.first))
@@ -153,6 +154,7 @@ namespace ft
 				{
 					_root = newNode;
 					_root->_color = BLACK;
+					this->setSentinel();
 					return ft::make_pair(newNode, true);
 				}
 				else if (_comp(newNode->_value.first, y->_value.first))
@@ -162,6 +164,7 @@ namespace ft
 				newNode->_parent = y;
 				if (newNode->_parent->_parent != _sentinel)
 					insertFix(newNode);
+				this->setSentinel();
 				return ft::make_pair(newNode, true);
 			}
 
@@ -211,6 +214,7 @@ namespace ft
 				delete z;
 				if (saveColor == BLACK)
 					deleteFix(x);
+				this->setSentinel();
 				return true;
 			}
 
@@ -232,6 +236,13 @@ namespace ft
 			key_compare		_comp;
 			node			*_sentinel;
 			allocator_type	_alloc;
+
+			void	setSentinel()
+			{
+				_sentinel->_parent = _root;
+				_sentinel->_left = this->minimum();
+				_sentinel->_right = this->maximum();
+            }
 
 			void	printHelper(node *nd) const
 			{
