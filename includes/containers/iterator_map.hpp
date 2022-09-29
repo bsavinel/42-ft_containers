@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/29 19:16:24 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/29 19:36:15 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,16 +262,16 @@ namespace ft
 	{
 		public:
 			typedef	ptrdiff_t								difference_type;
-			typedef	typename ft::pair<const Key, T>			value_type;
+			typedef	const typename ft::pair<const Key, T>	value_type;
 			typedef	const value_type*						pointer;
 			typedef	const value_type&						reference;
 			typedef	random_access_iterator_tag				iterator_category;
 		
 		private:
-			typedef	typename ft::IteratorBase_map<Key, T, Alloc>	iteratorBase_type;
-			typedef	typename ft::Iterator_map<Key, T, Alloc>		iterator_type;
-			typedef	typename ft::constIterator_map<Key, T, Alloc>	constIterator_type;
-			typedef	typename ft::RBT_node<value_type, Alloc>		node;
+			typedef	typename ft::IteratorBase_map<Key, T, Alloc>			iteratorBase_type;
+			typedef	typename ft::Iterator_map<Key, T, Alloc>				iterator_type;
+			typedef	typename ft::constIterator_map<Key, T, Alloc>			constIterator_type;
+			typedef	typename ft::RBT_node<ft::pair<const Key, T>, Alloc>	node;
 		
 		public:
 			constIterator_map()
