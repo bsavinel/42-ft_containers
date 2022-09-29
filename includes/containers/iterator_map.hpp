@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/29 19:11:39 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/09/29 19:16:24 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 
 namespace ft
 {
-	template <class Key, class T, class Compare, class Alloc>
+	template <class Key, class T, class Alloc>
 		class constIterator_map;
 
-	template <class Key, class T, class Compare, class Alloc>
+	template <class Key, class T, class Alloc>
 		class Iterator_map;
 
 	template <class Key, class T, class Alloc = std::allocator<ft::pair<const Key,T > > >
@@ -38,7 +38,7 @@ namespace ft
 
 		private:
 			typedef	typename ft::IteratorBase_map<Key, T, Alloc>	iteratorBase_type;
-			typedef	typename ft::RBT_node<value_type, Alloc>				node;
+			typedef	typename ft::RBT_node<value_type, Alloc>		node;
 
 		public:
             IteratorBase_map()
@@ -56,7 +56,6 @@ namespace ft
 			{
 				*this = rhs;
 			}
-				
 
 			~IteratorBase_map()
 			{
@@ -164,7 +163,7 @@ namespace ft
 
 	//! --------------------------------------- iterator map ----------------------------------
 	
-	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key,T > > >
+	template <class Key, class T, class Alloc = std::allocator<ft::pair<const Key,T > > >
 	class Iterator_map
 	{
 		public:
@@ -176,9 +175,9 @@ namespace ft
 
 		private:
 			typedef	typename ft::IteratorBase_map<Key, T, Alloc>	iteratorBase_type;
-			typedef	typename ft::Iterator_map<Key, T, Compare, Alloc>		iterator_type;
-			typedef	typename ft::constIterator_map<Key, T, Compare, Alloc>	constIterator_type;
-			typedef	typename ft::RBT_node<value_type, Alloc>				node;
+			typedef	typename ft::Iterator_map<Key, T, Alloc>		iterator_type;
+			typedef	typename ft::constIterator_map<Key, T, Alloc>	constIterator_type;
+			typedef	typename ft::RBT_node<value_type, Alloc>		node;
 		
 		public:
 			Iterator_map()
@@ -258,7 +257,7 @@ namespace ft
 
 	//! --------------------------------- Const iterator map -------------------------------
 
-	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key,T > > >
+	template <class Key, class T, class Alloc = std::allocator<ft::pair<const Key,T > > >
 	class constIterator_map
 	{
 		public:
@@ -270,10 +269,9 @@ namespace ft
 		
 		private:
 			typedef	typename ft::IteratorBase_map<Key, T, Alloc>	iteratorBase_type;
-			typedef	typename ft::Iterator_map<Key, T, Compare, Alloc>		iterator_type;
-			typedef	typename ft::constIterator_map<Key, T, Compare, Alloc>	constIterator_type;
-			typedef	typename ft::RBT_node<value_type, Alloc>				node;
-			typedef	typename ft::RBT<value_type, Compare, Alloc>			RBTtree;
+			typedef	typename ft::Iterator_map<Key, T, Alloc>		iterator_type;
+			typedef	typename ft::constIterator_map<Key, T, Alloc>	constIterator_type;
+			typedef	typename ft::RBT_node<value_type, Alloc>		node;
 		
 		public:
 			constIterator_map()
@@ -351,50 +349,50 @@ namespace ft
 	};
 
 			
-	template<class Key1, class T1, class Compare1, class Alloc1, class Key2, class T2, class Compare2, class Alloc2>
-	inline bool operator== (const Iterator_map<Key1, T1, Compare1, Alloc1>& lhs, const Iterator_map<Key2, T2, Compare2, Alloc2>& rhs)
+	template<class Key1, class T1, class Alloc1, class Key2, class T2, class Alloc2>
+	inline bool operator== (const Iterator_map<Key1, T1, Alloc1>& lhs, const Iterator_map<Key2, T2, Alloc2>& rhs)
 	{
 		return lhs.base() == rhs.base();
 	}
 
-	template<class Key1, class T1, class Compare1, class Alloc1, class Key2, class T2, class Compare2, class Alloc2>
-	inline bool operator== (const Iterator_map<Key1, T1, Compare1, Alloc1>& lhs, const constIterator_map<Key2, T2, Compare2, Alloc2>& rhs)
+	template<class Key1, class T1, class Alloc1, class Key2, class T2, class Alloc2>
+	inline bool operator== (const Iterator_map<Key1, T1, Alloc1>& lhs, const constIterator_map<Key2, T2, Alloc2>& rhs)
 	{
 		return lhs.base() == rhs.base();
 	}
 	
-	template<class Key1, class T1, class Compare1, class Alloc1, class Key2, class T2, class Compare2, class Alloc2>
-	inline bool operator== (const constIterator_map<Key1, T1, Compare1, Alloc1>& lhs, const constIterator_map<Key2, T2, Compare2, Alloc2>& rhs)
+	template<class Key1, class T1, class Alloc1, class Key2, class T2, class Alloc2>
+	inline bool operator== (const constIterator_map<Key1, T1, Alloc1>& lhs, const constIterator_map<Key2, T2, Alloc2>& rhs)
 	{
 		return lhs.base() == rhs.base();
 	}
 
-	template<class Key1, class T1, class Compare1, class Alloc1, class Key2, class T2, class Compare2, class Alloc2>
-	inline bool operator== (const constIterator_map<Key1, T1, Compare1, Alloc1>& lhs, const Iterator_map<Key2, T2, Compare2, Alloc2>& rhs)
+	template<class Key1, class T1, class Alloc1, class Key2, class T2, class Alloc2>
+	inline bool operator== (const constIterator_map<Key1, T1, Alloc1>& lhs, const Iterator_map<Key2, T2, Alloc2>& rhs)
 	{
 		return lhs.base() == rhs.base();
 	}
 
-	template<class Key1, class T1, class Compare1, class Alloc1, class Key2, class T2, class Compare2, class Alloc2>
-	inline bool operator!= (const Iterator_map<Key1, T1, Compare1, Alloc1>& lhs, const Iterator_map<Key2, T2, Compare2, Alloc2>& rhs)
+	template<class Key1, class T1, class Alloc1, class Key2, class T2, class Alloc2>
+	inline bool operator!= (const Iterator_map<Key1, T1, Alloc1>& lhs, const Iterator_map<Key2, T2, Alloc2>& rhs)
 	{
 		return lhs.base() != rhs.base();
 	}
 
-	template<class Key1, class T1, class Compare1, class Alloc1, class Key2, class T2, class Compare2, class Alloc2>
-	inline bool operator!= (const Iterator_map<Key1, T1, Compare1, Alloc1>& lhs, const constIterator_map<Key2, T2, Compare2, Alloc2>& rhs)
+	template<class Key1, class T1, class Alloc1, class Key2, class T2, class Alloc2>
+	inline bool operator!= (const Iterator_map<Key1, T1, Alloc1>& lhs, const constIterator_map<Key2, T2, Alloc2>& rhs)
 	{
 		return lhs.base() != rhs.base();
 	}
 
-	template<class Key1, class T1, class Compare1, class Alloc1, class Key2, class T2, class Compare2, class Alloc2>
-	inline bool operator!= (const constIterator_map<Key1, T1, Compare1, Alloc1>& lhs, const constIterator_map<Key2, T2, Compare2, Alloc2>& rhs)
+	template<class Key1, class T1, class Alloc1, class Key2, class T2, class Alloc2>
+	inline bool operator!= (const constIterator_map<Key1, T1, Alloc1>& lhs, const constIterator_map<Key2, T2, Alloc2>& rhs)
 	{
 		return lhs.base() != rhs.base();
 	}
 			
-	template<class Key1, class T1, class Compare1, class Alloc1, class Key2, class T2, class Compare2, class Alloc2>
-	inline bool operator!= (const constIterator_map<Key1, T1, Compare1, Alloc1>& lhs, const Iterator_map<Key2, T2, Compare2, Alloc2>& rhs)
+	template<class Key1, class T1, class Alloc1, class Key2, class T2, class Alloc2>
+	inline bool operator!= (const constIterator_map<Key1, T1, Alloc1>& lhs, const Iterator_map<Key2, T2, Alloc2>& rhs)
 	{
 		return lhs.base() != rhs.base();
 	}
