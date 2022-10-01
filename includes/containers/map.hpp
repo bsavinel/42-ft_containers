@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/29 19:15:30 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/01 12:35:58 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ namespace ft
 						comp = Compare();
 					}
 
-					bool operator()(first_argument_type a, second_argument_type b)
+					bool operator()(first_argument_type a, second_argument_type b) const
 					{
-						if (!comp(a, b) && !comp(b, a))
+						if (!comp(a.first, b.first) && !comp(b.first, a.first))
 							return true;
 						return false;
 					}
@@ -100,8 +100,10 @@ namespace ft
 				{
 					this->_alloc = rhs._alloc;
 					this->_comp = rhs._comp;
-					this->_tree = rhs._tree;
+					this->erase(begin(), end());
+					this->insert(rhs.begin(), rhs.end());
 				}
+				return *this;
 			}
 
 		//! ------------------------- Destructor -------------------------

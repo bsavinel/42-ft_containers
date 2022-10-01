@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/29 16:11:53 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/01 12:35:50 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ namespace ft
 			{
 				if (this != &rhs)
 				{
-					_alloc.destroy(this);
 					this->_comp = rhs._comp;
 					this->_alloc = rhs._alloc;
 					//! Mettre iterator pour inserer les element corectement
