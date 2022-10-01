@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/18 13:10:35 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/01 12:45:16 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ namespace ft
 
 			reference operator*() const
 			{
-				return * (_current - 1);
+				iterator_type tmp = this->base();
+
+				return *--tmp;
 			}
 
 			reverse_iterator operator+ (difference_type n) const
