@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/01 12:39:48 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/02 20:23:40 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ namespace ft
 
 			iteratorBase_type& operator++()
 			{
+				_sensDepassement = 1;
 				if (_current == _sentinel)
 				{
 					if (_sensDepassement == -1)
 						_current = _current->_left;
 					return *this;
 				}
-				_sensDepassement = 1;
 				if (_current->_right != _sentinel)
 				{
 					_current = _current->_right;
@@ -100,13 +100,13 @@ namespace ft
 		
 			iteratorBase_type& operator--()
 			{
+				_sensDepassement = -1;
 				if (_current == _sentinel)
 				{
 					if (_sensDepassement == 1)
 						_current = _current->_right;
 					return *this;
 				}
-				_sensDepassement = -1;
 				if (_current->_left != _sentinel)
 				{
 					_current = _current->_left;

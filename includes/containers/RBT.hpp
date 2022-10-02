@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/02 19:35:51 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/02 19:46:33 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ namespace ft
 	
 				rootMinimum = _root;
 				if (!rootMinimum || rootMinimum == _sentinel)
-					return NULL;
+					return _sentinel;
 				while (rootMinimum->_left != _sentinel)
 					rootMinimum = rootMinimum->_left;
 				return rootMinimum;
@@ -114,7 +114,7 @@ namespace ft
 
 				rootMaximum = _root;
 				if (!rootMaximum || rootMaximum == _sentinel)
-					return NULL;
+					return _sentinel;
 				while (rootMaximum->_right != _sentinel)
 					rootMaximum = rootMaximum->_right;
 				return rootMaximum;
