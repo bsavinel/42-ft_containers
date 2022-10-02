@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/02 20:45:33 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/02 20:46:29 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ namespace ft
 			{
 				if (lhs._current == rhs._current && lhs._sentinel == rhs._sentinel)
 				{
-					/*if (lhs._current == lhs._sentinel && lhs._sensDepassement == 0 && rhs._sensDepassement == 0 && lhs._sensDepassement != rhs._sensDepassement)
-						return false;*/
+					if (lhs._current == lhs._sentinel && lhs._sensDepassement == 0 && rhs._sensDepassement == 0 && lhs._sensDepassement != rhs._sensDepassement)
+						return false;
 					return true;
 				}
 				return false;
