@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/02 20:22:58 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/02 20:25:56 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,12 @@ namespace ft
 
 			iterator begin()
 			{
-				return iterator(_tree.giveSentinel(), _tree.minimum(), 1);
+				return iterator(_tree.giveSentinel(), _tree.minimum(), 0);
 			}
 
 			const_iterator begin() const
 			{
-				return const_iterator(_tree.giveSentinel(), _tree.minimum(), 1);
+				return const_iterator(_tree.giveSentinel(), _tree.minimum(), 0);
 			}
 
 			iterator end()
