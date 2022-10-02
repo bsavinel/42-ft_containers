@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/01 13:05:55 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/02 19:38:26 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,8 +228,14 @@ namespace ft
 
 			void erase (iterator first, iterator last)
 			{
-				for (;first != last; first++)
-					_tree.delete_value(first->first);
+				iterator tmp;
+
+				for (; first != last;)
+				{
+					tmp = first;
+					first++;
+					_tree.delete_value(tmp->first);
+				}
 			}
 
 			void swap (map& x)

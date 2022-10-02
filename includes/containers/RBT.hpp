@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/01 12:35:50 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/02 19:35:51 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,8 +421,8 @@ namespace ft
 				node *y = x->_right;
 				
 				x->_right = y->_left;
-				if (x->_left != _sentinel)
-					x->_right->_parent = x;
+				if (y->_left != _sentinel)
+					y->_left->_parent = x;
 				y->_parent = x->_parent;
 				if (x->_parent == _sentinel)
 					_root = y;
@@ -430,8 +430,8 @@ namespace ft
 					x->_parent->_left = y;
 				else
 					x->_parent->_right = y;
-				x->_parent = y;
 				y->_left = x;
+				x->_parent = y;
 			}
 			
 			void	rightRotate(node *x)
