@@ -2,6 +2,8 @@
 *.o
 *.d
 *.nfs
+log1
+log2
 lien.cpp
 test_ft
 test_std
