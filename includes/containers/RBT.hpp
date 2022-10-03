@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/02 19:46:33 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/03 19:26:25 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ namespace ft
 					else if (_comp(tmp->_value.first, data.first))
 						tmp = tmp->_right;
 					else
-						return ft::make_pair(_sentinel, false);
+						return ft::make_pair(tmp, false);
 				}
 				newNode = new node(data, _sentinel, _sentinel, _sentinel, RED, _alloc);
 				if (y == NULL)

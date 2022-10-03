@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/02 20:25:56 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/03 19:21:03 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,13 +198,13 @@ namespace ft
 
 			iterator insert(iterator position, const value_type& val)
 			{
-				pair<node *, bool> ret;
+				ft::pair<node *, bool> ret;
 				
 				(void) position;
 				ret = _tree.insert_value(val);
 				if (ret.second == false)
 					return this->end();
-				return iterator(_tree.giveSentinel(), ret.fisrt ,0);
+				return iterator(_tree.giveSentinel(), ret.first ,0);
 			}
 
 			template <class InputIterator>
