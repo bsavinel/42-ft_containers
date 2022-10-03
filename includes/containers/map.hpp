@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/03 20:16:53 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/03 20:37:35 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,28 @@ namespace ft
 			typedef	ft::RBT_node<value_type, allocator_type>	node;
 
 		public:
-			/*class value_compare
+			class value_compare
 			{
+				friend class map;
+				
 				public:
 					typedef	value_type	first_argument_type;
 					typedef	value_type	second_argument_type;
 					typedef	bool		result_type;
-					
-					value_compare()
-					{
-						comp = Compare();
-					}
 
 					bool operator()(first_argument_type a, second_argument_type b) const
 					{
-						if (!comp(a.first, b.first) && !comp(b.first, a.first))
-							return true;
-						return false;
+						return comp(a.first, b.first);
 					}
 					
-				private:
+				protected:
+					value_compare(Compare cmp)
+					{
+						comp = cmp;
+					}
+					
 					Compare	comp;
-			};*/
+			};
 
 		//! ------------------------- Constructor -------------------------
 
@@ -267,10 +267,10 @@ namespace ft
 				return _comp;
 			}
 
-			/*value_compare value_comp() const
+			value_compare value_comp() const
 			{
-				return value_compare();
-			}*/
+				return value_compare(_comp);
+			}
 
 		//! ------------------------- Operations -------------------------
 
