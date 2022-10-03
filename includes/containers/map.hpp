@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/03 20:03:52 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/03 20:16:53 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,9 +252,7 @@ namespace ft
 				this->_comp = x._comp;
 				this->_alloc = x._alloc;
 
-				x._tree = tmpTree;
-				x._comp = tmpComp;
-				x._alloc = tmpAlloc;	
+				_tree.swap(x._tree);
 			}
 		
 			void clear()

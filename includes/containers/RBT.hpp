@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/03 19:26:25 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/03 20:14:41 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,30 @@ namespace ft
 			}
 			
 			// ! -------------------------- Utilitaire --------------------------
+			
+			void	swap(RBT& rhs)
+			{
+				node			*tmpRoot;
+				key_compare		tmpComp;
+				node			*tmpSentinel;
+				allocator_type	tmpAlloc;
+
+				tmpRoot = this->_root;
+				this->_root = rhs._root;
+				rhs._root = tmpRoot;
+
+				tmpComp = this->_comp;
+				this->_comp = rhs._comp;
+				rhs._comp = tmpComp;
+
+				tmpSentinel = this->_sentinel;
+				this->_sentinel = rhs._sentinel;
+				rhs._sentinel = tmpSentinel;
+
+				tmpAlloc = this->_alloc;
+				this->_alloc = rhs._alloc;
+				rhs._alloc = tmpAlloc;
+			}
 			
 			bool	empty() const
 			{
