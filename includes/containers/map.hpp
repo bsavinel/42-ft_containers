@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/03 19:21:03 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/03 20:03:52 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,7 +298,7 @@ namespace ft
 
 			size_type count (const key_type& k) const
 			{
-				if (_tree.find_key(k) == _tree.giveSentinel())
+				if (_tree.find_key(k) == NULL)
 					return 0;
 				return 1;
 			}
