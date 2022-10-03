@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/03 20:14:41 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/03 20:55:03 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <memory>
 #include "pair.hpp"
 #include "make_pair.hpp"
+#include "iterator_map.hpp"
 
 namespace ft
 {
@@ -38,6 +39,11 @@ namespace ft
 			typedef	size_t											size_type;
 			typedef Alloc											allocator_type;
 			typedef	ft::RBT_node<value_type, allocator_type>		node;
+			
+		private:
+			typedef typename ft::Iterator_map<key_type, mapped_type, Alloc>		iterator;
+
+		public:
 
 			RBT(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _root(NULL)
 			{
@@ -51,6 +57,7 @@ namespace ft
 			{
 				*this = rhs;
 				_alloc = alloc;
+				
 			}
 
 			~RBT()
@@ -63,9 +70,16 @@ namespace ft
 			{
 				if (this != &rhs)
 				{
+					iterator it(rhs._sentinel, rhs._root, 0);
+					iterator end(rhs._sentinel, rhs._sentinel, 1);
+					
+					this->destroyHelper(this->_root);
 					this->_comp = rhs._comp;
 					this->_alloc = rhs._alloc;
-					//! Mettre iterator pour inserer les element corectement
+					*this->_sentinel = *rhs._sentinel;
+					this->_root = this->_sentinel;
+					for (;it != end; it++)
+						this->insert_value(*it);
 				}
 				return *this;
 			}
