@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:44:43 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/11 16:08:19 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/03 19:57:13 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "pair.hpp"
 #include <cstddef>
+#include <iostream>
 #include <memory>
 
 namespace ft
@@ -57,7 +58,7 @@ namespace ft
 
 		~RBT_node()
 		{
-			_alloc.destroy(&_value);
+			//_alloc.destroy(&_value);
 		}
 
 		RBT_node& operator= (const RBT_node& rhs)
