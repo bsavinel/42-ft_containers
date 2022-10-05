@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:21:21 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/05 20:17:27 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/05 20:33:19 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ namespace ft
 
 			void erase(iterator position)
 			{
-				_tree.delete_value(position->first);
+				_tree.delete_value(*position);
 			}
 
 			size_type erase(const key_type& k)
@@ -197,7 +197,7 @@ namespace ft
 				{
 					tmp = first;
 					first++;
-					_tree.delete_value(tmp->first);
+					_tree.delete_value(*tmp);
 				}
 			}
 
@@ -270,7 +270,7 @@ namespace ft
 				
 				for (it = this->begin(); it != this->end(); it++)
 				{
-					if (!_comp(it->first, k)) //?true si a < b
+					if (!_comp(*it, k)) //?true si a < b
 						return it;
 				}
 				return end();
@@ -282,7 +282,7 @@ namespace ft
 				
 				for (it = this->begin(); it != this->end(); it++)
 				{
-					if (!_comp(it->first, k)) //?true si a < b
+					if (!_comp(*it, k)) //?true si a < b
 						return it;
 				}
 				return end();
@@ -294,7 +294,7 @@ namespace ft
 				
 				for (it = this->begin(); it != this->end(); it++)
 				{
-					if (_comp(k, it->first)) //?true si a < b
+					if (_comp(k, *it)) //?true si a < b
 						return it;
 				}
 				return end();
@@ -306,7 +306,7 @@ namespace ft
 				
 				for (it = this->begin(); it != this->end(); it++)
 				{
-					if (_comp(k, it->first)) //?true si a < b
+					if (_comp(k, *it)) //?true si a < b
 						return it;
 				}
 				return end();
@@ -369,6 +369,12 @@ namespace ft
 	inline bool operator>=( const ft::set<T,Compare,Alloc>& lhs, const ft::set<T,Compare,Alloc>& rhs)
 	{
 		return !(lhs < rhs);
+	}
+
+	template< class Key, class Compare, class Alloc >
+	void swap( ft::set<Key,Compare,Alloc>& lhs, ft::set<Key,Compare,Alloc>& rhs )
+	{
+		lhs.swap(rhs);
 	}
 }
 
