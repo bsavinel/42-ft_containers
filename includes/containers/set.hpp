@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:21:21 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/05 20:33:19 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/05 21:32:58 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,15 +203,13 @@ namespace ft
 
 			void swap (set& x)
 			{
-				RBT<value_type, Compare, Alloc>	tmpTree;
-				key_compare						tmpComp;
-				allocator_type					tmpAlloc;
+				RBT_set<value_type, Compare, Alloc>	tmpTree;
+				key_compare							tmpComp;
+				allocator_type						tmpAlloc;
 
-				tmpTree = this->_tree;
 				tmpComp = this->_comp;
 				tmpAlloc = this->_alloc;
 
-				this->_tree = x._tree;
 				this->_comp = x._comp;
 				this->_alloc = x._alloc;
 

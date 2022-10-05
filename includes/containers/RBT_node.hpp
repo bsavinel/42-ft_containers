@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:44:43 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/03 19:57:13 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/05 21:28:09 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ namespace ft
 				this->_right = rhs._right;
 				this->_right = rhs._parent;
 				_alloc.destroy(&_value);
-				_alloc.construct(&_value, rhs.value);
+				_alloc.construct(&_value, rhs._value);
 				this->_value = rhs._value;
 				this->_color = rhs._color;
 				this->_alloc = rhs._alloc;

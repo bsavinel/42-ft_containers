@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/05 20:23:03 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/05 21:33:23 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,11 +246,9 @@ namespace ft
 				key_compare						tmpComp;
 				allocator_type					tmpAlloc;
 
-				tmpTree = this->_tree;
 				tmpComp = this->_comp;
 				tmpAlloc = this->_alloc;
 
-				this->_tree = x._tree;
 				this->_comp = x._comp;
 				this->_alloc = x._alloc;
 
