@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/03 20:37:35 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/05 17:49:17 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ namespace ft
 			typedef	ft::RBT_node<value_type, allocator_type>	node;
 
 		public:
-			class value_compare
+			class value_comp
 			{
 				friend class map;
 				
@@ -72,6 +72,8 @@ namespace ft
 					
 					Compare	comp;
 			};
+
+			typedef	value_comp	value_compare;
 
 		//! ------------------------- Constructor -------------------------
 
