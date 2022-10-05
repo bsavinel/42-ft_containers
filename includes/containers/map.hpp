@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:35 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/05 17:49:17 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/05 20:16:40 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ namespace ft
 					}
 					
 				protected:
-					value_compare(Compare cmp)
+					value_comp(Compare cmp)
 					{
 						comp = cmp;
 					}

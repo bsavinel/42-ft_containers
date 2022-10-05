@@ -6,12 +6,12 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/05 18:32:37 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/05 20:18:41 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RBT_HPP
-# define RBT_HPP
+#ifndef RBT_SET_HPP
+# define RBT_SET_HPP
 
 #include "RBT_node.hpp"
 #include "pair.hpp"
@@ -43,7 +43,7 @@ namespace ft
 
 		public:
 
-			RBT(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _root(NULL)
+			RBT_set(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _root(NULL)
 			{
 				this->_comp = comp;
 				this->_sentinel = new node();
@@ -51,20 +51,20 @@ namespace ft
 				_alloc = alloc;
 			}
 
-			RBT(const RBT &rhs, const allocator_type& alloc = allocator_type())
+			RBT_set(const RBT_set &rhs, const allocator_type& alloc = allocator_type())
 			{
 				*this = rhs;
 				_alloc = alloc;
 				
 			}
 
-			~RBT()
+			~RBT_set()
 			{
 				destroyHelper(this->_root);
 				delete _sentinel;
 			}
 
-			RBT& operator= (const RBT& rhs)
+			RBT_set& operator= (const RBT_set& rhs)
 			{
 				if (this != &rhs)
 				{
@@ -84,7 +84,7 @@ namespace ft
 			
 			// ! -------------------------- Utilitaire --------------------------
 			
-			void	swap(RBT& rhs)
+			void	swap(RBT_set& rhs)
 			{
 				node			*tmpRoot;
 				key_compare		tmpComp;

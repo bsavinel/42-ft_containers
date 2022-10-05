@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:21:21 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/05 18:46:26 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/05 20:17:27 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 #include <memory>
 #include <functional>
+#include "pair.hpp"
+#include "make_pair.hpp"
 #include "RBT_set.hpp"
 #include "reverse_iterator.hpp"
 #include "iterator_set.hpp"
+#include "lexicographical_compare.hpp"
 
 namespace ft
 {
