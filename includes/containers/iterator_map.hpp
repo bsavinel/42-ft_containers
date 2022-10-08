@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/02 20:46:29 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/08 16:34:16 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,9 +229,9 @@ namespace ft
 				return *this;
 			}
 
-			constIterator_type  operator--(int)
+			iterator_type  operator--(int)
 			{
-				constIterator_type tmp = *this;
+				iterator_type tmp = *this;
 				--(*this);
 				return tmp;
 			}

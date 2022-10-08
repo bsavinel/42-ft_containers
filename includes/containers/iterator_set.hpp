@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/08 16:27:49 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/08 16:33:58 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 
 namespace ft
 {
-	template <class T, class Alloc>
-		class constIterator_set;
-
 	template <class T, class Alloc>
 		class Iterator_set;
 
@@ -175,7 +172,6 @@ namespace ft
 		private:
 			typedef	typename ft::IteratorBase_set<T, Alloc>		iteratorBase_type;
 			typedef	typename ft::Iterator_set<T, Alloc>			iterator_type;
-			typedef	typename ft::constIterator_set<T, Alloc>	constIterator_type;
 			typedef	typename ft::RBT_node<T, Alloc>	node;
 		
 		public:
@@ -228,9 +224,9 @@ namespace ft
 				return *this;
 			}
 
-			constIterator_type  operator--(int)
+			iterator_type  operator--(int)
 			{
-				constIterator_type tmp = *this;
+				iterator_type tmp = *this;
 				--(*this);
 				return tmp;
 			}
