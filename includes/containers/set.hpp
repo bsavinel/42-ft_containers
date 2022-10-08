@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:21:21 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/05 21:32:58 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/08 16:25:27 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ namespace ft
 			typedef	typename allocator_type::pointer				pointer;
 			typedef	typename allocator_type::const_pointer			const_pointer;
 			typedef	ft::Iterator_set<T, Alloc>						iterator;
-			typedef	ft::constIterator_set<T, Alloc>					const_iterator;
+			typedef	ft::Iterator_set<T, Alloc>						const_iterator;
 			typedef	typename ft::reverse_iterator<iterator>			reverse_iterator;
 			typedef	typename ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 			typedef	ptrdiff_t										difference_type;

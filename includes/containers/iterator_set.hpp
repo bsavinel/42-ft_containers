@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/05 18:05:05 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/08 16:27:49 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ namespace ft
 	{
 		public:
 			typedef	ptrdiff_t						difference_type;
-			typedef	T								value_type;
+			typedef	const T							value_type;
 			typedef	value_type*						pointer;
 			typedef	value_type&						reference;
 			typedef	random_access_iterator_tag		iterator_category;
@@ -176,7 +176,7 @@ namespace ft
 			typedef	typename ft::IteratorBase_set<T, Alloc>		iteratorBase_type;
 			typedef	typename ft::Iterator_set<T, Alloc>			iterator_type;
 			typedef	typename ft::constIterator_set<T, Alloc>	constIterator_type;
-			typedef	typename ft::RBT_node<value_type, Alloc>	node;
+			typedef	typename ft::RBT_node<T, Alloc>	node;
 		
 		public:
 			Iterator_set()
@@ -248,122 +248,9 @@ namespace ft
 		private:
 			iteratorBase_type _current;
 	};
-
-	//! --------------------------------- Const iterator set -------------------------------
-
-	template <class T, class Alloc = std::allocator<T> >
-	class constIterator_set
-	{
-		public:
-			typedef	ptrdiff_t					difference_type;
-			typedef	const T						value_type;
-			typedef	const value_type*			pointer;
-			typedef	const value_type&			reference;
-			typedef	random_access_iterator_tag	iterator_category;
 		
-		private:
-			typedef	typename ft::IteratorBase_set<T, Alloc>		iteratorBase_type;
-			typedef	typename ft::Iterator_set<T, Alloc>			iterator_type;
-			typedef	typename ft::constIterator_set<T, Alloc>	constIterator_type;
-			typedef	typename ft::RBT_node<T, Alloc>				node;
-		
-		public:
-			constIterator_set()
-			{
-			}
-
-			constIterator_set(node *sentinel, node *start, int sensDepassement)
-			{
-				_current = iteratorBase_type(sentinel, start, sensDepassement);
-			}
-
-            constIterator_set(const constIterator_type& rhs)
-            {
-				*this = rhs;
-			}
-
-			constIterator_set(const iterator_type& rhs)
-			{
-				_current = rhs.base();
-			}
-
-			~constIterator_set()
-			{
-			}
-
-			const iteratorBase_type &base() const
-			{
-				return _current;
-			}
-			
-			constIterator_type& operator=(const constIterator_type& rhs)
-			{
-				_current = rhs.base();
-				return *this;
-			}
-
-			constIterator_type& operator++()
-			{
-				++_current;
-				return *this;
-			}
-
-			constIterator_type  operator++(int)
-			{
-				constIterator_type tmp = *this;
-
-				++(*this);
-				return tmp;
-			}
-		
-			constIterator_type& operator--()
-			{
-				--_current;
-				return *this;
-			}
-
-			constIterator_type  operator--(int)
-			{
-				constIterator_type tmp = *this;
-				--(*this);
-				return tmp;
-			}
-
-			reference operator*() const
-			{
-				return  *_current;
-			}
-		
-			pointer operator->() const
-			{
-				return &(operator*());
-			}
-
-		private:
-			iteratorBase_type _current;
-	};
-
-			
 	template<class T1, class Alloc1, class T2, class Alloc2>
 	inline bool operator== (const Iterator_set<T1, Alloc1>& lhs, const Iterator_set<T2, Alloc2>& rhs)
-	{
-		return lhs.base() == rhs.base();
-	}
-
-	template<class T1, class Alloc1, class T2, class Alloc2>
-	inline bool operator== (const Iterator_set<T1, Alloc1>& lhs, const constIterator_set<T2, Alloc2>& rhs)
-	{
-		return lhs.base() == rhs.base();
-	}
-	
-	template<class T1, class Alloc1, class T2, class Alloc2>
-	inline bool operator== (const constIterator_set<T1, Alloc1>& lhs, const constIterator_set<T2, Alloc2>& rhs)
-	{
-		return lhs.base() == rhs.base();
-	}
-
-	template<class T1, class Alloc1, class T2, class Alloc2>
-	inline bool operator== (const constIterator_set<T1, Alloc1>& lhs, const Iterator_set<T2, Alloc2>& rhs)
 	{
 		return lhs.base() == rhs.base();
 	}
@@ -374,23 +261,6 @@ namespace ft
 		return lhs.base() != rhs.base();
 	}
 
-	template<class T1, class Alloc1, class T2, class Alloc2>
-	inline bool operator!= (const Iterator_set<T1, Alloc1>& lhs, const constIterator_set<T2, Alloc2>& rhs)
-	{
-		return lhs.base() != rhs.base();
-	}
-
-	template<class T1, class Alloc1, class T2, class Alloc2>
-	inline bool operator!= (const constIterator_set<T1, Alloc1>& lhs, const constIterator_set<T2, Alloc2>& rhs)
-	{
-		return lhs.base() != rhs.base();
-	}
-			
-	template<class T1, class Alloc1, class T2, class Alloc2>
-	inline bool operator!= (const constIterator_set<T1, Alloc1>& lhs, const Iterator_set<T2, Alloc2>& rhs)
-	{
-		return lhs.base() != rhs.base();
-	}
 }
 
 #endif
