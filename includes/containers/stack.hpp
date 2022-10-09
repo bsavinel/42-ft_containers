@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:27 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/09 16:30:47 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/09 16:34:41 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ namespace ft
 
 			explicit stack (const container_type& ctnr = container_type())
 			{
-				c = cntr;
+				c = ctnr;
 			}
 
 			~stack()
