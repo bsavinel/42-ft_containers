@@ -6,28 +6,27 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:03:13 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/19 09:58:04 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/09 18:23:01 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTED_NAMESPACE
-# define TESTED_NAMESPACE ft
+#ifndef NAME_USE
+# define NAME_USE std
 #endif
 
 #include <type_traits>
 #include "is_integral.hpp"
 #include "enable_if.hpp"
-#include "testeur.hpp"
 #include <iostream>
 
 template <class T>
-typename TESTED_NAMESPACE::enable_if<TESTED_NAMESPACE::is_integral<T>::value ,bool>::type is_odd (T i)
+typename NAME_USE::enable_if<NAME_USE::is_integral<T>::value ,bool>::type is_odd (T i)
 {
 	return bool(i%2);
 }
 
 template <class T>
-typename TESTED_NAMESPACE::enable_if<TESTED_NAMESPACE::is_integral<T>::value ,bool>::type is_even (T i)
+typename NAME_USE::enable_if<NAME_USE::is_integral<T>::value ,bool>::type is_even (T i)
 {
 	return !bool(i%2);
 }

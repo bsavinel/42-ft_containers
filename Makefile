@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/09/19 10:06:07 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/10/09 18:19:16 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,19 +97,19 @@ $(TEST_FT): $(OBJS_FT)
 
 $(OBJS_PATH)%_std.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) $(CPPFLAGS) -D TESTED_NAMESPACE=std -MMD -c $< -o $@ $(INCS)
+	$(CC) $(CPPFLAGS) -D NAME_USE=std -MMD -c $< -o $@ $(INCS)
 
 $(OBJS_PATH)%_std11.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) -Wall -Wextra -Werror -D TESTED_NAMESPACE=std -MMD -c $< -o $@ $(INCS)
+	$(CC) -Wall -Wextra -Werror -D NAME_USE=std -MMD -c $< -o $@ $(INCS)
 
 $(OBJS_PATH)%_ft.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) $(CPPFLAGS) -D TESTED_NAMESPACE=ft -MMD -c $< -o $@ $(INCS)
+	$(CC) $(CPPFLAGS) -D NAME_USE=ft -MMD -c $< -o $@ $(INCS)
 
 $(OBJS_PATH)%_ft11.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) -Wall -Wextra -Werror -D TESTED_NAMESPACE=ft -MMD -c $< -o $@ $(INCS)
+	$(CC) -Wall -Wextra -Werror -D NAME_USE=ft -MMD -c $< -o $@ $(INCS)
 
 clean :
 	$(RM) $(OBJS_PATH)

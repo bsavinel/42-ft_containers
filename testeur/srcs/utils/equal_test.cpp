@@ -6,17 +6,16 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:22:48 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/09/19 09:52:25 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/09 18:23:04 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTED_NAMESPACE
-# define TESTED_NAMESPACE ft
+#ifndef NAME_USE
+# define NAME_USE std
 #endif
 
 #include <algorithm>
 #include "equal.hpp"
-#include "testeur.hpp"
 #include <iostream>
 #include <vector>
 
@@ -37,18 +36,18 @@ void	equal_test()
 	int myints[] = {20,40,60,80,100};               //   myints: 20 40 60 80 100
 	std::vector<int>myvector (myints,myints+5);     // myvector: 20 40 60 80 100
 
-	if (TESTED_NAMESPACE::equal(myvector.begin(), myvector.end(), myints))
+	if (NAME_USE::equal(myvector.begin(), myvector.end(), myints))
 		std::cout << "The contents of both sequences are equal." << std::endl;
 	else
 		std::cout << "The contents of both sequences differ." << std::endl;
 
 	myvector[3]=81;
-	if (TESTED_NAMESPACE::equal(myvector.begin(), myvector.end(), myints, mypredicate))
+	if (NAME_USE::equal(myvector.begin(), myvector.end(), myints, mypredicate))
 		std::cout << "The contents of both sequences are equal." << std::endl;
 	else
 		std::cout << "The contents of both sequences differ." << std::endl;
 
-	if (TESTED_NAMESPACE::equal(myvector.begin(), myvector.end(), myints, mypredicate2))
+	if (NAME_USE::equal(myvector.begin(), myvector.end(), myints, mypredicate2))
 		std::cout << "The contents of both sequences are equal." << std::endl;
 	else
 		std::cout << "The contents of both sequences differ." << std::endl;

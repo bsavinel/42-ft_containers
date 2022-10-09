@@ -6,20 +6,12 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:20:23 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/17 19:19:54 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/09 18:22:42 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTEUR_HPP
 # define TESTEUR_HPP
-
-namespace ft
-{
-}
-
-namespace std
-{
-}
 
 void	map_test();
 void	set_test();
