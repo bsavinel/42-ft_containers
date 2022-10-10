@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/10/09 18:19:16 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/10/10 20:25:03 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS_98 =	main.cpp					\
 			utils/equal_test.cpp		\
 			utils/lexi_comp_test.cpp	\
 			utils/pair_test.cpp			\
+			benchmark_utils.cpp			\
 
 ################################################################################
 ########						Objects/Dependences						########

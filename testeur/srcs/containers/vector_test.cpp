@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 11:01:19 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/09 18:19:36 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:33:14 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "vector.hpp"
 #include <iostream>
 #include <string>
+#include "testeur.hpp"
 
 #ifndef NAME_USE
 # define NAME_USE std
@@ -136,6 +137,18 @@ static void other_test()
 	std::cout << vect.back();
 }
 
+static void	benchemarck_test()
+{
+	NAME_USE::vector<int> vect;
+
+	long long int start = give_utime();
+	vect.insert(vect.begin(), 10000000, 42);
+	for (NAME_USE::vector<int>::iterator it = vect.begin(); it != vect.end(); it++)
+	{}
+	vect.erase(vect.begin(), vect.end());
+	print_time("Vector", start);
+}
+
 void	vector_test()
 {
 	std::cout << "#############################################" << std::endl;
@@ -143,10 +156,12 @@ void	vector_test()
 	std::cout << "#############################################" << std::endl;
 	std::cout << std::endl << "&&&&&&&& Construcor test &&&&&&&&" << std::endl;
 	constructor_test();
-	std::cout << std::endl << "&&&&&&&& insertion deletion test &&&&&&&&" << std::endl;
+	std::cout << std::endl << "&&&&&&&& Insertion deletion test &&&&&&&&" << std::endl;
 	insert_erase_test();
-	std::cout << std::endl << "&&&&&&&& iterator test &&&&&&&&" << std::endl;
+	std::cout << std::endl << "&&&&&&&& Iterator test &&&&&&&&" << std::endl;
 	iterator_test();
-	std::cout << std::endl << "&&&&&&&& other test &&&&&&&&" << std::endl;
+	std::cout << std::endl << "&&&&&&&& Other test &&&&&&&&" << std::endl;
 	other_test();
+	std::cout << std::endl << "&&&&&&&& benchemarck test &&&&&&&&" << std::endl;
+	benchemarck_test();
 }

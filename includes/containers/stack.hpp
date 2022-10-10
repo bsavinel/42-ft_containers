@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:04:27 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/09 16:34:41 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:37:54 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@ namespace ft
 
 			~stack()
 			{
-			}
-
-			stack& operator=( const stack& other )
-			{
-				c = other.c;
-				return *this;
 			}
 
 			bool empty() const

@@ -176,12 +176,17 @@ namespace ft
 					for (size_type i = n; i < _size ; i++)
 						_alloc.destroy(_start + i);
 				}
-				else if (n > _size)
+				else if (n > _size && n > _capacity * 2)
 				{
 					reserve(n);
 					for (size_type i = _size; i < n; i++)
 						_alloc.construct(_start + i, val);
-						// *(_start + i) = val;
+				}
+				else if (n > _size)
+				{
+					reserve(_capacity * 2);
+					for (size_type i = _size; i < n; i++)
+						_alloc.construct(_start + i, val);
 				}
 				_size = n;
 				_end = _start + n;
@@ -300,14 +305,13 @@ namespace ft
 				if (_size + 1 > _capacity)
 					reserve(_capacity * 2);
 				_alloc.construct(_end, val);
-				//*_end = val;
 				_end = _end + 1;
 				_size++;
 			}
 
 			void pop_back()
 			{
-				_alloc.destroy(_end);
+				_alloc.destroy(_end - 1);
 				_end--;
 				_size--;
 			}

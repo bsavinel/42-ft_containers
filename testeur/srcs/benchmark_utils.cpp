@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testeur.hpp                                        :+:      :+:    :+:   */
+/*   benchmark_utils.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/17 12:20:23 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:17 by bsavinel         ###   ########.fr       */
+/*   Created: 2022/10/10 20:14:49 by bsavinel          #+#    #+#             */
+/*   Updated: 2022/10/10 20:23:36 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTEUR_HPP
-# define TESTEUR_HPP
-
+# include <sys/time.h>
+# include <stddef.h>
+# include <iostream>
 # include <string>
 
-void			map_test();
-void			set_test();
-void			stack_test();
-void			vector_test();
-void			enable_if_test();
-void			equal_test();
-void			is_integral_test();
-void			lexi_comp_test();
-void			pair_test();
-void			print_time(std::string cont, long long int start);
-long long int	give_utime(void);
+long long int	give_utime(void)
+{
+	struct timeval	time;
 
-#endif
+	if (gettimeofday(&time, NULL) == -1)
+		return (-1);
+	return ((size_t)time.tv_sec * 1000 + (size_t)time.tv_usec / 1000);
+}
+
+void	print_time(std::string cont, long long int start)
+{
+	std::cerr << cont << " time : " << give_utime() - start << std::endl;
+}
