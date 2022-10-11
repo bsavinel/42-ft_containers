@@ -216,7 +216,6 @@ namespace ft
 				for (size_type i = 0; i < _size; i++)
 				{
 					_alloc.construct(new_stock + i, *(_start + i));
-					// *(new_stock + i) = *(_start + i);
 					_alloc.destroy(_start + i); // ? pas sur avec ajout de construct
 				}
 				if (_capacity != 0)
@@ -330,10 +329,8 @@ namespace ft
 				{
 					_alloc.construct(tmp, *(tmp - 1));
 					_alloc.destroy(tmp - 1);
-					// *(tmp) = *(tmp - 1);
 				}
 				_alloc.construct(position, val);
-				// *position = val;
 				_end = _end + 1;
 				_size = _size + 1;
 				return position;
@@ -341,6 +338,8 @@ namespace ft
 
 			void insert(iterator position, size_type n, const value_type& val)
 			{
+				if (n <= 0)
+					return ;
 				size_type dist_sp = (position - _start);
 				size_type new_size = _size + n;
 				if (_capacity == 0)
@@ -360,14 +359,10 @@ namespace ft
 				{
 					_alloc.construct(new_place, *tmp);
 					_alloc.destroy(tmp);
-					// *(new_place) = *(tmp);
 				}
 				new_place++;
 				for (;position != new_place; position++)
-				{
 					_alloc.construct(position, val);
-					// *(position) = val;
-				}
 
 				_end = _end + n;
 				_size = _size + n;
@@ -398,27 +393,23 @@ namespace ft
 				{
 					_alloc.construct(new_place, *tmp);
 					_alloc.destroy(tmp);
-					// *(new_place) = *(tmp);
 				}
 
 				for (;first != last; position++, first++)
-				{
 					_alloc.construct(position, *(first));
-					// *(position) = *(first);
-				}
 				_end = _end + dist_lf;
 				_size = new_size;
 			}
 
 			iterator erase(iterator position)
 			{
-				_alloc.destroy(position);
 				for (size_type i = 1; position + i != _end; i++)
 				{
 					_alloc.destroy(position + i - 1);
 					_alloc.construct(position + i - 1, *(position + i));
 					// *(position + i - 1) = *(position + i);
 				}
+				_alloc.destroy(_end - 1);
 				_size--;
 				_end = _end - 1;
 				return (position);
