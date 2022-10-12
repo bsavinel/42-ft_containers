@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/10/10 20:25:03 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/10/12 20:19:36 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ endif
 SRCS_PATH 	=	testeur/srcs/
 
 INCS =	-I testeur/includes		\
-		-I includes				\
 		-I includes/containers	\
 		-I includes/utils		\
 

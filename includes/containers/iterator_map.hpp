@@ -6,17 +6,15 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/08 16:34:16 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/12 20:45:06 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_MAP_HPP
 # define ITERATOR_MAP_HPP
 
-#include "iterators_traits.hpp"
-#include "pair.hpp"
-#include "RBT_node.hpp"
-#include "RBT.hpp"
+# include "iterators_traits.hpp"
+# include "RBT_node.hpp"
 
 namespace ft
 {
@@ -137,22 +135,22 @@ namespace ft
 				return &(operator*());
 			}
 
-			template<class Key1, class T1, class Alloc1, class Key2, class T2, class Alloc2>
-			friend inline bool operator== (const IteratorBase_map<Key1, T1, Alloc1>& lhs, const IteratorBase_map<Key2, T2, Alloc2>& rhs)
+			template<class Key2, class T2, class Alloc2>
+			bool operator== (const IteratorBase_map<Key2, T2, Alloc2>& rhs) const
 			{
-				if (lhs._current == rhs._current && lhs._sentinel == rhs._sentinel)
+				if (_current == rhs._current && _sentinel == rhs._sentinel)
 				{
-					if (lhs._current == lhs._sentinel && lhs._sensDepassement == 0 && rhs._sensDepassement == 0 && lhs._sensDepassement != rhs._sensDepassement)
+					if (_current == _sentinel && _sensDepassement == 0 && rhs._sensDepassement == 0 && _sensDepassement != rhs._sensDepassement)
 						return false;
 					return true;
 				}
 				return false;
 			}
 
-			template<class Key1, class T1, class Alloc1, class Key2, class T2, class Alloc2>
-			friend inline bool operator!= (const IteratorBase_map<Key1, T1, Alloc1>& lhs, const IteratorBase_map<Key2, T2, Alloc2>& rhs)
+			template<class Key2, class T2, class Alloc2>
+			bool operator!= (const IteratorBase_map<Key2, T2, Alloc2>& rhs) const
 			{
-				return !(lhs == rhs);
+				return !(*this == rhs);
 			}
 		
 		private:

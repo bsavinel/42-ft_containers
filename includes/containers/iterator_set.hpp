@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/08 16:33:58 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/12 20:56:13 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,22 +133,22 @@ namespace ft
 				return &(operator*());
 			}
 
-			template<class T1, class Alloc1, class T2, class Alloc2>
-			friend inline bool operator== (const IteratorBase_set<T1, Alloc1>& lhs, const IteratorBase_set<T2, Alloc2>& rhs)
+			template<class T2, class Alloc2>
+			bool operator== (const IteratorBase_set<T2, Alloc2>& rhs) const
 			{
-				if (lhs._current == rhs._current && lhs._sentinel == rhs._sentinel)
+				if (_current == rhs._current && _sentinel == rhs._sentinel)
 				{
-					if (lhs._current == lhs._sentinel && lhs._sensDepassement == 0 && rhs._sensDepassement == 0 && lhs._sensDepassement != rhs._sensDepassement)
+					if (_current == _sentinel && _sensDepassement == 0 && rhs._sensDepassement == 0 && _sensDepassement != rhs._sensDepassement)
 						return false;
 					return true;
 				}
 				return false;
 			}
 
-			template<class T1, class Alloc1, class T2, class Alloc2>
-			friend inline bool operator!= (const IteratorBase_set<T1, Alloc1>& lhs, const IteratorBase_set<T2, Alloc2>& rhs)
+			template<class T2, class Alloc2>
+			bool operator!= (const IteratorBase_set<T2, Alloc2>& rhs) const
 			{
-				return !(lhs == rhs);
+				return !(*this == rhs);
 			}
 		
 		private:

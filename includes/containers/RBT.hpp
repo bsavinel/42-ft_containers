@@ -6,24 +6,24 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:11:10 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/03 20:55:03 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/12 20:38:43 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RBT_HPP
 # define RBT_HPP
 
-#include "RBT_node.hpp"
-#include "pair.hpp"
-#include <iostream>
-#include <memory>
-#include <functional>
-#include <cstddef>
-#include <iostream>
-#include <memory>
-#include "pair.hpp"
-#include "make_pair.hpp"
-#include "iterator_map.hpp"
+# include "RBT_node.hpp"
+# include "pair.hpp"
+# include <iostream>
+# include <memory>
+# include <functional>
+# include <cstddef>
+# include <iostream>
+# include <memory>
+# include "pair.hpp"
+# include "make_pair.hpp"
+# include "iterator_map.hpp"
 
 namespace ft
 {

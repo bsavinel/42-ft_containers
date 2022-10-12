@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:12:04 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/10 20:50:25 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/12 19:41:41 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	stack__test()
 	for (int i = 0; i < 50; i++)
 	{
 		std::cout << "size : " << st2.size() << std::endl;
-		std::cout << st2.top();
+		std::cout << st2.top() << std::endl;
 		st2.pop();
 	}
 	for (int i = 0; i < 50; i++)
@@ -43,7 +43,7 @@ static void	stack__test()
 	for (int i = 0; i < 50; i++)
 	{
 		std::cout << "size :" << st.size() << std::endl;
-		std::cout << st.top();
+		std::cout << st.top() << std::endl;
 		st.pop();
 	}
 }
@@ -62,9 +62,9 @@ void	benchemarck_test()
 
 void	stack_test()
 {
-	std::cout << "#############################################" << std::endl;
-	std::cout << "################ Vector test ################" << std::endl;
-	std::cout << "#############################################" << std::endl;
+	std::cout << "############################################" << std::endl;
+	std::cout << "################ Stack test ################" << std::endl;
+	std::cout << "############################################" << std::endl;
 	std::cout << std::endl << "&&&&&&&& stack test &&&&&&&&" << std::endl;
 	stack__test();
 	std::cout << std::endl << "&&&&&&&& benchemarck test &&&&&&&&" << std::endl;
