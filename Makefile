@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/10/12 20:19:36 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/10/13 21:14:30 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,12 +113,11 @@ $(OBJS_PATH)%_ft11.o: $(SRCS_PATH)%.cpp
 
 clean :
 	$(RM) $(OBJS_PATH)
+	$(RM) log_test
 
 fclean : clean
-	$(RM) log_test
 	$(RM) $(TEST_FT)
 	$(RM) $(TEST_STD)
-	$(RM) libft/libft.a
 
 re : fclean 
 	 make -C . all
