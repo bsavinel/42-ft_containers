@@ -6,12 +6,13 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:11:59 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/12 21:03:21 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:22:16 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <map>
 #include "map.hpp"
+#include "testeur.hpp"
 #include <vector>
 #include <iostream>
 #include <string>
@@ -103,7 +104,37 @@ static void other_test()
 	print_map(mp);
 	mp.swap(mp2);
 	print_map(mp);
-	std::cout << mp.find(3) << std::endl;
+	print_pair(*mp.find(3));
+	if (mp.find(132123) == mp.end())
+		std::cout << "find failed" << std::endl;
+	std::cout << mp.count(3) << std::endl;
+	std::cout << mp.count(-3) << std::endl;
+	mp.erase(3);
+	print_pair(*mp.lower_bound(3));
+	if (mp.lower_bound(-3) != mp.end())
+		print_pair(*mp.lower_bound(-3));
+	else
+		std::cout << "lower_bound failed" << std::endl;
+	print_pair(*mp.upper_bound(3));
+	if (mp.lower_bound(-3) != mp.end())
+		print_pair(*mp.upper_bound(-3));
+	else
+		std::cout << "lower_bound failed" << std::endl;
+	print_pair(*mp.equal_range(3).first);
+	print_pair(*mp.equal_range(3).second);
+}
+
+static void benchemarck_test()
+{
+	long long int start = give_utime();
+	NAME_USE::map<int, int> mp;
+	for (int i = 0; i < 100000; i++)
+		mp.insert(NAME_USE::make_pair(i, i));
+	for	(NAME_USE::map<int, int>::iterator it = mp.begin(); it != mp.end(); it++)
+		print_pair(*it);
+	for (int i = 0; i < 100000; i++)
+		mp.erase(i);
+	print_time("Map", start);
 }
 
 void	map_test()
@@ -120,5 +151,5 @@ void	map_test()
 	std::cout << std::endl << "&&&&&&&& Other test &&&&&&&&" << std::endl;
 	other_test();
 	std::cout << std::endl << "&&&&&&&& benchemarck test &&&&&&&&" << std::endl;
-	//benchemarck_test();
+	benchemarck_test();
 }
