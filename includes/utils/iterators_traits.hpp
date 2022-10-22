@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:05:38 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/07/22 14:00:07 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/22 14:12:33 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,10 @@
 # define ITERATORS_TRAITS_HPP
 
 #include <cstddef>
+#include <iterator>
 
 namespace ft
 {
-	//* Iterator tag
-	struct input_iterator_tag
-	{
-	};
-	
-	struct output_iterator_tag
-	{
-	};
-	
-	struct forward_iterator_tag : public input_iterator_tag
-	{
-	};
-
-	struct bidirectional_iterator_tag : public forward_iterator_tag
-	{
-	};
-	
-	struct random_access_iterator_tag : public bidirectional_iterator_tag
-	{
-	};
 
 	template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 	struct iterator
@@ -61,21 +42,21 @@ namespace ft
 	template <class T>
 	struct iterator_traits<T*>
 	{
-		typedef	ptrdiff_t					difference_type;
-		typedef	T							value_type;
-		typedef	T*							pointer;
-		typedef	T&							reference;
-		typedef	random_access_iterator_tag	iterator_category;
+		typedef	ptrdiff_t						difference_type;
+		typedef	T								value_type;
+		typedef	T*								pointer;
+		typedef	T&								reference;
+		typedef	std::random_access_iterator_tag	iterator_category;
 	};
 	
 	template <class T>
 	struct iterator_traits<const T*>
 	{
-		typedef	ptrdiff_t					difference_type;
-		typedef	T							value_type;
-		typedef	const T*					pointer;
-		typedef	const T&					reference;
-		typedef	random_access_iterator_tag	iterator_category;
+		typedef	ptrdiff_t						difference_type;
+		typedef	T								value_type;
+		typedef	const T*						pointer;
+		typedef	const T&						reference;
+		typedef	std::random_access_iterator_tag	iterator_category;
 	};
 }
 

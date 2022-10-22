@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/12 20:45:06 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/22 14:14:28 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ namespace ft
 	class IteratorBase_map
 	{
 		public:
-			typedef	ptrdiff_t						difference_type;
-			typedef	typename ft::pair<const Key, T>	value_type;
-			typedef	value_type*						pointer;
-			typedef	value_type&						reference;
-			typedef	random_access_iterator_tag		iterator_category;
+			typedef	ptrdiff_t							difference_type;
+			typedef	typename ft::pair<const Key, T>		value_type;
+			typedef	value_type*							pointer;
+			typedef	value_type&							reference;
+			typedef	std::random_access_iterator_tag		iterator_category;
 
 		private:
 			typedef	typename ft::IteratorBase_map<Key, T, Alloc>	iteratorBase_type;
@@ -165,11 +165,11 @@ namespace ft
 	class Iterator_map
 	{
 		public:
-			typedef	ptrdiff_t						difference_type;
-			typedef	typename ft::pair<const Key, T>	value_type;
-			typedef	value_type*						pointer;
-			typedef	value_type&						reference;
-			typedef	random_access_iterator_tag		iterator_category;
+			typedef	ptrdiff_t							difference_type;
+			typedef	typename ft::pair<const Key, T>		value_type;
+			typedef	value_type*							pointer;
+			typedef	value_type&							reference;
+			typedef	std::random_access_iterator_tag		iterator_category;
 
 		private:
 			typedef	typename ft::IteratorBase_map<Key, T, Alloc>	iteratorBase_type;
@@ -258,7 +258,7 @@ namespace ft
 			typedef	const typename ft::pair<const Key, T>	value_type;
 			typedef	const value_type*						pointer;
 			typedef	const value_type&						reference;
-			typedef	random_access_iterator_tag				iterator_category;
+			typedef	std::random_access_iterator_tag			iterator_category;
 		
 		private:
 			typedef	typename ft::IteratorBase_map<Key, T, Alloc>			iteratorBase_type;

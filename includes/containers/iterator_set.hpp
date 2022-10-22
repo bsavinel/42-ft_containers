@@ -6,7 +6,7 @@
 /*   By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:43:42 by bsavinel          #+#    #+#             */
-/*   Updated: 2022/10/12 20:56:13 by bsavinel         ###   ########.fr       */
+/*   Updated: 2022/10/22 14:14:41 by bsavinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ namespace ft
 	class IteratorBase_set
 	{
 		public:
-			typedef	ptrdiff_t						difference_type;
-			typedef	T								value_type;
-			typedef	value_type*						pointer;
-			typedef	value_type&						reference;
-			typedef	random_access_iterator_tag		iterator_category;
+			typedef	ptrdiff_t							difference_type;
+			typedef	T									value_type;
+			typedef	value_type*							pointer;
+			typedef	value_type&							reference;
+			typedef	std::random_access_iterator_tag		iterator_category;
 
 		private:
 			typedef	typename ft::IteratorBase_set<T, Alloc>		iteratorBase_type;
@@ -163,11 +163,11 @@ namespace ft
 	class Iterator_set
 	{
 		public:
-			typedef	ptrdiff_t						difference_type;
-			typedef	const T							value_type;
-			typedef	value_type*						pointer;
-			typedef	value_type&						reference;
-			typedef	random_access_iterator_tag		iterator_category;
+			typedef	ptrdiff_t							difference_type;
+			typedef	const T								value_type;
+			typedef	value_type*							pointer;
+			typedef	value_type&							reference;
+			typedef	std::random_access_iterator_tag		iterator_category;
 
 		private:
 			typedef	typename ft::IteratorBase_set<T, Alloc>		iteratorBase_type;
