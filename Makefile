@@ -6,7 +6,7 @@
 #    By: bsavinel <bsavinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 11:00:11 by bsavinel          #+#    #+#              #
-#    Updated: 2022/10/13 21:14:30 by bsavinel         ###   ########.fr        #
+#    Updated: 2022/10/22 15:05:09 by bsavinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,11 @@
 TEST_FT = test_ft
 TEST_STD = test_std
 
-CC = c++
-CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
 ifeq (sanitize, $(filter sanitize, $(MAKECMDGOALS)))
-	CPPFLAGS += -fsanitize=address
+	CXXFLAGS += -fsanitize=address
 endif
 
 ################################################################################
@@ -82,11 +82,11 @@ all: $(TEST_STD) $(TEST_FT)
 bonus: all
 
 $(TEST_STD): $(OBJS_STD)
-	$(CC) $(CPPFLAGS) $(OBJS_STD) -o $(TEST_STD) $(INCS)
+	$(CXX) $(CXXFLAGS) $(OBJS_STD) -o $(TEST_STD) $(INCS)
 	echo "$(BLUE)$(TEST_STD): $(GREEN)Success $(NO_COLOR)"
 
 $(TEST_FT): $(OBJS_FT)
-	$(CC) $(CPPFLAGS) $(OBJS_FT) -o $(TEST_FT) $(INCS)
+	$(CXX) $(CXXFLAGS) $(OBJS_FT) -o $(TEST_FT) $(INCS)
 	echo "$(BLUE)$(TEST_FT): $(GREEN)Success $(NO_COLOR)"
 
 
@@ -97,19 +97,19 @@ $(TEST_FT): $(OBJS_FT)
 
 $(OBJS_PATH)%_std.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) $(CPPFLAGS) -D NAME_USE=std -MMD -c $< -o $@ $(INCS)
+	$(CXX) $(CXXFLAGS) -D NAME_USE=std -MMD -c $< -o $@ $(INCS)
 
 $(OBJS_PATH)%_std11.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) -Wall -Wextra -Werror -D NAME_USE=std -MMD -c $< -o $@ $(INCS)
+	$(CXX) -Wall -Wextra -Werror -D NAME_USE=std -MMD -c $< -o $@ $(INCS)
 
 $(OBJS_PATH)%_ft.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) $(CPPFLAGS) -D NAME_USE=ft -MMD -c $< -o $@ $(INCS)
+	$(CXX) $(CXXFLAGS) -D NAME_USE=ft -MMD -c $< -o $@ $(INCS)
 
 $(OBJS_PATH)%_ft11.o: $(SRCS_PATH)%.cpp
 	mkdir -p $(dir $@)
-	$(CC) -Wall -Wextra -Werror -D NAME_USE=ft -MMD -c $< -o $@ $(INCS)
+	$(CXX) -Wall -Wextra -Werror -D NAME_USE=ft -MMD -c $< -o $@ $(INCS)
 
 clean :
 	$(RM) $(OBJS_PATH)
